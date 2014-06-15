@@ -13,7 +13,7 @@ var gulp = require('gulp'),
 	fileinclude = require('gulp-file-include');
 
 var express = require('express');
-var LIVERELOAD_PORT = 35728;
+var LIVERELOAD_PORT = 35729;
 var EXPRESS_PORT = 5000;
 
 // dev tasks
@@ -25,22 +25,26 @@ gulp.task('html-dev', function() {
 });
 
 gulp.task('css-dev', function() {
-	return gulp.src('src/assets/css/main.scss')
-		.pipe(sass({ style: 'expanded' }))
+	return gulp.src('src/css/main.scss')
+		.pipe(sass({ style: 'expanded', compass: true}))
 		.pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
 		.pipe(gulp.dest('dev/assets/css'))
 });
 
 gulp.task('js-dev', function() {
-	return gulp.src('src/assets/js/**/*.js')
-		.pipe(jshint('.jshintrc'))
-		.pipe(jshint.reporter('default'))
-		.pipe(concat('main.js'))
+	return gulp.src('src/js/**/*.js')
+		.pipe(uglify())
+		.pipe(gulp.dest('dev/assets/js'));
+});
+
+gulp.task('js-dev-watch', function() {
+	return gulp.src('src/js/*.js')
+		.pipe(uglify())
 		.pipe(gulp.dest('dev/assets/js'));
 });
 
 gulp.task('img-dev', function() {
-	return gulp.src('src/assets/img/**/*')
+	return gulp.src('src/img/**/*')
 		.pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
 		.pipe(gulp.dest('dev/assets/img'));
 });
@@ -74,7 +78,7 @@ gulp.task('html-prod', function() {
 });
 
 gulp.task('css-prod', function() {
-	return gulp.src('src/assets/css/main.scss')
+	return gulp.src('src/css/main.scss')
 		.pipe(sass({ style: 'expanded' }))
 		.pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
 		.pipe(gulp.dest('dist/assets/css'))
@@ -84,7 +88,7 @@ gulp.task('css-prod', function() {
 });
 
 gulp.task('js-prod', function() {
-	return gulp.src('src/assets/js/**/*.js')
+	return gulp.src('src/js/**/*.js')
 		.pipe(jshint('.jshintrc'))
 		.pipe(jshint.reporter('default'))
 		.pipe(concat('main.js'))
@@ -95,7 +99,7 @@ gulp.task('js-prod', function() {
 });
 
 gulp.task('img-prod', function() {
-	return gulp.src('src/assets/img/**/*')
+	return gulp.src('src/img/**/*')
 		.pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
 		.pipe(gulp.dest('dist/assets/img'));
 });
@@ -129,13 +133,13 @@ function startLivereload() {
 	gulp.watch('src/html/**/*', ['html-dev']);
 
 	// Watch .scss files
-	gulp.watch('src/assets/css/**/*.scss', ['css-dev']);
+	gulp.watch('src/css/**/*.scss', ['css-dev']);
 
-	// Watch .js files
-	gulp.watch('src/assets/js/**/*.js', ['js-dev']);
+	// Watch .js files (not libraries, just project files)
+	gulp.watch('src/js/*.js', ['js-dev-watch']);
 
 	// Watch img files
-	gulp.watch('src/assets/img/**/*', ['img-dev']);
+	gulp.watch('src/img/**/*', ['img-dev']);
 
 	// Watch dev files and reload
 	gulp.watch(['dev/**/*']).on('change', function(file) {

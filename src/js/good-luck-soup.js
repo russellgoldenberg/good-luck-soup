@@ -1,8 +1,8 @@
 (function() {
-	log('v0.0.0');
+	log('v0.0.3');
 })();
 
-function log() {
+function log(msg) {
 	if (window.console && console.log) {
 		console.log(msg);
 	}
