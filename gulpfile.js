@@ -18,7 +18,7 @@ var EXPRESS_PORT = 5000;
 
 // dev tasks
 gulp.task('html-dev', function() {
-	return gulp.src('src/html/dev.html')
+	return gulp.src('src/html/builds/dev.html')
 		.pipe(fileinclude())
 		.pipe(rename('index.html'))
 		.pipe(gulp.dest('dev'));
@@ -67,7 +67,7 @@ gulp.task('watch', function(callback) {
 // prod tasks
 
 gulp.task('html-prod', function() {
-	return gulp.src('src/html/prod.html')
+	return gulp.src('src/html/builds/prod.html')
 		.pipe(fileinclude())
 		.pipe(rename('index.html'))
 		.pipe(gulp.dest('dist'));
@@ -142,5 +142,5 @@ function startLivereload() {
 		server.changed(file.path);
 	});
 
-	console.log('Serving up a fresh batch of awesome!');
+	console.log('[gulp] Starting up a fresh batch of awesome!');
 }
