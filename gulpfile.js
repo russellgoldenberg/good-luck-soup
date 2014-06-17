@@ -9,66 +9,100 @@ var gulp = require('gulp'),
 	clean = require('gulp-clean'),
 	concat = require('gulp-concat'),
 	cache = require('gulp-cache'),
-	livereload = require('gulp-livereload'),
-	fileinclude = require('gulp-file-include');
+	fileinclude = require('gulp-file-include'),
+	browserSync = require('browser-sync');
 
-var express = require('express');
-var LIVERELOAD_PORT = 35729;
-var EXPRESS_PORT = 5000;
 
-// dev tasks
+/*** DEV TASKS ***/
+
+//combine all html parts save out as index.html
 gulp.task('html-dev', function() {
 	return gulp.src('src/html/builds/dev.html')
 		.pipe(fileinclude())
 		.pipe(rename('index.html'))
-		.pipe(gulp.dest('dev'));
+		.pipe(gulp.dest('dev'))
+		.pipe(browserSync.reload({stream:true}));
 });
 
+//compile all sass and autoprefix
 gulp.task('css-dev', function() {
 	return gulp.src('src/css/main.scss')
 		.pipe(sass({ style: 'expanded', compass: true}))
-		.pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+		.pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'ios 6', 'android 4'))
 		.pipe(gulp.dest('dev/assets/css'))
+		.pipe(browserSync.reload({stream:true}));
 });
 
+//uglify all js (including libs) 
 gulp.task('js-dev', function() {
 	return gulp.src('src/js/**/*.js')
 		.pipe(uglify())
 		.pipe(gulp.dest('dev/assets/js'));
 });
 
+//only compile changed js file (TODO)
 gulp.task('js-dev-watch', function() {
 	return gulp.src('src/js/*.js')
 		.pipe(uglify())
-		.pipe(gulp.dest('dev/assets/js'));
+		.pipe(gulp.dest('dev/assets/js'))
+		.pipe(browserSync.reload({stream:true, once: true}));
 });
 
+//optimize all images that have changed
 gulp.task('img-dev', function() {
 	return gulp.src('src/img/**/*')
 		.pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
-		.pipe(gulp.dest('dev/assets/img'));
+		.pipe(gulp.dest('dev/assets/img'))
+		.pipe(browserSync.reload({stream:true, once: true}));
 });
 
-
+//clear all dev folders and sass cache
 gulp.task('clean-dev', function() {
-	return gulp.src(['dev/assets/css', 'dev/assets/js', 'dev/assets/img'], {read: false})
+	return gulp.src(['.sass-cache', 'dev'], {read: false})
 		.pipe(clean());
 });
 
+//compile everthing first time then start server
+gulp.task('init-dev', ['html-dev','css-dev', 'js-dev', 'img-dev'], function() {
+	gulp.start('browser-sync');
+});
+
+//start server then watch files
+gulp.task('browser-sync', function () {
+	browserSync.init(null, {
+		server: {
+			baseDir: './dev'
+		}
+	});
+
+	gulp.start('watch-dev');
+});
+
+gulp.task('watch-dev', function(callback) {
+
+	// Watch .html files
+	gulp.watch('src/html/**/*', ['html-dev']);
+
+	// Watch .scss files
+	gulp.watch('src/css/**/*.scss', ['css-dev']);
+
+	// Watch .js files (not libraries, just project files)
+	gulp.watch('src/js/*.js', ['js-dev-watch']);
+
+	// Watch img files
+	gulp.watch('src/img/**/*', ['img-dev']);
+
+});
+
+//clean out dev first time then compile
 gulp.task('default', ['clean-dev'], function() {
 	gulp.start('init-dev');
 });
 
-gulp.task('init-dev', ['html-dev','css-dev', 'js-dev', 'img-dev'], function() {
-	gulp.start('watch');
-});
 
-gulp.task('watch', function(callback) {
-	runServer(startLivereload);
-	callback && callback();
-});
 
-// prod tasks
+
+/*** PROD TASKS ****/
 
 gulp.task('html-prod', function() {
 	return gulp.src('src/html/builds/prod.html')
@@ -114,6 +148,8 @@ gulp.task('prod', ['clean-prod'], function() {
 });
 
 
+/*** UTILITIES  ***/
+
 // start server
 function runServer(callback) {
 
@@ -125,26 +161,23 @@ function runServer(callback) {
 	callback && callback();
 }
 
-// start livereload
-function startLivereload() {
-	var server = livereload(LIVERELOAD_PORT);
 
-	// Watch .html files
-	gulp.watch('src/html/**/*', ['html-dev']);
+// 	// Watch .html files
+// 	gulp.watch('src/html/**/*', ['html-dev']);
 
-	// Watch .scss files
-	gulp.watch('src/css/**/*.scss', ['css-dev']);
+// 	// Watch .scss files
+// 	gulp.watch('src/css/**/*.scss', ['css-dev']);
 
-	// Watch .js files (not libraries, just project files)
-	gulp.watch('src/js/*.js', ['js-dev-watch']);
+// 	// Watch .js files (not libraries, just project files)
+// 	gulp.watch('src/js/*.js', ['js-dev-watch']);
 
-	// Watch img files
-	gulp.watch('src/img/**/*', ['img-dev']);
+// 	// Watch img files
+// 	gulp.watch('src/img/**/*', ['img-dev']);
 
-	// Watch dev files and reload
-	gulp.watch(['dev/**/*']).on('change', function(file) {
-		server.changed(file.path);
-	});
+// 	// Watch dev files and reload
+// 	gulp.watch(['dev/**/*']).on('change', function(file) {
+// 		server.changed(file.path);
+// 	});
 
-	console.log('[gulp] Starting up a fresh batch of awesome!');
-}
+// 	console.log('[gulp] Starting up a fresh batch of awesome!');
+// }
