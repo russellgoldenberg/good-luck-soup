@@ -36,14 +36,14 @@ gulp.task('css-dev', function() {
 //uglify all js (including libs) 
 gulp.task('js-dev', function() {
 	return gulp.src('src/js/**/*.js')
-		.pipe(uglify())
-		.pipe(gulp.dest('dev/assets/js'));
+		.pipe(gulp.dest('dev/assets/js'))
+		.pipe(browserSync.reload({stream:true}));
 });
 
 //only compile changed js file (TODO)
 gulp.task('js-dev-watch', function() {
 	return gulp.src('src/js/*.js')
-		.pipe(uglify())
+		// .pipe(uglify())
 		.pipe(gulp.dest('dev/assets/js'))
 		.pipe(browserSync.reload({stream:true, once: true}));
 });
@@ -71,8 +71,9 @@ gulp.task('init-dev', ['html-dev','css-dev', 'js-dev', 'img-dev'], function() {
 gulp.task('browser-sync', function () {
 	browserSync.init(null, {
 		server: {
-			baseDir: './dev'
-		}
+			baseDir: './dev',
+		},
+		ports: {min: 5000, max: 5100}
 	});
 
 	gulp.start('watch-dev');
@@ -87,7 +88,7 @@ gulp.task('watch-dev', function(callback) {
 	gulp.watch('src/css/**/*.scss', ['css-dev']);
 
 	// Watch .js files (not libraries, just project files)
-	gulp.watch('src/js/*.js', ['js-dev-watch']);
+	gulp.watch('src/js/*.js', ['js-dev']);
 
 	// Watch img files
 	gulp.watch('src/img/**/*', ['img-dev']);
@@ -146,38 +147,3 @@ gulp.task('clean-prod', function() {
 gulp.task('prod', ['clean-prod'], function() {
 	gulp.start('css-prod', 'js-prod', 'img-prod');
 });
-
-
-/*** UTILITIES  ***/
-
-// start server
-function runServer(callback) {
-
-	var app = express();
-	
-	app.use(express.static(__dirname + '/dev'));
-	app.listen(EXPRESS_PORT);
-
-	callback && callback();
-}
-
-
-// 	// Watch .html files
-// 	gulp.watch('src/html/**/*', ['html-dev']);
-
-// 	// Watch .scss files
-// 	gulp.watch('src/css/**/*.scss', ['css-dev']);
-
-// 	// Watch .js files (not libraries, just project files)
-// 	gulp.watch('src/js/*.js', ['js-dev-watch']);
-
-// 	// Watch img files
-// 	gulp.watch('src/img/**/*', ['img-dev']);
-
-// 	// Watch dev files and reload
-// 	gulp.watch(['dev/**/*']).on('change', function(file) {
-// 		server.changed(file.path);
-// 	});
-
-// 	console.log('[gulp] Starting up a fresh batch of awesome!');
-// }

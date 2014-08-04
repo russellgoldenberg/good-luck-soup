@@ -1,0 +1,32 @@
+#ui {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	z-index: 998;
+	display: none;
+}
+.arrow {
+	position: absolute;
+	line-height: 1;
+	text-align: center;
+	span {
+		cursor: pointer;
+		color: $grayLight;
+	}
+}
+.arrow-up {
+	top: 0;
+	left: 50%;
+}
+.arrow-right {
+	top: 50%;	
+	right: 0;
+}
+.arrow-down {
+	bottom: 0;	
+	left: 50%;
+}
+.arrow-left {
+	top: 50%;
+	left: 0;
+}

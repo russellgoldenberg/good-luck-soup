@@ -1,0 +1,14 @@
+[
+{"Code":"7","Meaning":"1 TIME-- NOT ATTENDING SCHOOL","Comments":""},
+{"Code":"1","Meaning":"1 TIME--ATTENDING SCHOOL","Comments":""},
+{"Code":"2","Meaning":"2 TIMES-- ATTENDING SCHOOL","Comments":""},
+{"Code":"8","Meaning":"2 TIMES-- NOT ATTENDING SCHOOL","Comments":""},
+{"Code":"3","Meaning":"3 TIMES-- ATTENDING SCHOOL","Comments":""},
+{"Code":"9","Meaning":"3 TIMES-- NOT ATTENDING SCHOOL","Comments":""},
+{"Code":"4","Meaning":"4 OR MORE TIMES-- ATTENDING SCHOOL","Comments":""},
+{"Code":"-","Meaning":"4 OR MORE TIMES-- NOT ATTENDING SCHOOL","Comments":""},
+{"Code":"6","Meaning":"NONE-- NOT ATTENDING SCHOOL","Comments":""},
+{"Code":"0","Meaning":"NONE--ATTENDING SCHOOL","Comments":""},
+{"Code":"5","Meaning":"UNKNOWN-- ATTENDING SCHOOL","Comments":""},
+{"Code":"&","Meaning":"UNKNOWN-- NOT ATTENDING SCHOOL","Comments":""}
+]

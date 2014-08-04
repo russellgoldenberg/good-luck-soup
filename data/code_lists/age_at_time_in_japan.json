@@ -1,0 +1,11 @@
+[
+{"Code":"4","Meaning":"BETWEEN AGES 0-9 & ALSO 10-19","Comments":""},
+{"Code":"6","Meaning":"BETWEEN AGES 0-9 & ALSO 20 & OVER","Comments":""},
+{"Code":"1","Meaning":"BETWEEN AGES 0-9 ONLY","Comments":"Numbers are in years"},
+{"Code":"5","Meaning":"BETWEEN AGES 0-9, 10-19 & ALSO 20 & OVER","Comments":""},
+{"Code":"7","Meaning":"BETWEEN AGES 10-19 & ALSO 20 & OVER","Comments":""},
+{"Code":"2","Meaning":"BETWEEN AGES 10-19 ONLY","Comments":""},
+{"Code":"3","Meaning":"BETWEEN AGES 20 OR OVER ONLY","Comments":""},
+{"Code":"0","Meaning":"NEVER IN JAPAN","Comments":""},
+{"Code":"&","Meaning":"UNKNOWN","Comments":""}
+]

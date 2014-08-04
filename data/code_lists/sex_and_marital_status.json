@@ -1,0 +1,14 @@
+[
+{"Code":"9","Meaning":"FEMALE DIVORCED","Comments":""},
+{"Code":"7","Meaning":"FEMALE MARRIED","Comments":""},
+{"Code":"-","Meaning":"FEMALE SEPARATED","Comments":""},
+{"Code":"6","Meaning":"FEMALE SINGLE","Comments":""},
+{"Code":"&","Meaning":"FEMALE UNKNOWN","Comments":""},
+{"Code":"8","Meaning":"FEMALE WIDOWED","Comments":""},
+{"Code":"4","Meaning":"MALE DIVORCED","Comments":""},
+{"Code":"2","Meaning":"MALE MARRIED","Comments":""},
+{"Code":"5","Meaning":"MALE SEPARATED","Comments":""},
+{"Code":"1","Meaning":"MALE SINGLE","Comments":""},
+{"Code":"0","Meaning":"MALE UNKNOWN","Comments":""},
+{"Code":"3","Meaning":"MALE WIDOWED","Comments":""}
+]
