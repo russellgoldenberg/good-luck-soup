@@ -26,5 +26,9 @@ img {
 #container {
 	width: 100%;
 	height: 640px;
-	overflow: hidden;
+	// overflow: hidden;
+}
+
+.hide {
+	display: none;
 }

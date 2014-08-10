@@ -1,9 +1,10 @@
 #ui {
 	position: fixed;
+	top: 0;
+	left: 0;
 	height: 100%;
 	width: 100%;
 	z-index: 998;
-	display: none;
 }
 .arrow {
 	position: absolute;
@@ -15,7 +16,7 @@
 	}
 }
 .arrow-up {
-	top: 0;
+	top: $headerHeight;
 	left: 50%;
 }
 .arrow-right {

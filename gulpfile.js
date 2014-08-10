@@ -8,7 +8,6 @@ var gulp = require('gulp'),
 	rename = require('gulp-rename'),
 	clean = require('gulp-clean'),
 	concat = require('gulp-concat'),
-	cache = require('gulp-cache'),
 	fileinclude = require('gulp-file-include'),
 	browserSync = require('browser-sync');
 
@@ -40,20 +39,11 @@ gulp.task('js-dev', function() {
 		.pipe(browserSync.reload({stream:true}));
 });
 
-//only compile changed js file (TODO)
-gulp.task('js-dev-watch', function() {
-	return gulp.src('src/js/*.js')
-		// .pipe(uglify())
-		.pipe(gulp.dest('dev/assets/js'))
-		.pipe(browserSync.reload({stream:true, once: true}));
-});
-
 //optimize all images that have changed
 gulp.task('img-dev', function() {
 	return gulp.src('src/img/**/*')
-		.pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
 		.pipe(gulp.dest('dev/assets/img'))
-		.pipe(browserSync.reload({stream:true, once: true}));
+		.pipe(browserSync.reload({stream:true}));
 });
 
 //clear all dev folders and sass cache
@@ -135,7 +125,7 @@ gulp.task('js-prod', function() {
 
 gulp.task('img-prod', function() {
 	return gulp.src('src/img/**/*')
-		.pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
+		.pipe(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true }))
 		.pipe(gulp.dest('dist/assets/img'));
 });
 

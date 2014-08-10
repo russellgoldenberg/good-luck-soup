@@ -2,25 +2,37 @@
 	log('v0.0.4');
 
 	function init() {
-		// setup swipe
+		setupUI();
+		setupEvents();
+		resize();
+	}
+
+	function setupUI() {
+		// show different nav options if mobile or desktop
+		//TODO use modernizr or is mobile?
 		if(Modernizr.touch) {
-			$('#ui').remove();
+			log('touch');
+			//remove desktop ui (default)
+			$('#ui').addClass('hide');
+			
+			//setup hammer touch events
 			var el = $('#card-container')[0],
 				mc = new Hammer.Manager(el);
-
 			mc.add(new Hammer.Swipe());
 			mc.get('swipe').set({velocity: 0.1, distance: 5});
 			mc.on('swipe', swipe);
+		} else {
+			log('no touch');
 		}
-		resize();
+	}
 
+	function setupEvents() {
 		$(window).on('resize', debounce(resize, 150));
 		$('.card').on('click', function() {
 			log('cd');
 		});
 	}
-
-
+	
 	function swipe(e) {
 		//8 - up, 4 - right, 16 - down, 2 - left
 		var dir;
@@ -35,11 +47,10 @@
 		}
 	}
 
+	//resize everything on window resize (with debounce)
 	function resize() {
 		var h = $(window).height();
-		$('#container').css({
-			height: h
-		});
+		$('#container').css('height', h);
 	}
 
 	init();
