@@ -10,24 +10,45 @@
 	position: absolute;
 	line-height: 1;
 	text-align: center;
-	span {
+	img {
 		cursor: pointer;
-		color: $grayLight;
+		opacity: 0.1;
+		&:hover {
+			opacity: 0.3;
+		}
 	}
 }
 .arrow-up {
 	top: $headerHeight;
 	left: 50%;
+	img {
+		margin-top: 0.5em;
+		max-width: 32px;
+	}
 }
 .arrow-right {
 	top: 50%;	
 	right: 0;
+	margin-right: 0.5em;
+	img {
+		width: auto;
+		max-height: 32px;
+	}
 }
 .arrow-down {
 	bottom: 0;	
 	left: 50%;
+	margin-bottom: 0.5em;
+	img {
+		max-width: 32px;
+	}
 }
 .arrow-left {
 	top: 50%;
 	left: 0;
+	margin-left: 0.5em;
+	img {
+		width: auto;
+		max-height: 32px;
+	}
 }

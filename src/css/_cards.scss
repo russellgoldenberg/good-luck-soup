@@ -10,20 +10,44 @@
 }
 
 #card-container {
-	width: 100%;
-	height: 100%;
-	// overflow: hidden;
+	overflow: hidden;
+}
+.column {
+	padding-top: $headerHeight;
+	float: left;
 }
 .card {
-	height: 100%;
+	font-weight: 300;
+	font-size: 1.1em;
 	width: 100%;
 	@extend %preserve;
-	font-weight: 300;
-	font-size: 1.2em;
 }
 .card-content {
 	@extend %vertical-align;
 	@extend %max-width;
 	@extend %center-content;
-	padding: 1em;
+	position: relative;
+	span {
+		position: absolute;
+		bottom: 2em;
+		left: 0;
+		color: #fff;
+		font-size: 1.4em;
+		background: rgba(0,0,0,0.5);
+		padding: 0.25em 0.5em;
+	}
+}
+.fact {
+	padding: 0 1em;
+}
+.archive, .story {
+	height: 66%;
+	background: #fff no-repeat center center;
+	background-size: cover;
+}
+
+@media only screen and (max-width: 480px) {
+	.archive, .story {
+		height: 100%;
+	}
 }
