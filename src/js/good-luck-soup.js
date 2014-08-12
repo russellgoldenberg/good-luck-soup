@@ -68,13 +68,23 @@
 	}
 
 	function transition(dir) {
-		log(dir);
 		_currentPosition.x += _transitions[dir].x;
 		_currentPosition.y += _transitions[dir].y;
+		
+		_currentPosition.x = Math.min(_currentPosition.x, 0);
+		_currentPosition.y = Math.min(_currentPosition.y, 0);
+		//TODO constrain other edges
+		// _currentPosition.x = Math.max(_currentPosition.x, 0);
+		// _currentPosition.y = Math.max(_currentPosition.y, 0);
+
 		$('#card-container').velocity({ 
     		translateX: _currentPosition.x,
     		translateY: _currentPosition.y	
-		});
+		}, transitionEnd);
+	}
+
+	function transitionEnd() {
+		log('done');
 	}
 
 	function setupEvents() {

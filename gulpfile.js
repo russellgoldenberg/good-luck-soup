@@ -104,7 +104,7 @@ gulp.task('html-prod', function() {
 
 gulp.task('css-prod', function() {
 	return gulp.src('src/css/main.scss')
-		.pipe(sass({ style: 'expanded' }))
+		.pipe(sass({ style: 'expanded', compass: true }))
 		.pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
 		.pipe(gulp.dest('dist/assets/css'))
 		.pipe(rename({suffix: '.min'}))
@@ -135,5 +135,5 @@ gulp.task('clean-prod', function() {
 });
 
 gulp.task('prod', ['clean-prod'], function() {
-	gulp.start('css-prod', 'js-prod', 'img-prod');
+	gulp.start('css-prod', 'js-prod', 'img-prod', 'html-prod');
 });

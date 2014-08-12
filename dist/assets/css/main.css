@@ -34,3 +34,196 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+/*russell's reset*/
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.card {
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.card-content {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.card-content {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card-content {
+  max-width: 640px;
+}
+
+body {
+  background: white;
+  font-family: "Lato", Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.3;
+  color: #666666;
+}
+
+section {
+  padding: 1em;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 2.4em;
+}
+
+img {
+  width: 100%;
+}
+
+#container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.hide {
+  display: none;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  padding: 0 0.5em;
+  border-bottom: 1px solid #cccccc;
+  background: white;
+}
+header .logo img {
+  display: block;
+  max-height: 42px;
+  width: auto;
+}
+
+#ui {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 998;
+}
+
+.arrow {
+  position: absolute;
+  line-height: 1;
+  text-align: center;
+}
+.arrow img {
+  cursor: pointer;
+  opacity: 0.1;
+}
+.arrow img:hover {
+  opacity: 0.3;
+}
+
+.arrow-up {
+  top: 42px;
+  left: 50%;
+}
+.arrow-up img {
+  margin-top: 0.5em;
+  max-width: 32px;
+}
+
+.arrow-right {
+  top: 50%;
+  right: 0;
+  margin-right: 0.5em;
+}
+.arrow-right img {
+  width: auto;
+  max-height: 32px;
+}
+
+.arrow-down {
+  bottom: 0;
+  left: 50%;
+  margin-bottom: 0.5em;
+}
+.arrow-down img {
+  max-width: 32px;
+}
+
+.arrow-left {
+  top: 50%;
+  left: 0;
+  margin-left: 0.5em;
+}
+.arrow-left img {
+  width: auto;
+  max-height: 32px;
+}
+
+.bgVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -99;
+}
+
+#card-container {
+  overflow: hidden;
+}
+
+.column {
+  float: left;
+}
+
+.card {
+  padding-top: 42px;
+  font-weight: 300;
+  font-size: 1.1em;
+  width: 100%;
+}
+
+.card-content {
+  position: relative;
+}
+.card-content span {
+  width: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0.25em 0.5em;
+}
+
+.fact {
+  padding: 0 1em;
+}
+
+.archive, .story {
+  height: 66%;
+  background: #fff no-repeat center center;
+  background-size: cover;
+}
+
+@media only screen and (max-width: 480px) {
+  .archive, .story {
+    height: 100%;
+  }
+}
