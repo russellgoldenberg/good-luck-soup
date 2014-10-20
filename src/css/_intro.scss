@@ -1,0 +1,53 @@
+.intro-container {
+	
+}
+
+.intro-0 {
+	height: 480px;
+	width: 100%;
+	position: relative;
+}
+
+.intro-1, .intro-2 {
+	margin: 1em 0;
+	p {
+		text-align: justify;
+		font-size: 1.5em;
+		@extend %center;
+		max-width: $text-width;
+	}
+}
+
+.bg-video {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	min-width: 100%;
+	min-height: 100%;
+	width: auto;
+	height: auto;
+	z-index: -100;
+}
+
+.hed {
+	text-align: center;
+}
+
+.hed-text {
+	line-height: 0.9;
+	font-size: 8em;
+	font-weight: 700;
+	color: rgba(255,255,255,0.8);
+	margin-bottom: 0.5em;
+}
+
+.overlay-pattern {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-image: url(../../assets/img/bg-pattern2.png);
+}
+
+.begin {
+	text-align: center;
+}

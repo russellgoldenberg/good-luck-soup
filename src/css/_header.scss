@@ -5,13 +5,9 @@ header {
 	width: 100%; 
 	z-index: 999;
 	padding: 0 0.5em;
-	border-bottom: 1px solid $grayLightest;
-	background: $white;
-	.logo {
-		img {
-			display: block;
-			max-height: $headerHeight;
-			width: auto;	
-		}
-	}
+	border-bottom: 1px solid $gray-lightest;
+	vertical-align: middle;
+	line-height: $header-height;
+	background: rbga(255,255,255,0.7);
+	height: $header-height;
 }

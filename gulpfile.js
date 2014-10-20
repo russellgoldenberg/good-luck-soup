@@ -46,6 +46,13 @@ gulp.task('img-dev', function() {
 		.pipe(browserSync.reload({stream:true}));
 });
 
+//move videos to dev
+gulp.task('video-dev', function() {
+	return gulp.src('src/video/**/*')
+		.pipe(gulp.dest('dev/assets/video'))
+		.pipe(browserSync.reload({stream:true}));
+});
+
 //clear all dev folders and sass cache
 gulp.task('clean-dev', function() {
 	return gulp.src(['.sass-cache', 'dev'], {read: false})
@@ -53,7 +60,7 @@ gulp.task('clean-dev', function() {
 });
 
 //compile everthing first time then start server
-gulp.task('init-dev', ['html-dev','css-dev', 'js-dev', 'img-dev'], function() {
+gulp.task('init-dev', ['html-dev','css-dev', 'js-dev', 'img-dev', 'video-dev'], function() {
 	gulp.start('browser-sync');
 });
 

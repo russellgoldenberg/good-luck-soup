@@ -1,12 +1,13 @@
-$serif: 'Merriweather', Georgia, 'Times New Roman', serif;
-$sansSerif: 'Lato', Helvetica, sans-serif;
+$mono: 'Inconsolata', Monospace;
+$sans-serif: 'Source Sans Pro', Helvetica, sans-serif;
 
 $white: #fff;
-$grayLightest: #ccc;
-$grayLight: #999;
-$grayDark: #666;
-$grayDarkest: #333;
+$gray-lightest: #ccc;
+$gray-light: #999;
+$gray-dark: #666;
+$gray-darkest: #333;
+$black: #1a1a1a;
 
-$headerHeight: 42px;
+$header-height: 42px;
 
-$maxWidth: 640px;
+$text-width: 640px;
