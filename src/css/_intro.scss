@@ -2,19 +2,19 @@
 	
 }
 
-.intro-0 {
+.intro-landing {
 	height: 480px;
 	width: 100%;
 	position: relative;
 }
 
-.intro-1, .intro-2 {
+.intro-preface, .intro-about {
 	margin: 1em 0;
 	p {
 		text-align: justify;
 		font-size: 1.5em;
 		@extend %center;
-		max-width: $text-width;
+		max-width: $content-width-medium;
 	}
 }
 
@@ -45,7 +45,7 @@
 	width: 100%;
 	height: 100%;
 	position: absolute;
-	background-image: url(../../assets/img/bg-pattern2.png);
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4AgMAAADV6NONAAAACVBMVEUAAAD///////9zeKVjAAAAA3RSTlMAGgBKWz4FAAAAHUlEQVR4AWNgXYoMGJaicqNQABoXonhU76jeUb0AdDuF6JpF+RYAAAAASUVORK5CYII=);
 }
 
 .begin {

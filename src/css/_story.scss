@@ -1,0 +1,50 @@
+.section {
+	padding: 2em 0.5em;
+}
+
+.section-content {
+	height: 100%;
+	overflow: hidden;
+}
+
+.section-title {
+	font-size: 2em;
+	text-align: center;
+}
+
+.story-image {
+	text-align:center;
+	img {
+		max-width: 100%;
+		width: auto;
+	}
+}
+
+.story-video {
+	text-align:center;
+	video {
+		max-width: 100%;
+		width: auto;
+	}
+}
+
+.story-text {
+	max-width: 650px;
+	width: 100%;
+	margin: 0 auto;
+	padding: 1em;
+}
+
+.section-content .portrait {
+	&.story-image img {
+		display: block;
+		width: 50%;
+		float: left;
+	}
+	&.story-text {
+		text-align: left;
+		display: block;
+		width: 50%;
+		float: left;
+	}
+}

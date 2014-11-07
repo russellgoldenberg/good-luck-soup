@@ -1,4 +1,6 @@
 (function() {
+	'use strict';
+	
 	log('v0.0.1');
 
 	var _setup;
@@ -8,6 +10,9 @@
 	var $window = $(window);
 	var $htmlBody = $('html, body');
 	var $fullscreen = $('.fullscreen');
+	var $introContainer = $('.intro-container');
+	var $sectionContainer = $('.section-container');
+	var $section = $('.section');
 
 	function init() {
 		for(var s in _setup) {
@@ -19,6 +24,7 @@
 		_dimensions.w = $window.width();
 		_dimensions.h = $window.height();
 		$fullscreen.css('height', _dimensions.h);
+		$section.css('min-height', _dimensions.h);
 	}
 
 	function jumpTo(el) {
@@ -44,7 +50,15 @@
 
 	_action = {
 		preface: function() {
-			jumpTo('.below-the-fold');
+			jumpTo('.intro-preface');
+		},
+		about: function() {
+			jumpTo('.intro-about');
+		},
+		stories: function() {
+			$introContainer.addClass('hide');
+			$sectionContainer.removeClass('hide');
+			$htmlBody.scrollTop(0);
 		}
 	};
 
