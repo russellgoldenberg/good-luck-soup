@@ -1,10 +1,12 @@
 body {
 	background: $white;
 	font-family: $mono;
-	// font-family: $sans-serif;
 	font-size: 16px;
 	line-height: 1.4;
 	color: $black;
+	&.show-header {
+		margin-top: $header-height;
+	}
 }
 
 p {

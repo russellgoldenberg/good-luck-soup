@@ -2,7 +2,7 @@ node_modules
 .git
 .sass-cache
 dev
-dist
+prod
 src/audio
 src/img
 src/video
