@@ -6,7 +6,30 @@
 	transform: translateY(-50%);
 }
 
+%bottom-align {
+	position: absolute;
+	width: 100%;
+	bottom: 2em;
+}
+
 %center {
 	margin-left: auto;
 	margin-right: auto;
+}
+
+%title-case {
+	font-variant: small-caps;
+	letter-spacing: 0.05em;
+}
+
+%preserve-3d {
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;	
+}
+
+%bg-cover {
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
 }

@@ -10,4 +10,6 @@ gulp.task('watch-dev', function(callback) {
 	gulp.watch('src/js/*.js', ['js-dev']);
 	//  img files
 	gulp.watch('src/img/**/*', ['img-dev']);
+	//  video files
+	gulp.watch('src/video/**/*', ['img-dev']);
 });

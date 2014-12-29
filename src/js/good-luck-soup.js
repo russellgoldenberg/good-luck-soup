@@ -12,7 +12,10 @@
 	var $fullscreen = $('.fullscreen');
 	var $introContainer = $('.intro-container');
 	var $sectionContainer = $('.section-container');
-	var $section = $('.section');
+	// var $section = $('.section');
+
+	// var HEADER_HEIGHT = 42;
+	var HEADER_HEIGHT = 0;
 
 	function init() {
 		for(var s in _setup) {
@@ -22,9 +25,9 @@
 
 	function resize() {
 		_dimensions.w = $window.width();
-		_dimensions.h = $window.height();
+		_dimensions.h = $window.height() - HEADER_HEIGHT;
+		$fullscreen.css('min-height', _dimensions.h);
 		$fullscreen.css('height', _dimensions.h);
-		$section.css('min-height', _dimensions.h);
 	}
 
 	function jumpTo(el) {
@@ -52,13 +55,21 @@
 		preface: function() {
 			jumpTo('.intro-preface');
 		},
-		about: function() {
-			jumpTo('.intro-about');
+		propoganda: function() {
+			jumpTo('.intro-propoganda');
+			$('#video-propoganda')[0].play();
 		},
 		stories: function() {
-			$introContainer.addClass('hide');
-			$sectionContainer.removeClass('hide');
-			$htmlBody.scrollTop(0);
+			jumpTo('.intro-stories');
+			$('#video-propoganda')[0].pause();
+		},
+		sequence: function() {
+			jumpTo('.intro-sequence');
+		},
+		begin: function() {
+			// $introContainer.addClass('hide');
+			// $sectionContainer.removeClass('hide');
+			// $htmlBody.scrollTop(0);
 		}
 	};
 

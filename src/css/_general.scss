@@ -10,8 +10,7 @@ body {
 }
 
 p {
-	padding: 0.5em;
-	font-variant: small-caps;
+	margin: 0.5em 0;
 }
 
 h1 {
@@ -39,12 +38,20 @@ img {
 	display: none;
 }
 
+.bold {
+	font-weight: 700;
+}
+
 .center-text {
 	text-align: center;
 }
 
-.v-align {
+.vertical-align {
 	@extend %vertical-align;
+}
+
+.bottom-align {
+	@extend %bottom-align;
 }
 
 .btn {
@@ -68,4 +75,19 @@ img {
 	&:hover {
 		background: rgba(255,255,255,0.5);
 	}
+}
+
+.fullscreen {
+	position: relative;
+}
+
+.divider {
+	width: 10em;
+	margin: 1em auto;
+	height: 1px;
+	background: $gray-lightest;
+}
+
+.bg-cover {
+	@extend %bg-cover;
 }
