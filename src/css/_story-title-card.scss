@@ -1,0 +1,80 @@
+.story-title-card {
+	width: $one-seventh;
+	float:left;
+	height: 100%;
+	position: relative;
+	&.highlight {
+		cursor: pointer;
+		.story-title-card-bg {
+			opacity: 1;
+		}
+		.story-title-card-text {
+			opacity: 1;
+		}
+	}
+	&.current {
+		width: 35%;
+		.story-title-card-text {
+			opacity: 0.75;
+		}
+		.story-title-card-bg {
+			opacity: 0.35;
+		}
+	}
+	-webkit-transition: all 0.5s;
+}
+
+.story-title-card-bg {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0.25;
+	@extend %bg-cover;
+}
+
+.story-title-card-text {
+	height: 15em;
+	background: rgba(255,255,255,0.8);
+	text-align: center;
+	opacity: 0.5;
+	font-size: 1.25em;
+}
+
+.story-title-card-1 .story-title-card-bg {
+	background-image: url(../img/story-title-card-1.jpg);
+}
+.story-title-card-2 .story-title-card-bg {
+	background-image: url(../img/story-title-card-2.jpg);
+}
+.story-title-card-3 .story-title-card-bg {
+	background-image: url(../img/story-title-card-3.jpg);
+}
+.story-title-card-4 .story-title-card-bg {
+	background-image: url(../img/story-title-card-4.jpg);
+}
+.story-title-card-5 .story-title-card-bg {
+	background-image: url(../img/story-title-card-5.jpg);
+}
+.story-title-card-6 .story-title-card-bg {
+	background-image: url(../img/story-title-card-6.jpg);
+}
+.story-title-card-7 .story-title-card-bg {
+	background-image: url(../img/story-title-card-7.jpg);
+}
+
+.story-title-card-overline {
+	color: $gray-darkest;
+	text-transform: uppercase;
+	font-size: 0.6em;
+	border-bottom: 1px solid $gray-light;
+	display: inline-block;
+}
+
+.story-title-card-hed {
+	color: $black;
+	line-height: 1;
+	margin-top: 0.5em;
+	@extend %title-case;
+}

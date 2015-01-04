@@ -1,6 +1,6 @@
 body {
 	background: $white;
-	font-family: $mono;
+	font-family: $sans;
 	font-size: 16px;
 	line-height: 1.4;
 	color: $black;
@@ -36,6 +36,14 @@ img {
 
 .hide {
 	display: none;
+}
+
+.opaque {
+	opacity: 1;
+}
+
+.transparent {
+	opacity: 0;
 }
 
 .bold {
@@ -79,6 +87,7 @@ img {
 
 .fullscreen {
 	position: relative;
+	overflow: hidden;
 }
 
 .divider {
