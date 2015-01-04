@@ -90,23 +90,32 @@
 			var template = 'story-content-' + story.template;
 			var htmlStory = GoodLuckSoup.templates[template](story);
 
-			$('.story-container').append(htmlChapter);
-			$('.story-container').append(htmlStory);
+			var $el = $('<div class="story-chapter"></div>');
+
+			$el.append(htmlChapter);
+			$el.append(htmlStory);
+			$('.story-container').append($el);
 		}
 
-		$('.story-title-card').eq(0).addClass('highlight');
+		$('.story-chapter').eq(0).addClass('highlight');
 
-		$('.story-title-card.highlight').on('click', expandFirst);
+		$('.story-chapter.highlight').on('click', expandFirst);
 	}
 
 	var expandFirst = function() {
-		$('.story-title-card.highlight').off('click');
+		$('.story-chapter.highlight').off('click');
 
-		$('.story-title-card').not('.highlight').addClass('hide');
+		$('.story-chapter').not('.highlight').addClass('hide');
 
-		$('.story-title-card.highlight').removeClass('highlight').addClass('current');
+		$('.story-chapter.highlight').removeClass('highlight').addClass('current');
 
 		$('.story-content-1').removeClass('hide');
+
+		$('.story-navigation-next .btn').on('click', function() {
+			$('.story-chapter.current').addClass('hide').removeClass('current');
+			$('.story-chapter').eq(1).addClass('current').removeClass('hide');
+			$('.story-content-2').removeClass('hide');			
+		});
 	}
 
 

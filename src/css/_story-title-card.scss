@@ -1,27 +1,9 @@
 .story-title-card {
-	width: $one-seventh;
+	width: 100%;
 	float:left;
 	height: 100%;
 	position: relative;
-	&.highlight {
-		cursor: pointer;
-		.story-title-card-bg {
-			opacity: 1;
-		}
-		.story-title-card-text {
-			opacity: 1;
-		}
-	}
-	&.current {
-		width: 35%;
-		.story-title-card-text {
-			opacity: 0.75;
-		}
-		.story-title-card-bg {
-			opacity: 0.35;
-		}
-	}
-	-webkit-transition: all 0.5s;
+	// -webkit-transition: all 0.5s;
 }
 
 .story-title-card-bg {
@@ -43,25 +25,25 @@
 }
 
 .story-title-card-1 .story-title-card-bg {
-	background-image: url(../img/story-title-card-1.jpg);
+	background-image: url(assets/img/story-title-card-1.jpg);
 }
 .story-title-card-2 .story-title-card-bg {
-	background-image: url(../img/story-title-card-2.jpg);
+	background-image: url(assets/img/story-title-card-2.jpg);
 }
 .story-title-card-3 .story-title-card-bg {
-	background-image: url(../img/story-title-card-3.jpg);
+	background-image: url(assets/img/story-title-card-3.jpg);
 }
 .story-title-card-4 .story-title-card-bg {
-	background-image: url(../img/story-title-card-4.jpg);
+	background-image: url(assets/img/story-title-card-4.jpg);
 }
 .story-title-card-5 .story-title-card-bg {
-	background-image: url(../img/story-title-card-5.jpg);
+	background-image: url(assets/img/story-title-card-5.jpg);
 }
 .story-title-card-6 .story-title-card-bg {
-	background-image: url(../img/story-title-card-6.jpg);
+	background-image: url(assets/img/story-title-card-6.jpg);
 }
 .story-title-card-7 .story-title-card-bg {
-	background-image: url(../img/story-title-card-7.jpg);
+	background-image: url(assets/img/story-title-card-7.jpg);
 }
 
 .story-title-card-overline {

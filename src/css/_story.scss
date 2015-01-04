@@ -3,3 +3,47 @@
 	overflow: hidden;
 	-webkit-transition: all 0.5s;
 }
+
+.story-logo {
+	font-family: $mono;
+	font-weight: 700;
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0.25em;
+	line-height: 1;
+	font-size: 1.5em;
+	text-shadow: 0 0 1px $black;
+	color: $white;
+	opacity: 0.9;
+}
+
+.story-chapter {
+	height: 100%;
+	width: $one-seventh;
+	float:left;
+	position: relative;
+	&.current {
+		width: 100%;
+		.story-title-card {
+			width: 35%;
+		}
+		.story-title-card-text {
+			opacity: 0.75;
+		}
+		.story-title-card-bg {
+			opacity: 0.35;
+		}
+	}
+	&.highlight {
+		.story-title-card {
+			cursor: pointer;	
+		}
+		.story-title-card-bg {
+			opacity: 1;
+		}
+		.story-title-card-text {
+			opacity: 1;
+		}
+	}
+}

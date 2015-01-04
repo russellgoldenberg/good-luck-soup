@@ -12,7 +12,6 @@ gulp.task('prod-init', function() {
 		'prod-video',
 		'prod-font',
 		'prod-audio',
-		'prod-smoosh',
-		'prod-ftp'
+		'prod-smoosh'
 	);
 });
