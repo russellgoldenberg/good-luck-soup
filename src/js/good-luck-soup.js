@@ -6,36 +6,42 @@
 	var _setup;
 	var _action;
 	var _dimensions = {};
+	var _offset = 0;
 
 	var $window = $(window);
 	var $htmlBody = $('html, body');
 	var $fullscreen = $('.fullscreen');
+	var $fullscreenPeek = $('.fullscreen-peek');
 	var $introContainer = $('.intro-container');
 	var $sectionContainer = $('.section-container');
 
-	// var HEADER_HEIGHT = 42;
-	var HEADER_HEIGHT = 0;
 	var NUM_CHAPTERS = 7;
 
 	var init = function() {
 		for(var s in _setup) {
 			_setup[s]();
 		}
-	}
+		
+		_action.sequence();	
+	};
 
 	var resize = function() {
-		_dimensions.w = $window.width();
-		_dimensions.h = $window.height() - HEADER_HEIGHT;
+		_dimensions.w = window.innerWidth;
+		_dimensions.h = $window.height();
 		$fullscreen.css('min-height', _dimensions.h);
 		$fullscreen.css('height', _dimensions.h);
-	}
+		$fullscreenPeek.css('min-height', _dimensions.h * 0.8);
+		$fullscreenPeek.css('height', _dimensions.h * 0.8);
+		$('.story-container-chapters').css('width', _dimensions.w * NUM_CHAPTERS);
+		$('.story-chapter').css('width', _dimensions.w);
+	};
 
 	var jumpTo = function(el) {
 		var top = $(el).offset().top;
 		$htmlBody.animate({
 			scrollTop: top
 		});
-	}
+	};
 
 	_setup = {
 		resize: function() {
@@ -52,20 +58,28 @@
 				var action = $(this).attr('data-action');
 				_action[action]();
 			});
+		},
+
+		waypoints: function() {
+			// video triggers
+			$('.intro-container .video-bg').each(function() {
+				var waypoint = new Waypoint.Inview({
+					'element': $(this)[0],
+					'enter': function(direction) {
+						this.element.play();
+					},
+					'exited': function(direction) {
+						this.element.pause();
+					}
+				});
+			});
+			
 		}
 	};
 
 	_action = {
-		preface: function() {
+		begin: function() {
 			jumpTo('.intro-preface');
-		},
-		propoganda: function() {
-			jumpTo('.intro-propoganda');
-			$('#video-propoganda')[0].play();
-		},
-		stories: function() {
-			jumpTo('.intro-stories');
-			$('#video-propoganda')[0].pause();
 		},
 		sequence: function() {
 			$('.intro-container').fadeOut(function() {
@@ -87,37 +101,40 @@
 			var story = testStory[i];
 			var htmlChapter = GoodLuckSoup.templates['story-title-card'](chapter);
 
+			var htmlContent = GoodLuckSoup.templates['story-content'](chapter);
 			var template = 'story-content-' + story.template;
-			var htmlStory = GoodLuckSoup.templates[template](story);
+			var htmlTemplate = GoodLuckSoup.templates[template](story);
 
-			var $el = $('<div class="story-chapter"></div>');
+			var $content = $(htmlContent);
+			$content.find('.story-content-template').html(htmlTemplate);
+
+			var $el = $('<div class="story-chapter" data-chapter="' + i + '"></div>');
 
 			$el.append(htmlChapter);
-			$el.append(htmlStory);
-			$('.story-container').append($el);
+			$el.append($content);
+
+			$('.story-container-chapters').append($el);
 		}
-
-		$('.story-chapter').eq(0).addClass('highlight');
-
-		$('.story-chapter.highlight').on('click', expandFirst);
-	}
-
-	var expandFirst = function() {
-		$('.story-chapter.highlight').off('click');
-
-		$('.story-chapter').not('.highlight').addClass('hide');
-
-		$('.story-chapter.highlight').removeClass('highlight').addClass('current');
-
-		$('.story-content-1').removeClass('hide');
+		$('.story-chapter').css('width', _dimensions.w);
 
 		$('.story-navigation-next .btn').on('click', function() {
-			$('.story-chapter.current').addClass('hide').removeClass('current');
-			$('.story-chapter').eq(1).addClass('current').removeClass('hide');
-			$('.story-content-2').removeClass('hide');			
+			var index = +$(this).parent().parent().attr('data-chapter');
+			slide(index);
 		});
-	}
 
+		$('.story-navigation-prev .btn').on('click', function() {
+			var index = +$(this).parent().parent().attr('data-chapter') - 2;
+			slide(index);
+		});
+	};
+
+	var slide = function(index) {
+		var offset = '-' + index * _dimensions.w + 'px';
+		$('.story-container-chapters').velocity({ 
+			properties: { 'left': offset },
+			options: { 'duration': 500 }
+		});
+	};
 
 	init();
 })();

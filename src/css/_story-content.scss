@@ -36,11 +36,14 @@
 }
 
 .story-navigation {
-	height: 100%;
-	overflow: hidden;
-	margin-top: 4em;	
+	margin-top: 4em;
+	width: 100%;
 }
 .story-navigation-next {
 	cursor: pointer;
 	float: right;
+}
+.story-navigation-prev {
+	cursor: pointer;
+	float: left;
 }
