@@ -1,6 +1,6 @@
 body {
 	background: $white;
-	font-family: $sans;
+	font-family: $serif;
 	font-size: 16px;
 	line-height: 1.4;
 	color: $black;
@@ -15,6 +15,10 @@ p {
 	word-spacing: 0.05em;
 }
 
+h1,h2,h3,h4 {
+	// font-family: $sans;
+	font-weight: 800;
+}
 h1 {
 	font-weight: 700;
 	font-size: 2.4em;

@@ -8,6 +8,7 @@ gulp.task('prod-init', function() {
 		'prod-html',
 	 	'prod-css',
 		'prod-js',
+		'prod-libs',
 		'prod-img',
 		'prod-video',
 		'prod-font',

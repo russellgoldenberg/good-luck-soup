@@ -1,19 +1,21 @@
 (function() {
-	'use strict';
-	
-	log('v0.0.1');
+	'use strict';	
+	log('v0.0.2');
 
 	var _setup;
 	var _action;
 	var _dimensions = {};
-	var _offset = 0;
 
 	var $window = $(window);
 	var $htmlBody = $('html, body');
 	var $fullscreen = $('.fullscreen');
 	var $fullscreenPeek = $('.fullscreen-peek');
+	var $storyContainerChapters = $('.story-container-chapters');
+	var $storyChapter = $('.story-chapter');
+	var $introBtn = $('.intro-container .btn');
+	var $introVideoBg = $('.intro-container .video-bg');
 	var $introContainer = $('.intro-container');
-	var $sectionContainer = $('.section-container');
+	var $storyContainer = $('.story-container');
 
 	var NUM_CHAPTERS = 7;
 
@@ -21,19 +23,19 @@
 		for(var s in _setup) {
 			_setup[s]();
 		}
-		
-		_action.sequence();	
+		// _action.sequence();	
 	};
 
 	var resize = function() {
 		_dimensions.w = window.innerWidth;
 		_dimensions.h = $window.height();
+
 		$fullscreen.css('min-height', _dimensions.h);
 		$fullscreen.css('height', _dimensions.h);
 		$fullscreenPeek.css('min-height', _dimensions.h * 0.8);
 		$fullscreenPeek.css('height', _dimensions.h * 0.8);
-		$('.story-container-chapters').css('width', _dimensions.w * NUM_CHAPTERS);
-		$('.story-chapter').css('width', _dimensions.w);
+		$storyContainerChapters.css('width', _dimensions.w * NUM_CHAPTERS);
+		$storyChapter.css('width', _dimensions.w);
 	};
 
 	var jumpTo = function(el) {
@@ -50,11 +52,7 @@
 		},
 
 		events: function() {
-			$('.intro-container .btn').on('click', function() {
-				var action = $(this).attr('data-action');
-				_action[action]();
-			});
-			$('.strip-current').on('click', function() {
+			$introBtn.on('click', function() {
 				var action = $(this).attr('data-action');
 				_action[action]();
 			});
@@ -62,7 +60,7 @@
 
 		waypoints: function() {
 			// video triggers
-			$('.intro-container .video-bg').each(function() {
+			$introVideoBg.each(function() {
 				var waypoint = new Waypoint.Inview({
 					'element': $(this)[0],
 					'enter': function(direction) {
@@ -82,27 +80,27 @@
 			jumpTo('.intro-preface');
 		},
 		sequence: function() {
-			$('.intro-container').fadeOut(function() {
+			$introContainer.fadeOut(function() {
 				$(this).addClass('hide');
 				//TODO fadein with velocity
-				$('.story-container').removeClass('hide');
+				$storyContainer.removeClass('hide');
 				setTimeout(function() {
-					$('.story-container').removeClass('transparent');
+					$storyContainer.removeClass('transparent');
 				}, 30);
 				generateStory();
 			});
-			
 		}
 	};
 
 	var generateStory = function() {
 		for(var i = 0; i < NUM_CHAPTERS; i++) {
 			var chapter = testConfig.chapters[i];
-			var story = testStory[i];
+			var story = refineData(testStory[i]);
+
 			var htmlChapter = GoodLuckSoup.templates['story-title-card'](chapter);
 
 			var htmlContent = GoodLuckSoup.templates['story-content'](chapter);
-			var template = 'story-content-' + story.template;
+			var template = 'story-template-' + story.template;
 			var htmlTemplate = GoodLuckSoup.templates[template](story);
 
 			var $content = $(htmlContent);
@@ -126,6 +124,13 @@
 			var index = +$(this).parent().parent().attr('data-chapter') - 2;
 			slide(index);
 		});
+	};
+
+	var refineData = function(story) {
+		story.textTease = story.text.slice(0,137);
+		var lastSpace = story.textTease.lastIndexOf(' ');
+		story.textTease = story.textTease.slice(0, lastSpace) + '...';
+		return story;
 	};
 
 	var slide = function(index) {
