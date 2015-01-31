@@ -1,5 +1,7 @@
 <div class='template-video'>
-	<h2 class='story-content-hed'>{{hed}}</h2>
-	<p class='story-content-video'>{{video}}</p>
-	<p class='story-content-user'>&mdash;{{user}}</p>
+	<h2 class='story-content-hed'><span>{{hed}}</span></h2>
+	<p class='story-content-user'>By <span class='user-name'>{{user}}</span> <span class='user-divider'>&bull;</span> <span class='user-date'>{{date}}</span></p>
+	<div class='story-content-video'>
+		<iframe src="//player.vimeo.com/video/{{video}}?color=ffffff&title=0&byline=0&portrait=0" width="720" height="405" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+	</div>
 </div>

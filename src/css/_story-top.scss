@@ -14,7 +14,7 @@
 	width: 100%;
 	height: $small-nav-height;
 	@extend %expand;
-	box-shadow: white 0px 0px 10px 10px;
+	box-shadow: rgba(255,255,255,0.9) 0px 0px 10px 6px;
 	overflow: hidden;
 }
 

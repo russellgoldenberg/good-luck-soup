@@ -13,8 +13,11 @@
 }
 
 .story-chapter {
+	position: relative;
 	float:left;
 	width: $one_seventh;
+	&.current {
+	}
 }
 
 .story-content {
@@ -44,10 +47,21 @@
 
 .story-content-img {
 	padding: 1em 0;
-	max-width: 640px;
+	max-width: $content-width-x-large;
 	margin: 0 auto;
 	img {
 		border: 1px solid $gray-lightest;
+	}
+}
+
+.story-content-video {
+	text-align: center;
+}
+
+.story-content-audio {
+	text-align: center;
+	audio {
+		width: 100%;
 	}
 }
 

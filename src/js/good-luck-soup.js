@@ -9,6 +9,7 @@
 	var _expand;
 	var _expandHeight;
 	var _transition;
+	var _mode = 'intro';
 
 	var $window = $(window);
 	var $htmlBody = $('html, body');
@@ -30,6 +31,7 @@
 	var $storyChapterTitleOverlineSpan = $('.story-chapter-title-overline span');
 	var $storyChapterTitleHed = $('.story-chapter-title-hed');
 	var $storyTitleCards = $('.story-title-cards');
+	var $currentStory;
 
 	var NUM_CHAPTERS = 7;
 	var SCROLL_TRIGGER = 30;
@@ -42,7 +44,7 @@
 		for(var s in _setup) {
 			_setup[s]();
 		}
-		_action.sequence();	
+		// _action.sequence();	
 	};
 
 	var resize = function() {
@@ -62,6 +64,10 @@
 		if(_expand) {
 			$storyExpand.css('height', _expandHeight);
 			$storyBottom.css('top', _expandHeight);
+		}
+
+		if(_mode === 'story') {
+			transitionSlide();
 		}
 	};
 
@@ -87,14 +93,20 @@
 			$storyBtnNext.on('click', function() {
 				if(!_transition) {
 					_currentIndex += 1;
-					slide();	
+					if(_currentIndex < NUM_CHAPTERS) {
+						slide();
+					}
+					_currentIndex = Math.min(NUM_CHAPTERS - 1, _currentIndex);
 				}
 			});
 
 			$storyBtnPrev.on('click', function() {
 				if(!_transition) {
 					_currentIndex -= 1;
-					slide();	
+					if(_currentIndex > -1) {
+						slide();
+					}
+					_currentIndex = Math.max(0, _currentIndex);
 				}
 			});
 		},
@@ -126,6 +138,7 @@
 				//show storyContainer
 				//TODO fadein with velocity
 				$storyContainer.removeClass('hide').removeClass('transparent');
+				_mode = 'story';
 				generateStory();
 			});
 		}
@@ -149,7 +162,7 @@
 			var $content = $(htmlContent);
 			$content.find('.story-content-template').html(htmlTemplate);
 
-			var $el = $('<div class="story-chapter" data-chapter="' + i + '"></div>');
+			var $el = $('<div class="story-chapter" data-chapter="' + (i+1) + '"></div>');
 			$el.append($content);
 
 			$storyChapters.append($el);
@@ -159,9 +172,12 @@
 
 		$storyChapter = $('.story-chapter');
 
+		$currentStory = $storyChapter.eq(_currentIndex);
+		$currentStory.addClass('current');
 		updateChapterInfo();
 		resize();
 		slideComplete();
+
 
 		// setTimeout(function() {
 		// 	toggleTop('collapse');
@@ -176,28 +192,41 @@
 	};
 
 	var slide = function() {
+
+		$currentStory.addClass('previous');
+		$currentStory = $storyChapter.eq(_currentIndex);
+		$currentStory.addClass('current');
+
 		_transition = true;
 		toggleTop('expand');
+		$window.scrollTop(0);
 		
 		setTimeout(function() {
-			var offset = '-' + _currentIndex * _dimensions.w + 'px';
-
-			$storyChapters.velocity({ 
-				properties: { 'left': offset },
-				options: { 'duration': DURATION.half, complete: slideComplete }
-			});
-
-			$storyTitleCards.velocity({ 
-				properties: { 'left': offset },
-				options: { 'duration': DURATION.half }
-			});
+			transitionSlide();
 
 		}, DURATION.quarter * 2);
 
 		updateChapterInfo();
 	};
 
+	var transitionSlide = function() {
+		var offset = '-' + _currentIndex * _dimensions.w + 'px';
+
+		$storyChapters.velocity({ 
+			properties: { 'left': offset },
+			options: { 'duration': DURATION.half, complete: slideComplete }
+		});
+
+		$storyTitleCards.velocity({ 
+			properties: { 'left': offset },
+			options: { 'duration': DURATION.half }
+		});
+	};
+
 	var slideComplete = function() {
+
+		$('.current.previous').removeClass('current previous');
+
 		_transition = false;
 		$window.on('scroll', function(e) {
 			var top = $(this).scrollTop();
@@ -218,7 +247,7 @@
 	var toggleTop = function(dir) {
 		if(dir === 'expand') {
 			// $storyBottom.addClass('expand');
-			$storyContainer.removeClass('expand');
+			$storyContainer.addClass('expand');
 			_expand = false;
 			$storyExpand.css('height', _expandHeight);
 			$storyBottom.css('top', _expandHeight);
