@@ -12,6 +12,10 @@
 	}
 }
 
+.intro .logo-lady {
+	opacity: 1;
+}
+
 .video-bg {
 	position: absolute;
 	right: 0;
@@ -30,9 +34,10 @@
 .hed-text {
 	line-height: 0.9;
 	font-size: 8em;
-	// font-family: $mono;
+	font-family: $mono;
 	font-weight: 700;
-	color: rgba(255,255,255,0.8);
+	color: $primary;
+	// color: $white;
 	margin-bottom: 0.5em;
 }
 
@@ -47,19 +52,6 @@
 	text-align: center;
 }
 
-.video-container-inner {
-	position: relative;
-	height: 0;
-	overflow: hidden;
-	max-width: 640px;
-	@extend %center;
-	&.sixteen-by-nine {
-		padding-bottom: 56.25%;
-	}
-	&.four-by-three {
-		padding-bottom: 75%;
-	}
-}
 .responsive-video {
 	position: absolute;
 	top: 0;
@@ -79,8 +71,14 @@
 	color: #fff;
 	text-shadow: 0 0 3px #000;
 	font-size: 1.8em;
-	text-align: center;
-	max-width: 800px;
+	text-align: justify;
 	margin: 0 auto;
+	max-width: $content-width-x-large;
 	font-variant: small-caps;
+}
+
+p.saying {
+	text-align:center;
+	font-size: 2em;
+	text-transform: uppercase;
 }

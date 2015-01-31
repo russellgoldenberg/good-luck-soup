@@ -14,14 +14,18 @@ $black: #1a1a1a;
 
 $green: #BAC9A9;
 $orange: #EB9C4D;
+$yellow: #ebca47;
 
-// $green: #A1DBB2;
-// $orange: #F7A541;
+$primary: $yellow;
 
 $header-height: 42px;
 
 $content-width-small: 480px;
 $content-width-medium: 640px;
 $content-width-large: 800px;
+$content-width-x-large: 900px;
 
 $one-seventh: percentage(1/7);
+
+$small-nav-height: 5em;
+$transition-fast: 0.25s;

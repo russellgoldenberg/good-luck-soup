@@ -31,7 +31,8 @@ window.testStory = [{
 	'img': '',
 	'audio': '',
 	'video': '',
-	'user': 'Anonymous'
+	'user': 'Anonymous',
+	'date': 'January 27, 2015'
 }, {
 	'index': 2,
 	'hed': 'Case file',
@@ -40,7 +41,8 @@ window.testStory = [{
 	'img': 'grandpa.jpg',
 	'audio': '',
 	'video': '',
-	'user': 'Matthew Hasiguchi'
+	'user': 'Matthew Hasiguchi',
+	'date': 'January 27, 2015'
 }, {
 	'index': 3,
 	'hed': 'My family',
@@ -49,7 +51,8 @@ window.testStory = [{
 	'img': '',
 	'audio': '',
 	'video': '',
-	'user': 'Anonymous'
+	'user': 'Anonymous',
+	'date': 'January 27, 2015'
 }, {
 	'index': 4,
 	'hed': 'My family',
@@ -58,7 +61,8 @@ window.testStory = [{
 	'img': '',
 	'audio': '',
 	'video': '',
-	'user': 'Anonymous'
+	'user': 'Anonymous',
+	'date': 'January 27, 2015'
 }, {
 	'index': 5,
 	'hed': 'My family',
@@ -67,7 +71,8 @@ window.testStory = [{
 	'img': '',
 	'audio': '',
 	'video': '',
-	'user': 'Anonymous'
+	'user': 'Anonymous',
+	'date': 'January 27, 2015'
 }, {
 	'index': 6,
 	'hed': 'My family',
@@ -76,7 +81,8 @@ window.testStory = [{
 	'img': '',
 	'audio': '',
 	'video': '',
-	'user': 'Anonymous'
+	'user': 'Anonymous',
+	'date': 'January 27, 2015'
 }, {
 	'index': 7,
 	'hed': 'My family',
@@ -85,5 +91,6 @@ window.testStory = [{
 	'img': '',
 	'audio': '',
 	'video': '',
-	'user': 'Anonymous'
+	'user': 'Anonymous',
+	'date': 'January 27, 2015'
 }];

@@ -1,0 +1,137 @@
+// STORY OVERALL
+.story-container {
+	height: 100%;
+	width: 100%;
+	-webkit-transition: all 0.5s;
+}
+
+// STORY TOPPER AND NAV
+.story-top {
+	position: fixed;
+	z-index: 99;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: $small-nav-height;
+	@extend %expand;
+	box-shadow: white 0px 0px 10px 10px;
+	overflow: hidden;
+}
+
+.story-navigation {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.story-navigation-inner {
+	position: absolute;
+	bottom: 1.2em;
+	padding: 0 1em;
+	cursor: pointer;
+}
+
+.story-navigation-inner .btn {
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	font-size: 1.4em;
+	letter-spacing: 0;
+	padding: 0;
+}
+
+.story-navigation-next {
+	text-align: right;
+	right: 0;
+}
+
+.story-navigation-prev {
+	text-align: left;
+	left: 0;
+}
+
+.story-chapter-title-text {
+	// float: left;
+	position: absolute;
+	bottom: 0.5em;
+	text-align: center;
+	width: 100%;
+	color: $white;
+	font-family: $sans;
+	font-size: 2em;
+	// margin-top: -0.5em;
+}
+
+.story-chapter-title-overline {
+	font-style: italic;
+	letter-spacing: 0.1em;
+	font-size: 0.5em;
+	line-height: 1;
+	display: inline-block;
+	font-family: $serif;
+	color: $primary;
+}
+
+.story-chapter-title-hed {
+	line-height: 1;
+	@extend %title-case;
+	font-weight: 800;
+}
+
+.logo-lady {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	opacity: 0;
+	@include transition-property(opacity);
+	@include transition-duration($transition-fast);
+	@include transition-timing-function(ease-in);
+	img {
+		padding: 0.5em;
+		height: 100px;
+		width: auto;
+		opacity: 0.6;
+	}
+}
+
+.expand .logo-lady {
+	opacity: 1;
+}
+
+.story-title-cards {
+	height: 100%;
+	position: absolute;
+	background-color: $black;
+}
+
+.story-title-card {
+	width: $one_seventh;
+	height: 100%;
+	float: left;
+	position: relative;
+	@extend %bg-cover;
+	opacity: 0.5;
+}
+
+.story-title-card.story-title-card-1{
+	background-image: url(#{$filepath}/img/story-title-card-1.jpg);
+}
+.story-title-card.story-title-card-2{
+	background-image: url(#{$filepath}/img/story-title-card-2.jpg);
+}
+.story-title-card.story-title-card-3{
+	background-image: url(#{$filepath}/img/story-title-card-3.jpg);
+}
+.story-title-card.story-title-card-4{
+	background-image: url(#{$filepath}/img/story-title-card-4.jpg);
+}
+.story-title-card.story-title-card-5{
+	background-image: url(#{$filepath}/img/story-title-card-5.jpg);
+}
+.story-title-card.story-title-card-6{
+	background-image: url(#{$filepath}/img/story-title-card-6.jpg);
+}
+.story-title-card.story-title-card-7{
+	background-image: url(#{$filepath}/img/story-title-card-7.jpg);
+}
