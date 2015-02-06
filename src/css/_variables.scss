@@ -4,7 +4,8 @@ $mono: 'Source Code Pro', Helvetica, Arial, sans-serif;
 $sans: 'Open Sans', Helvetica, Arial, sans-serif;
 $serif: 'Vollkorn', 'Times New Roman', serif;
 
-$white: #fff;
+// $white: #fff;
+$white: #fffbf0;
 $white-dark: #efefef;
 $gray-lightest: #ccc;
 $gray-light: #999;
@@ -14,7 +15,8 @@ $black: #1a1a1a;
 
 $green: #BAC9A9;
 $orange: #EB9C4D;
-$yellow: #ebca47;
+$yellow2: #ebca47;
+$yellow: #ffcc22;
 
 $primary: $yellow;
 
@@ -29,3 +31,7 @@ $one-seventh: percentage(1/7);
 
 $small-nav-height: 5em;
 $transition-fast: 0.25s;
+
+$bp-small: max-width 480px;
+$bp-medium: max-width 760px;
+$bp-large: max-width 1024px;

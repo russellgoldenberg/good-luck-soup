@@ -15,6 +15,7 @@
 	var $htmlBody = $('html, body');
 	var $fullscreen = $('.fullscreen');
 	var $fullscreenPeek = $('.fullscreen-peek');
+	var $fullscreenJumbo = $('.fullscreen-jumbo');
 	
 	var $introBtn = $('.intro-container .btn');
 	var $introVideoBg = $('.intro-container .video-bg');
@@ -49,12 +50,14 @@
 
 	var resize = function() {
 		_dimensions.w = window.innerWidth;
-		_dimensions.h = $window.height();
+		_dimensions.h = $window.height() + 1;
 
 		$fullscreen.css('min-height', _dimensions.h);
 		$fullscreen.css('height', _dimensions.h);
 		$fullscreenPeek.css('min-height', _dimensions.h * 0.8);
 		$fullscreenPeek.css('height', _dimensions.h * 0.8);
+		$fullscreenJumbo.css('min-height', _dimensions.h * 1.4);
+		$fullscreenJumbo.css('height', _dimensions.h * 1.4);
 		$storyChapters.css('width', _dimensions.w * NUM_CHAPTERS);
 		$storyTitleCards.css('width', _dimensions.w * NUM_CHAPTERS);
 		$storyChapter.css('width', _dimensions.w);
@@ -87,7 +90,7 @@
 		events: function() {
 			$introBtn.on('click', function() {
 				var action = $(this).attr('data-action');
-				_action[action]();
+				_action[action](this);
 			});
 
 			$storyBtnNext.on('click', function() {
@@ -177,11 +180,6 @@
 		updateChapterInfo();
 		resize();
 		slideComplete();
-
-
-		// setTimeout(function() {
-		// 	toggleTop('collapse');
-		// }, 2000);
 	};
 
 	var refineData = function(story) {

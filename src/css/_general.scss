@@ -7,10 +7,14 @@ body {
 	&.show-header {
 		margin-top: $header-height;
 	}
+	@include breakpoint($bp-medium) {
+		font-size: 13px;
+	}
 }
 
 p {
 	margin: 0.5em 0;
+	padding: 1em;
 	font-weight: 300;
 	word-spacing: 0.05em;
 }
@@ -78,13 +82,14 @@ img {
 	cursor: pointer;
 	border-radius: 3px;
 	font-family: $sans;
+	font-weight: bold;
 	&:hover {
 		background: shade($primary, 10%);
 	}
 }
 
 
-.fullscreen, .fullscreen-peek {
+.fullscreen, .fullscreen-peek, .fullscreen-jumbo {
 	position: relative;
 	overflow: hidden;
 }
