@@ -1,6 +1,6 @@
+'use strict';
 (function() {
-	'use strict';	
-	log('v0.0.2');
+	log('v0.0.3');
 
 	var _setup;
 	var _action;
@@ -21,24 +21,25 @@
 	var $introVideoBg = $('.intro-container .video-bg');
 	var $introContainer = $('.intro-container');
 	
-	var $storyContainer = $('.story-container');
+	var $storyContainer = $('.stories-container');
+	var $stories = $('.stories');
+	var $story = $('.story');
+	var $storyTitleOverlineSpan = $('.story-title-overline span');
+	var $storyTitleHed = $('.story-title-hed');
 	var $storyTop = $('.story-top');
-	var $storyBottom = $('.story-bottom');
-	var $storyChapters = $('.story-chapters');
-	var $storyChapter = $('.story-chapter');
-	var $storyExpand = $('.expand .story-top');
-	var $storyBtnNext = $('.story-navigation-next .btn');
-	var $storyBtnPrev = $('.story-navigation-prev .btn');
-	var $storyChapterTitleOverlineSpan = $('.story-chapter-title-overline span');
-	var $storyChapterTitleHed = $('.story-chapter-title-hed');
-	var $storyTitleCards = $('.story-title-cards');
+
 	var $currentStory;
+	var $nextStory;
 
 	var NUM_CHAPTERS = 7;
 	var SCROLL_TRIGGER = 30;
 	var DURATION = {
+		tenth: 100,
 		quarter: 250,
-		half: 500
+		third: 333,
+		half: 500,
+		three_quarters: 750,
+		second: 1000
 	};
 
 	var init = function() {
@@ -58,32 +59,26 @@
 		$fullscreenPeek.css('height', _dimensions.h * 0.8);
 		$fullscreenJumbo.css('min-height', _dimensions.h * 1.4);
 		$fullscreenJumbo.css('height', _dimensions.h * 1.4);
-		$storyChapters.css('width', _dimensions.w * NUM_CHAPTERS);
-		$storyTitleCards.css('width', _dimensions.w * NUM_CHAPTERS);
-		$storyChapter.css('width', _dimensions.w);
-		$storyChapter.css('width', _dimensions.w);	
 
-		_expandHeight = _dimensions.h * 0.35;
-		if(_expand) {
-			$storyExpand.css('height', _expandHeight);
-			$storyBottom.css('top', _expandHeight);
-		}
-
-		if(_mode === 'story') {
-			transitionSlide();
+		if($storyTop.length) {
+			$storyTop.css('height', _dimensions.h * 0.35);	
 		}
 	};
 
-	var jumpTo = function(el) {
+	var jumpTo = function(el, cb) {
 		var top = $(el).offset().top;
 		$htmlBody.animate({
 			scrollTop: top
+		}, DURATION.half, function() {
+			if(typeof cb === 'function') {
+				cb();
+			}
 		});
 	};
 
 	_setup = {
 		resize: function() {
-			$(window).on('resize', debounce(resize, 150));
+			$window.on('resize', debounce(resize, 150));
 			resize();
 		},
 
@@ -93,23 +88,31 @@
 				_action[action](this);
 			});
 
-			$storyBtnNext.on('click', function() {
-				if(!_transition) {
-					_currentIndex += 1;
-					if(_currentIndex < NUM_CHAPTERS) {
-						slide();
-					}
-					_currentIndex = Math.min(NUM_CHAPTERS - 1, _currentIndex);
-				}
-			});
+			// $storyBtnNext.on('click', function() {
+			// 	if(!_transition) {
+			// 		_currentIndex += 1;
+			// 		if(_currentIndex < NUM_CHAPTERS) {
+			// 			slide();
+			// 		}
+			// 		_currentIndex = Math.min(NUM_CHAPTERS - 1, _currentIndex);
+			// 	}
+			// });
 
-			$storyBtnPrev.on('click', function() {
-				if(!_transition) {
-					_currentIndex -= 1;
-					if(_currentIndex > -1) {
-						slide();
-					}
-					_currentIndex = Math.max(0, _currentIndex);
+			// $storyBtnPrev.on('click', function() {
+			// 	if(!_transition) {
+			// 		_currentIndex -= 1;
+			// 		if(_currentIndex > -1) {
+			// 			slide();
+			// 		}
+			// 		_currentIndex = Math.max(0, _currentIndex);
+			// 	}
+			// });
+
+			$stories.on('click', '.story-top', function() {
+				var index = $(this).attr('data-index');
+				var next = $(this).closest('.story').hasClass('next');
+				if(next) {
+					transitionToNext();
 				}
 			});
 		},
@@ -135,19 +138,17 @@
 		begin: function() {
 			jumpTo('.intro-preface');
 		},
-		sequence: function() {
-			$introContainer.fadeOut(function() {
-				$(this).addClass('hide');
-				//show storyContainer
-				//TODO fadein with velocity
+		chapters: function() {
+			generateStory(function() {
 				$storyContainer.removeClass('hide').removeClass('transparent');
 				_mode = 'story';
-				generateStory();
+				$introContainer.addClass('hide');
+				$window.scrollTop(0);
 			});
 		}
 	};
 
-	var generateStory = function() {
+	var generateStory = function(cb) {
 		
 		_currentIndex = 0;
 		_expand = true;
@@ -156,30 +157,32 @@
 			var chapter = testConfig.chapters[i];
 			var story = refineData(testStory[i]);
 
-			var htmlChapter = GoodLuckSoup.templates['story-title-card'](chapter);
-
-			var htmlContent = GoodLuckSoup.templates['story-content'](chapter);
+			var htmlChapter = GoodLuckSoup.templates['story-content'](chapter);
 			var template = 'story-template-' + story.template;
 			var htmlTemplate = GoodLuckSoup.templates[template](story);
 
-			var $content = $(htmlContent);
-			$content.find('.story-content-template').html(htmlTemplate);
+			var $chapter = $(htmlChapter);
+			$chapter.find('.story-content-template').html(htmlTemplate);
 
-			var $el = $('<div class="story-chapter" data-chapter="' + (i+1) + '"></div>');
-			$el.append($content);
+			var $el = $('<div class="story" data-chapter="' + (i+1) + '"></div>');
+			$el.append($chapter);
 
-			$storyChapters.append($el);
-
-			$storyTitleCards.append(htmlChapter);
+			$stories.append($el);
 		}
 
-		$storyChapter = $('.story-chapter');
+		$story = $('.story');
+		$storyTop = $('.story-top');
 
-		$currentStory = $storyChapter.eq(_currentIndex);
+		$currentStory = $story.eq(_currentIndex);
+		$nextStory = $story.eq(_currentIndex + 1);
+
 		$currentStory.addClass('current');
-		updateChapterInfo();
+		$nextStory.addClass('next');
+
+		$currentStory.find('.story-top-text').removeClass('off');
+		$currentStory.find('.story-top-next').addClass('off');
 		resize();
-		slideComplete();
+		cb();
 	};
 
 	var refineData = function(story) {
@@ -189,74 +192,56 @@
 		return story;
 	};
 
-	var slide = function() {
+	var transitionToNext = function() {
 
-		$currentStory.addClass('previous');
-		$currentStory = $storyChapter.eq(_currentIndex);
-		$currentStory.addClass('current');
+		//TODO disable scroll
 
-		_transition = true;
-		toggleTop('expand');
-		$window.scrollTop(0);
-		
-		setTimeout(function() {
-			transitionSlide();
+		var offset = -1 * (_dimensions.h - _dimensions.h * 0.35);
+		var offsetNext = offset + 'px';
+		var offsetCurrent = offset * 0.5 + 'px';
 
-		}, DURATION.quarter * 2);
+		$nextStory.addClass('current').removeClass('next');
+		$nextStory.find('.story-top-next').addClass('off');
+		$nextStory.find('.story-top-text').removeClass('off');
 
-		updateChapterInfo();
-	};
-
-	var transitionSlide = function() {
-		var offset = '-' + _currentIndex * _dimensions.w + 'px';
-
-		$storyChapters.velocity({ 
-			properties: { 'left': offset },
-			options: { 'duration': DURATION.half, complete: slideComplete }
+		$nextStory.velocity({ 
+			properties: { 
+				'translateY': offsetNext,
+				'translateZ': 0
+			},
+			options: { 'duration': DURATION.three_quarters, complete: transitionComplete }
+		});
+		$currentStory.velocity({ 
+			properties: {
+				'translateY': offsetCurrent,
+				'translateZ': 0,
+				'scale': 0.8,
+				'opacity': 0
+			},
+			options: { 'duration': DURATION.three_quarters }
 		});
 
-		$storyTitleCards.velocity({ 
-			properties: { 'left': offset },
-			options: { 'duration': DURATION.half }
-		});
-	};
+		_currentIndex++;
 
-	var slideComplete = function() {
-
-		$('.current.previous').removeClass('current previous');
-
-		_transition = false;
-		$window.on('scroll', function(e) {
-			var top = $(this).scrollTop();
-			if(top > SCROLL_TRIGGER) {
-				toggleTop('collapse');
-				$window.off('scroll');
-			}
-		});
-	};
-
-	var updateChapterInfo = function() {
-		var title = testConfig.chapters[_currentIndex].hed;
-		var index = testConfig.chapters[_currentIndex].index;
-		$storyChapterTitleHed.text(title);
-		$storyChapterTitleOverlineSpan.text(_currentIndex + 1);
-	};
-
-	var toggleTop = function(dir) {
-		if(dir === 'expand') {
-			// $storyBottom.addClass('expand');
-			$storyContainer.addClass('expand');
-			_expand = false;
-			$storyExpand.css('height', _expandHeight);
-			$storyBottom.css('top', _expandHeight);
-		} else {
-			// $storyBottom.removeClass('expand');
-			$storyContainer.removeClass('expand');
-			_expand = false;
-			$storyExpand.css('height', '');	
-			$storyBottom.css('top', '5em');
+		if(_currentIndex < NUM_CHAPTERS - 1)  {
+			$nextStory = $story.eq(_currentIndex + 1);	
+			$nextStory.addClass('next');
 		}
 	};
 
+	var transitionComplete = function() {
+		$currentStory.removeClass('current');
+		$currentStory = $story.eq(_currentIndex);
+		
+		$currentStory.css('transform', '');
+		
+		$currentStory.velocity({ 
+			properties: { 'translateY': 0 },
+			options: { 'duration': 0 }
+		});
+
+		$window.scrollTop(0);
+	};
+
 	init();
-})();
+})(); 	

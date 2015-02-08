@@ -8,7 +8,7 @@
 		font-size: 1.5em;
 		@extend %center;
 		max-width: $content-width-medium;
-		@include breakpoint($bp-small) {
+		@include breakpoint-small {
 			font-size: 1.3em;
 		}
 	}
@@ -41,7 +41,7 @@
 	color: $white;
 	margin-bottom: 0.5em;
 	opacity: 0.9;
-	@include breakpoint($bp-small) {
+	@include breakpoint-small {
 		font-size: 5em;
 	}
 }
@@ -80,7 +80,7 @@
 	text-align: justify;
 	margin: 0 auto;
 	max-width: $content-width-x-large;
-	@include breakpoint($bp-small) {
+	@include breakpoint-small {
 		font-size: 1.3em;
 	}
 }

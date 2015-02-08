@@ -2,7 +2,7 @@ $filepath: 'assets';
 
 @import 'compass';
 @import 'compass/css3';
-@import 'breakpoint';
+@import 'compass/css3/transform';
 
 @import '_reset';
 @import '_variables';
@@ -11,5 +11,4 @@ $filepath: 'assets';
 @import '_typography';
 @import '_header';
 @import '_intro';
-@import '_story-top';
-@import '_story-bottom';
+@import '_story';
