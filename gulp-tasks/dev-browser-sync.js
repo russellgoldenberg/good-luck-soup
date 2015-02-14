@@ -3,7 +3,7 @@ var browserSync = require('browser-sync');
 
 //start server then watch files
 gulp.task('dev-browser-sync', function () {
-	browserSync.init(null, {
+	browserSync.init({
 		server: {
 			baseDir: './dev'
 		}

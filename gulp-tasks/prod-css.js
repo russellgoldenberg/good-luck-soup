@@ -6,9 +6,11 @@ var rename = require('gulp-rename');
 
 //compile all sass and autoprefix and minify
 gulp.task('prod-css', function() {
-	return gulp.src('src/css/main-prod.scss')
+	return sass('src/css/main-prod.scss', {
+			style: 'expanded', compass: true
+		})
 		.pipe(sass({ style: 'expanded', compass: true }))
-		.pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+		.pipe(autoprefixer({browsers:['last 2 versions'], cascade: false}))
 		.pipe(minifycss())
 		.pipe(rename('main.css'))
 		.pipe(gulp.dest('.tmp/assets/css'));

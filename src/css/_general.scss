@@ -83,8 +83,11 @@ img {
 	cursor: pointer;
 	border-radius: 3px;
 	font-family: $sans;
+	@include transition-property(background-color, opacity);
+	@include transition-duration($transition-fast);
+	@include transition-timing-function(ease-in);
 	&:hover {
-		background: shade($primary, 10%);
+		background-color: shade($primary, 10%);
 	}
 }
 
@@ -119,4 +122,8 @@ img {
 		width: auto;
 		opacity: 0.6;
 	}
+}
+
+.italic {
+	font-style: italic;
 }

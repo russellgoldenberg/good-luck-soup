@@ -8,7 +8,7 @@ this["GoodLuckSoup"]["templates"]["story-content"] = Handlebars.template({"compi
     + escapeExpression(((helper = (helper = helpers.index || (depth0 != null ? depth0.index : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"index","hash":{},"data":data}) : helper)))
     + "'>\n		<div class='story-top-bg story-top-bg-"
     + escapeExpression(((helper = (helper = helpers.index || (depth0 != null ? depth0.index : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"index","hash":{},"data":data}) : helper)))
-    + "'>\n			<div class='overlay-pattern'></div>\n		</div>\n		<div class='story-top-next'>Next chapter</div>\n		<div class='story-top-text off'>\n			<div class='story-top-overline'>Part "
+    + "'>\n			<div class='overlay-pattern'></div>\n		</div>\n		<div class='story-top-prev off'><div class='btn'>&uarr;</div></div>\n		<div class='story-top-next'>Next chapter</div>\n		<div class='story-top-text off'>\n			<div class='story-top-overline'>Part "
     + escapeExpression(((helper = (helper = helpers.index || (depth0 != null ? depth0.index : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"index","hash":{},"data":data}) : helper)))
     + "<span></span> of 7</div>\n			<div class='story-top-hed'>"
     + escapeExpression(((helper = (helper = helpers.hed || (depth0 != null ? depth0.hed : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"hed","hash":{},"data":data}) : helper)))
@@ -22,13 +22,11 @@ this["GoodLuckSoup"]["templates"]["story-template-audio-img"] = Handlebars.templ
     + escapeExpression(((helper = (helper = helpers.date || (depth0 != null ? depth0.date : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"date","hash":{},"data":data}) : helper)))
     + "</span></p>\n	<h2 class='story-content-hed'><span>"
     + escapeExpression(((helper = (helper = helpers.hed || (depth0 != null ? depth0.hed : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"hed","hash":{},"data":data}) : helper)))
-    + "</span></h2>\n	<p class='story-content-img'><img src='assets/img/story/"
+    + "</span></h2>\n	<div class='story-content-img-outer'>\n		<div class='story-content-img-inner'>\n			<img class='main-img' src='assets/img/story/"
     + escapeExpression(((helper = (helper = helpers.img || (depth0 != null ? depth0.img : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"img","hash":{},"data":data}) : helper)))
-    + "'></p>\n	<div class='story-content-audio'>\n		<audio controls='controls' preload='preload'>\n			<source src='assets/audio/"
+    + "'>\n			<div class='story-content-audio'>\n				<div class='audio-player'>\n					<div class='audio-player-progress'></div>\n					<div class='audio-player-btn btn' data-src='"
     + escapeExpression(((helper = (helper = helpers.audio || (depth0 != null ? depth0.audio : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"audio","hash":{},"data":data}) : helper)))
-    + ".mp3' type='audio/mp3'>\n			<source src='assets/audio/"
-    + escapeExpression(((helper = (helper = helpers.audio || (depth0 != null ? depth0.audio : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"audio","hash":{},"data":data}) : helper)))
-    + ".ogg' type='audio/ogg'>\n		</audio>\n	</div>\n</div>";
+    + "'>\n						<span class='icon-play'><img src='assets/img/icons/play.svg'></span>\n						<span class='icon-pause hide'><img src='assets/img/icons/pause.svg'></span>\n					</div>\n				</div>\n			</div>\n		</div>\n	</div>\n</div>";
 },"useData":true});
 this["GoodLuckSoup"]["templates"]["story-template-text-img"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div class='template-text-img'>\n	<p class='story-content-user'>By <span class='user-name'>"
@@ -37,9 +35,9 @@ this["GoodLuckSoup"]["templates"]["story-template-text-img"] = Handlebars.templa
     + escapeExpression(((helper = (helper = helpers.date || (depth0 != null ? depth0.date : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"date","hash":{},"data":data}) : helper)))
     + "</span></p>\n	<h2 class='story-content-hed'><span>"
     + escapeExpression(((helper = (helper = helpers.hed || (depth0 != null ? depth0.hed : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"hed","hash":{},"data":data}) : helper)))
-    + "</span></h2>\n	<p class='story-content-img'><img src='assets/img/story/"
+    + "</span></h2>\n	<div class='story-content-img-outer'>\n		<div class='story-content-img-inner'>\n			<img class='main-img' src='assets/img/story/"
     + escapeExpression(((helper = (helper = helpers.img || (depth0 != null ? depth0.img : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"img","hash":{},"data":data}) : helper)))
-    + "'></p>\n	<div class='story-content-text'>";
+    + "'>\n		</div>\n	</div>\n	<div class='story-content-text'>";
   stack1 = ((helper = (helper = helpers.text || (depth0 != null ? depth0.text : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"text","hash":{},"data":data}) : helper));
   if (stack1 != null) { buffer += stack1; }
   return buffer + "</div>\n</div>";

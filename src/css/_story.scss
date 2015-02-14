@@ -12,6 +12,7 @@
 	position: relative;
 	width: 100%;
 	display: none;
+	background: $white;
 	&.current {
 		display: block;
 		// .story-top-text {
@@ -36,8 +37,12 @@
 			@include transition-property(all);
 			@include transition-duration(0.2s);
 			@include transition-timing-function(ease-in);
+		}
+		.story-top {
 			&:hover {
-				@include transform(scale(1.02));
+				.story-top-bg {
+					@include transform(scale(1.02));
+				}
 			}
 		}
 	}
@@ -62,11 +67,33 @@
 	font-size: 2em;
 	@extend %vertical-align;
 	@include transition-property(all);
-	@include transition-duration(0.75s);
+	@include transition-duration(0.6s);
 	@include transition-timing-function(ease-in);
 	&.off {
 		opacity: 0;
 		top: -25%;
+	}
+}
+
+.story-top-prev {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	opacity: 1;
+	@include transition-property(all);
+	@include transition-duration(0.25s);
+	@include transition-timing-function(ease-in);
+	.btn {
+		opacity: 0.7;
+		border-radius: 3em;
+		margin-top: 0.5em;
+		letter-spacing: 0;
+		&:hover {
+			opacity: 1;
+		}
+	}
+	&.off {
+		opacity: 0;
 	}
 }
 
@@ -82,7 +109,6 @@
 	font-family: $serif;
 	color: $primary;
 	font-size: 1.2em;
-	text-shadow: 0 0 5px #000;
 	@include transition-property(all);
 	@include transition-duration(0.5s);
 	@include transition-timing-function(ease-in);
@@ -118,33 +144,33 @@
 	height: 100%;
 	width: 100%;
 	@extend %bg-cover;
-	opacity: 0.75;
+	opacity: 0.6;
 }
 
 .story-top-bg-1{
-	background-image: url(#{$filepath}/img/story-title-card-1.jpg);
+	background-image: url(#{$filepath}/img/story-top/story-top-1.jpg);
 }
 .story-top-bg-2{
-	background-image: url(#{$filepath}/img/story-title-card-2.jpg);
+	background-image: url(#{$filepath}/img/story-top/story-top-2.jpg);
 }
 .story-top-bg-3{
-	background-image: url(#{$filepath}/img/story-title-card-3.jpg);
+	background-image: url(#{$filepath}/img/story-top/story-top-3.jpg);
 }
 .story-top-bg-4{
-	background-image: url(#{$filepath}/img/story-title-card-4.jpg);
+	background-image: url(#{$filepath}/img/story-top/story-top-4.jpg);
 }
 .story-top-bg-5{
-	background-image: url(#{$filepath}/img/story-title-card-5.jpg);
+	background-image: url(#{$filepath}/img/story-top/story-top-5.jpg);
 }
 .story-top-bg-6{
-	background-image: url(#{$filepath}/img/story-title-card-6.jpg);
+	background-image: url(#{$filepath}/img/story-top/story-top-6.jpg);
 }
 .story-top-bg-7{
-	background-image: url(#{$filepath}/img/story-title-card-7.jpg);
+	background-image: url(#{$filepath}/img/story-top/story-top-7.jpg);
 }
 
 .story-content-template {
-	padding: 2em 0.5em 8em 0.5em;
+	padding: 2em 0.5em 12em 0.5em;
 }
 
 .story-content-hed {
@@ -155,22 +181,36 @@
 	line-height: 1.4;
 	text-align: center;
 	color: $gray-darkest;
-	margin-top: 0.35em;
+	margin: 0.35em auto 0 auto;
+	max-width: $content-width-large;
+	@include breakpoint-small {
+		font-size: 2em;
+	}
 }
 
 .story-content-text {
-	max-width: 640px;
+	max-width: $content-width-medium;
 	margin: 0 auto;
 	font-size: 1.25em;
 	line-height: 1.5;
 }
 
-.story-content-img {
+.story-content-img-outer {
+	text-align: center;
 	padding: 1em 0;
-	max-width: $content-width-x-large;
+}
+
+.story-content-img-inner {
+	display: inline-block;
+	position: relative;
 	margin: 0 auto;
-	img {
-		border: 1px solid $gray-lightest;
+	max-width: $content-width-x-large;
+	border: 1px solid shade($white, 10%);
+	img.main-img {
+		display: block;
+		width: auto;
+		max-width: 100%;
+		max-height: 100%;
 	}
 }
 
@@ -179,9 +219,53 @@
 }
 
 .story-content-audio {
-	text-align: center;
-	audio {
-		width: 100%;
+	position: absolute;
+	width: 100%;
+	padding: 1em 4em 1em 1em;
+	bottom: 0;
+	left: 0;
+	text-align: left;
+	.audio-player {
+		position: relative;
+	}
+	.audio-player-progress {
+		width: 0;
+		height: 2px;
+		background-color: $primary;
+		position: absolute;
+		top: 50%;
+		margin-top: -1px;
+		opacity: 0.3;
+	}
+	// .audio-player-progress-fg {
+	// 	width: 0;
+	// 	height: 100%;
+	// 	position: absolute;
+	// 	background-color: $primary;
+	// }
+	// .audio-player-text {
+	// 	position: relative;
+	// }
+	.audio-player-btn {
+		position: relative;
+		left: 0;
+		opacity: 0.7;
+		border-radius: 3em;
+		letter-spacing: 0;
+		width: 3em;
+		height: 3em;
+		@include transition-property(left);
+		@include transition-duration(250);
+		@include transition-timing-function(linear);
+		&:hover {
+			opacity: 1;
+		}
+	}
+	.audio-player-btn img {
+		height: 60%;
+		position: relative;
+		top: 50%;
+		transform: translateY(-50%);
 	}
 }
 

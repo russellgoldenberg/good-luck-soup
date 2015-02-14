@@ -82,13 +82,30 @@
 	max-width: $content-width-x-large;
 	@include breakpoint-small {
 		font-size: 1.3em;
+		text-align: left;
 	}
 }
 
-p.saying {
+p.saying-hed {
 	text-align:center;
-	font-size: 2em;
+	font-size: 3em;
 	@extend %title-case;
 	border-bottom: $gray-lightest;
 	padding: 0;
+}
+p.saying-subhed {
+	text-align: center;
+	max-width: $content-width-large;
+	.or {
+		border-bottom: 1px solid shade($white, 20%);
+		border-top: 1px solid shade($white, 20%);
+		margin: 0.5em 0;
+		display: inline-block;
+	}
+}
+
+.intro-stories {
+	@include breakpoint-small {
+		font-size: 0.9em;
+	}	
 }
