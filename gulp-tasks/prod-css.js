@@ -9,7 +9,6 @@ gulp.task('prod-css', function() {
 	return sass('src/css/main-prod.scss', {
 			style: 'expanded', compass: true
 		})
-		.pipe(sass({ style: 'expanded', compass: true }))
 		.pipe(autoprefixer({browsers:['last 2 versions'], cascade: false}))
 		.pipe(minifycss())
 		.pipe(rename('main.css'))

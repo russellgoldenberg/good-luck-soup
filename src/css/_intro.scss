@@ -18,6 +18,33 @@
 	opacity: 1;
 }
 
+.video-bg-container {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	background: $white no-repeat center center;
+	background-size: cover;
+	&.intro-bg-0 {
+		background-image: url(#{$filepath}/img/intro/intro-0.jpg);
+	}
+	&.intro-bg-1 {
+		background-image: url(#{$filepath}/img/intro/intro-1.jpg);
+	}
+	&.intro-bg-2 {
+		background-image: url(#{$filepath}/img/intro/intro-2.jpg);
+	}
+	&.intro-bg-3 {
+		background-image: url(#{$filepath}/img/intro/intro-3.jpg);
+	}
+	&.intro-bg-4 {
+		background-image: url(#{$filepath}/img/intro/intro-4.jpg);
+	}
+	&.intro-bg-5 {
+		background-image: url(#{$filepath}/img/intro/intro-5.jpg);
+	}
+}
+
 .video-bg {
 	position: absolute;
 	right: 0;
@@ -26,7 +53,7 @@
 	min-height: 100%;
 	width: auto;
 	height: auto;
-	z-index: -100;
+	z-index: 0;
 }
 
 .hed {
@@ -44,13 +71,6 @@
 	@include breakpoint-small {
 		font-size: 5em;
 	}
-}
-
-.overlay-pattern {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4AgMAAADV6NONAAAACVBMVEUAAAD///////9zeKVjAAAAA3RSTlMAGgBKWz4FAAAAHUlEQVR4AWNgXYoMGJaicqNQABoXonhU76jeUb0AdDuF6JpF+RYAAAAASUVORK5CYII=);
 }
 
 .begin {

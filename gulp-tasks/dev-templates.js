@@ -13,5 +13,5 @@ gulp.task('dev-templates', function(){
       noRedeclare: true, // Avoid duplicate declarations
     }))
     .pipe(concat('templates.js'))
-    .pipe(gulp.dest('src/js/'));
+    .pipe(gulp.dest('src/js/misc'));
 });

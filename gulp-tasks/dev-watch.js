@@ -7,7 +7,7 @@ gulp.task('dev-watch', function(callback) {
 	// .scss files
 	gulp.watch('src/css/**/*.scss', ['dev-css']);
 	// .js files
-	gulp.watch('src/js/*.js', ['dev-js']);
+	gulp.watch('src/js/**/*.js', ['dev-js']);
 	//  img files
 	gulp.watch('src/img/**/*', ['dev-img']);
 	//  video files

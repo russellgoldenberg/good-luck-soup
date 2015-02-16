@@ -6,7 +6,8 @@ gulp.task('dev-browser-sync', function () {
 	browserSync.init({
 		server: {
 			baseDir: './dev'
-		}
+		},
+		notify: false
 	});
 
 	gulp.start('dev-watch');

@@ -1,15 +1,10 @@
-'use strict';
-(function() {
-	log('v0.0.4');
-
-	var _setup;
 	var _action;
 	var _dimensions = {};
 	var _currentIndex = 0;
-	var _expand;
-	var _expandHeight;
 	var _transition;
 	var _mode = 'intro';
+	var _introWaypoints = [];
+	var _isMobile = isMobile();
 
 	var $window = $(window);
 	var $htmlBody = $('html, body');
@@ -32,20 +27,139 @@
 	var $nextStory;
 
 	var NUM_CHAPTERS = 7;
-	var SCROLL_TRIGGER = 30;
-	var DURATION = {
-		tenth: 100,
-		quarter: 250,
-		third: 333,
-		half: 500,
-		three_quarters: 750,
-		second: 1000
-	};
+	var DURATION = { tenth: 100, quarter: 250, third: 333, half: 500, three_quarters: 750, second: 1000 };
 	var STORY_TOP_HEIGHT = 0.35;
 
+
+	var Setup = {
+		resize: function() {
+			$window.on('resize', debounce(resize, 150));
+			resize();
+		},
+
+		events: function() {
+			$introBtn.on('click', function() {
+				var action = $(this).attr('data-action');
+				_action[action](this);
+			});
+
+			$stories.on('click', '.story-top', function() {
+				var index = $(this).attr('data-index');
+				var next = $(this).closest('.story').hasClass('next');
+				if(next) {
+					transitionToNext();
+				}
+			});
+
+			$stories.on('click', '.audio-player-btn', function() {
+				var src = $(this).attr('data-src');
+				Audio.toggle({el: $(this), id: src});
+			});
+		},
+
+		insertVideos: function() {
+			if(!_isMobile) {
+				$('.video-bg-container').each(function() {
+					var index = $(this).attr('data-index');
+					var html = GoodLuckSoup.templates['intro-video']({index: index});
+					$(this).prepend(html);
+				});
+			}
+		},
+
+		waypoints: function() {
+			// video triggers
+			if(!_isMobile) {
+				$introVideoBg.each(function() {
+					var waypoint = new Waypoint.Inview({
+						'element': $(this)[0],
+						'enter': function(direction) {
+							this.element.play();
+						},
+						'exited': function(direction) {
+							this.element.pause();
+						}
+					});
+					_introWaypoints.push(waypoint);
+				});
+			}
+		}
+	};
+
+
+	var Audio = {
+		path: 'assets/audio/story/',
+		players: {},
+		timeout: null,
+
+		toggle: function(params) {
+			if(Audio.players[params.id]) {
+				if(Audio.playing === params.id) {
+					Audio.pause(Audio.players[params.id]);
+				} else {
+					Audio.play(Audio.players[params.id]);
+				}
+			} else {
+				console.log('setup');
+				Audio.setupPlayer(params);
+			}
+		},
+		setupPlayer: function(params) {
+			Audio.players[params.id] = new Howl({
+				src: [Audio.path + params.id + '.mp3', Audio.path + params.id + '.ogg'],
+				autoplay: false,
+				loop: false,
+				preload: true,
+				volume: 0.8,
+				onload: function(s) {
+					Audio.play(this);
+				},
+				onend: function() {
+					Audio.playing = null;
+					Audio.toggleIcon(this.el);
+				}
+			});
+
+			Audio.players[params.id].goodluckId = params.id;
+			Audio.players[params.id].el = { 
+				root: params.el,
+				play: params.el.find('.icon-play'), 
+				pause: params.el.find('.icon-pause'),
+				progress: params.el.siblings('.audio-player-progress')
+			};
+		},
+		play: function(howlee) {
+			Audio.playing = howlee.goodluckId;
+			Audio.toggleIcon(howlee.el);
+			howlee.play();
+			Audio.updateProgress(howlee);
+		},
+		pause: function(howlee) {
+			howlee = howlee || Audio.players[Audio.playing];
+			if(howlee) {
+				clearTimeout(Audio.timeout);
+				Audio.playing = null;
+				Audio.toggleIcon(howlee.el);
+				howlee.pause();
+			}
+		},
+		toggleIcon: function(el) {
+			el.play.toggleClass('hide');
+			el.pause.toggleClass('hide');
+		},
+		updateProgress: function(howlee) {
+			var progress = Math.min((howlee.seek() / howlee.duration() * 100), 100) + '%';
+			howlee.el.root.css('left', progress);
+			howlee.el.progress.css('width', progress);
+			if(Audio.playing) {
+				Audio.timeout = setTimeout(function() { Audio.updateProgress(howlee) }, DURATION.quarter);
+			}
+		}
+	};
+
 	var init = function() {
-		for(var s in _setup) {
-			_setup[s]();
+		for(var s in Setup) {
+			Setup[s]();
 		}
 		// _action.chapters();	
 	};
@@ -79,74 +193,12 @@
 		});
 	};
 
-	_setup = {
-		resize: function() {
-			$window.on('resize', debounce(resize, 150));
-			resize();
-		},
-
-		events: function() {
-			$introBtn.on('click', function() {
-				var action = $(this).attr('data-action');
-				_action[action](this);
-			});
-
-			// $storyBtnNext.on('click', function() {
-			// 	if(!_transition) {
-			// 		_currentIndex += 1;
-			// 		if(_currentIndex < NUM_CHAPTERS) {
-			// 			slide();
-			// 		}
-			// 		_currentIndex = Math.min(NUM_CHAPTERS - 1, _currentIndex);
-			// 	}
-			// });
-
-			// $storyBtnPrev.on('click', function() {
-			// 	if(!_transition) {
-			// 		_currentIndex -= 1;
-			// 		if(_currentIndex > -1) {
-			// 			slide();
-			// 		}
-			// 		_currentIndex = Math.max(0, _currentIndex);
-			// 	}
-			// });
-
-			$stories.on('click', '.story-top', function() {
-				var index = $(this).attr('data-index');
-				var next = $(this).closest('.story').hasClass('next');
-				if(next) {
-					transitionToNext();
-				}
-			});
-
-			$stories.on('click', '.audio-player-btn', function() {
-				var src = $(this).attr('data-src');
-				Audio.toggle({el: $(this), id: src});
-			});
-		},
-
-		waypoints: function() {
-			// video triggers
-			$introVideoBg.each(function() {
-				var waypoint = new Waypoint.Inview({
-					'element': $(this)[0],
-					'enter': function(direction) {
-						this.element.play();
-					},
-					'exited': function(direction) {
-						this.element.pause();
-					}
-				});
-			});
-			
-		}
-	};
-
 	_action = {
 		begin: function() {
 			jumpTo('.intro-preface');
 		},
 		chapters: function() {
+			Waypoint.disableAll();
 			$('.btn-chapters').text('loading...');
 			enableScroll(false);
 			generateStory(function() {
@@ -182,7 +234,6 @@
 	var generateStory = function(cb) {
 		
 		_currentIndex = 0;
-		_expand = true;
 		
 		for(var i = 0; i < NUM_CHAPTERS; i++) {
 			var chapter = testConfig.chapters[i];
@@ -291,74 +342,3 @@
 			});
 		}
 	};
-
-	var Audio = {
-		path: 'assets/audio/stories/',
-		players: {},
-		timeout: null,
-
-		toggle: function(params) {
-			if(Audio.players[params.id]) {
-				if(Audio.playing === params.id) {
-					Audio.pause(Audio.players[params.id]);
-				} else {
-					Audio.play(Audio.players[params.id]);
-				}
-			} else {
-				Audio.setupPlayer(params);
-			}
-		},
-		setupPlayer: function(params) {
-			Audio.players[params.id] = new Howl({
-				src: [Audio.path + params.id + '.ogg', Audio.path + params.id + '.mp3'],
-				autoplay: false,
-				loop: false,
-				preload: true,
-				volume: 0.8,
-				onload: function(s) {
-					Audio.play(this);
-				},
-				onend: function() {
-					Audio.playing = null;
-					Audio.toggleIcon(this.el);
-				}
-			});
-
-			Audio.players[params.id].goodluckId = params.id;
-			Audio.players[params.id].el = { 
-				root: params.el,
-				play: params.el.find('.icon-play'), 
-				pause: params.el.find('.icon-pause'),
-				progress: params.el.siblings('.audio-player-progress')
-			};
-		},
-		play: function(howlee) {
-			Audio.playing = howlee.goodluckId;
-			Audio.toggleIcon(howlee.el);
-			howlee.play();
-			Audio.updateProgress(howlee);
-		},
-		pause: function(howlee) {
-			howlee = howlee || Audio.players[Audio.playing];
-			if(howlee) {
-				clearTimeout(Audio.timeout);
-				Audio.playing = null;
-				Audio.toggleIcon(howlee.el);
-				howlee.pause();
-			}
-		},
-		toggleIcon: function(el) {
-			el.play.toggleClass('hide');
-			el.pause.toggleClass('hide');
-		},
-		updateProgress: function(howlee) {
-			var progress = Math.min((howlee.seek() / howlee.duration() * 100), 100) + '%';
-			howlee.el.root.css('left', progress);
-			howlee.el.progress.css('width', progress);
-			if(Audio.playing) {
-				Audio.timeout = setTimeout(function() { Audio.updateProgress(howlee) }, DURATION.quarter);
-			}
-		}
-	};
-	init();
-})(); 	

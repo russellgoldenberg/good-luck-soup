@@ -34,6 +34,7 @@
 		// 	display: block;
 		// }
 		.story-top-bg {
+			opacity: 0.7;
 			@include transition-property(all);
 			@include transition-duration(0.2s);
 			@include transition-timing-function(ease-in);
@@ -113,6 +114,7 @@
 	@include transition-duration(0.5s);
 	@include transition-timing-function(ease-in);
 	&.off {
+		display: none;
 		opacity: 0;
 		top: 100%;
 	}
@@ -127,9 +129,16 @@
 }
 
 .story-top-hed {
+	// line-height: 1;
+	// @extend %title-case;
+	// font-weight: 800;
+
 	line-height: 1;
-	@extend %title-case;
-	font-weight: 800;
+	letter-spacing: 0.05em;
+	font-size: 0.75em;
+	text-transform: capitalize;
+	font-family: $serif;
+	color: $white;
 }
 
 .story-top {
@@ -137,6 +146,7 @@
 	background-color: $black;
 	cursor: pointer;
 	overflow: hidden;
+	height: 10em;
 }
 
 .story-top-bg {
@@ -144,7 +154,10 @@
 	height: 100%;
 	width: 100%;
 	@extend %bg-cover;
-	opacity: 0.6;
+	opacity: 0.2;
+	@include transition-property(opacity);
+	@include transition-duration(0.6s);
+	@include transition-timing-function(ease-in);
 }
 
 .story-top-bg-1{
