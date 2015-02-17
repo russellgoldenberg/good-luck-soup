@@ -1,23 +1,34 @@
 'use strict';
 G.intro = (function () {
 
-	var _filepath = 'assets/img/';
+	var _filepath = {
+		img: 'assets/img/intro/',
+		audio: 'assets/audio/intro/'
+	};
 	var _loaded = false;
 
 	var preload = function(cb) {
-		var loadNext = function(i) {
-			loadImage(_filepath + G.data.intro.img[i], function() {
+		var loadAllImages = function(i, callback) {
+			loadImage(_filepath.img + G.data.intro.img[i], function() {
 				i++;
 				if(i < G.data.intro.img.length) {
-					loadNext(i);
+					loadAllImages(i, callback);
 				} else {
-					_loaded = true;
-					cb();
+					callback();
 				}
 			});
 		};
 
-		loadNext(0);
+		var loadAllAudio = function(i, callback) {
+			callback();
+		};
+
+		loadAllImages(0, function() {
+			loadAllAudio(0, function() {
+				_loaded = true;
+				cb();
+			});
+		});
 	};
 
 	var self = {

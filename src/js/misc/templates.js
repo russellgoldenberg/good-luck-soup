@@ -18,7 +18,7 @@ this["GoodLuckSoup"]["templates"]["story-content"] = Handlebars.template({"compi
     + escapeExpression(((helper = (helper = helpers.index || (depth0 != null ? depth0.index : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"index","hash":{},"data":data}) : helper)))
     + "'>\n		<div class='story-top-bg story-top-bg-"
     + escapeExpression(((helper = (helper = helpers.index || (depth0 != null ? depth0.index : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"index","hash":{},"data":data}) : helper)))
-    + "'>\n			<div class='overlay-pattern'></div>\n		</div>\n		<div class='story-top-prev off'><div class='btn'>&uarr;</div></div>\n		<div class='story-top-next'>Next chapter</div>\n		<div class='story-top-text off'>\n			<div class='story-top-overline'>Part "
+    + "'>\n			<div class='overlay-pattern'></div>\n		</div>\n		<div class='story-top-prev off'><div class='btn btn-prev'>&uarr;</div></div>\n		<div class='story-top-next'>Next chapter</div>\n		<div class='story-top-text off'>\n			<div class='story-top-overline'>Part "
     + escapeExpression(((helper = (helper = helpers.index || (depth0 != null ? depth0.index : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"index","hash":{},"data":data}) : helper)))
     + "<span></span> of 7</div>\n			<div class='story-top-hed'>"
     + escapeExpression(((helper = (helper = helpers.hed || (depth0 != null ? depth0.hed : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"hed","hash":{},"data":data}) : helper)))
@@ -75,10 +75,4 @@ this["GoodLuckSoup"]["templates"]["story-template-video"] = Handlebars.template(
     + "</span></h2>\n	<div class='story-content-video'>\n		<iframe src=\"//player.vimeo.com/video/"
     + escapeExpression(((helper = (helper = helpers.video || (depth0 != null ? depth0.video : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"video","hash":{},"data":data}) : helper)))
     + "?color=ffffff&title=0&byline=0&portrait=0\" width=\"720\" height=\"405\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>\n	</div>\n</div>";
-},"useData":true});
-this["GoodLuckSoup"]["templates"]["story-title-card"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
-  return "<div class='story-title-card story-title-card-"
-    + escapeExpression(((helper = (helper = helpers.index || (depth0 != null ? depth0.index : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"index","hash":{},"data":data}) : helper)))
-    + "'></div>";
 },"useData":true});

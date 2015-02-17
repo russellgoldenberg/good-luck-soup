@@ -5,20 +5,13 @@ G.story = (function () {
 
 	var NUM_CHAPTERS = 7;
 
-	var refineData = function(story) {
-		story.textTease = story.text.slice(0,137);
-		var lastSpace = story.textTease.lastIndexOf(' ');
-		story.textTease = story.textTease.slice(0, lastSpace) + '...';
-		return story;
-	};
-
 	var self = {
 		generate: function(cb) {
 			_currentIndex = 0;
 			
 			for(var i = 0; i < NUM_CHAPTERS; i++) {
 				var chapter = testConfig.chapters[i];
-				var story = refineData(testStory[i]);
+				var story = testStory[i];
 
 				var htmlChapter = GoodLuckSoup.templates['story-content'](chapter);
 				var template = 'story-template-' + story.template;

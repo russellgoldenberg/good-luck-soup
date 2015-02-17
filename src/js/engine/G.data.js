@@ -4,12 +4,14 @@ G.data = {
 	
 	intro: {
 		img: [
-			'intro/intro-0.jpg',
-			'intro/intro-1.jpg',
-			'intro/intro-2.jpg',
-			'intro/intro-3.jpg',
-			'intro/intro-4.jpg',
-			'intro/intro-5.jpg'
+			'intro-0.jpg',
+			'intro-1.jpg',
+			'intro-2.jpg',
+			'intro-3.jpg',
+			'intro-4.jpg',
+			'intro-5.jpg'
+		],
+		audio: [
 		]
 	}
 };

@@ -49,6 +49,12 @@ img {
 	display: none;
 }
 
+.hide-mobile {
+	@include breakpoint-small {
+		display: none;
+	}
+}
+
 .opaque {
 	opacity: 1;
 }

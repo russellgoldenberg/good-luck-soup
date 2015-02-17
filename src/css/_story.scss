@@ -70,6 +70,7 @@
 	@include transition-property(all);
 	@include transition-duration(0.6s);
 	@include transition-timing-function(ease-in);
+	top: 55%;
 	&.off {
 		opacity: 0;
 		top: -25%;
@@ -102,7 +103,7 @@
 	position: relative;
 	text-align: center;
 	width: 100%;
-	font-family: $sans;
+	text-shadow: 0 0 2px $black; 
 	@extend %vertical-align;
 	font-style: italic;
 	letter-spacing: 0.1em;
@@ -146,7 +147,9 @@
 	background-color: $black;
 	cursor: pointer;
 	overflow: hidden;
-	height: 10em;
+	@include transition-property(height);
+	@include transition-duration(0.5s);
+	@include transition-timing-function(ease-in);
 }
 
 .story-top-bg {
