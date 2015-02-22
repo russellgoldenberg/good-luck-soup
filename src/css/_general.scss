@@ -35,7 +35,7 @@ h2 {
 }
 
 a {
-
+	color: shade($primary, 15%);
 }
 
 img {
@@ -89,6 +89,10 @@ img {
 	cursor: pointer;
 	border-radius: 3px;
 	font-family: $sans;
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
 	@include transition-property(background-color, opacity);
 	@include transition-duration($transition-fast);
 	@include transition-timing-function(ease-in);

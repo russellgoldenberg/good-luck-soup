@@ -20,7 +20,12 @@ G.story = (function () {
 				var $chapter = $(htmlChapter);
 				$chapter.find('.story-content-template').html(htmlTemplate);
 
-				var $el = $('<div class="story" data-chapter="' + (i+1) + '"></div>');
+				if(i === NUM_CHAPTERS - 1) {
+					var htmlEnd = GoodLuckSoup.templates['end']();
+					$chapter.find('.story-bottom').append(htmlEnd);
+				}
+
+				var $el = $('<div class="story" data-chapter="' + (i + 1) + '"></div>');
 				$el.append($chapter);
 
 				G.ui.appendChapter($el);

@@ -9,6 +9,7 @@ G.ui = (function () {
 	var _introWaypoints = [];
 	
 	var STORY_TOP_HEIGHT = 0.35;
+	var MAX_STORY_TOP_HEIGHT = 150;
 
 	var setupDom = function() {
 		$dom = {
@@ -64,6 +65,10 @@ G.ui = (function () {
 				Story.transitionToPrev();
 			}
 		});
+	};
+
+	var getStoryTopHeight = function() {
+		return Math.max(_dimensions.h * STORY_TOP_HEIGHT * 0.5, MAX_STORY_TOP_HEIGHT);
 	};
 
 	var Intro = {
@@ -130,7 +135,7 @@ G.ui = (function () {
 			var offsetNext = offset + 'px';
 			var offsetCurrent = offset * 0.5 + 'px';
 
-			$dom.currentStory.find('.story-top').css('height', _dimensions.h * STORY_TOP_HEIGHT * 0.5);
+			$dom.currentStory.find('.story-top').css('height', getStoryTopHeight());
 
 			$dom.currentStory.velocity({ 
 				properties: { 
@@ -166,7 +171,7 @@ G.ui = (function () {
 			$dom.nextStory.find('.story-top-next').addClass('off');
 			$dom.nextStory.find('.story-top-text').removeClass('off');
 
-			$dom.nextStory.find('.story-top').css('height', _dimensions.h * STORY_TOP_HEIGHT * 0.5);
+			$dom.nextStory.find('.story-top').css('height', getStoryTopHeight());
 
 			if($dom.prevStory) {
 				$dom.prevStory.removeClass('prev');	
@@ -290,7 +295,7 @@ G.ui = (function () {
 			setupDom();
 			setupEvents();
 			self.resize();
-			Intro.chapters();
+			// Intro.chapters();
 		},
 
 		resize: function() {
@@ -307,7 +312,7 @@ G.ui = (function () {
 			//stories are showing
 			if(G.mode() === 'story') {
 				$dom.storyTop.css('height', _dimensions.h * STORY_TOP_HEIGHT);
-				$dom.currentStory.find('.story-top').css('height', _dimensions.h * STORY_TOP_HEIGHT * 0.5);
+				$dom.currentStory.find('.story-top').css('height', getStoryTopHeight());
 				$('.story-content-img-inner .main-img').css('max-height', _dimensions.h * 0.8);
 			}
 		},
