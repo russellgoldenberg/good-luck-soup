@@ -1,0 +1,59 @@
+.contribute-container {
+	max-width: $content-width-medium;
+	margin: 0 auto;
+	.hed {
+		font-size: 3em;
+		font-family: $sans;
+		font-weight: bold;
+		margin: 1em 0.5em;
+		a {
+			text-decoration: none;
+		}
+	}
+	.explainer-hed {
+		text-align: center;
+	}
+
+ 	p {
+		font-size: 1.2em;
+		margin: 1em 0;
+		padding: 0;
+	}
+
+	h3 {
+		font-size: 1.6em;
+		margin: 2em 0 1em 0;
+	}
+
+	input, textarea { 
+		border: 1px solid #ccc;
+		font-size: 1.2em;
+		padding: 1em;
+		background: #fff;
+		outline: none;
+		resize: none;
+		width: 100%;
+	}
+
+	textarea {
+		height: 20em;
+	}
+
+	.user-story-form {
+		margin-bottom: 4em;
+	}
+
+	.submit-container {
+		text-align: center;
+		margin: 1em 0;
+	}
+
+	.prompt {
+		padding: 1em;
+		border: 1px solid #ccc;
+		cursor: pointer;
+	}
+	.hide {
+		display: none;
+	}
+}
