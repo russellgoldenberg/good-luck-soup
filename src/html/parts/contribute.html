@@ -13,27 +13,60 @@
 			<h3>General Information</h3>
 			<div class='info-question'>
 				<p>What is your name? (leave blank for anonymous)</p>
-				<input placeholder='Jane Doe'>
+				<input class='answer' data-key='name' placeholder='Jane Doe'>
 			</div>
 			<div class='info-question'>
-				<p>Who is the subject of this story? (if yourself, write your name)</p>
-				<input placeholder='John Doe'>
+				<p>What is the name of the subject of this story? (if yourself, write your name)</p>
+				<input class='answer' data-key='subject' placeholder='John Doe'>
 			</div>
 			<div class='info-question'>
-				<p>What is relationship of your subjec to you?</p>
-				<input placeholder='Grandmother'>
+				<p>What is the subject's relationship to you?</p>
+				<!-- <input class='answer' data-key='relationship' placeholder='Grandmother'> -->
+				<select class='answer' name='select' data-key='relationship'>
+					<option value='' selected>Choose...</option> 
+					<option value='great grandmother'>great grandmother</option>
+					<option value='great grandfather'>great grandfather</option>
+					<option value='grandmother'>grandmother</option>
+					<option value='grandfather'>grandfather</option>
+					<option value='mother'>mother</option>
+					<option value='father'>father</option>
+					<option value='sister'>brother</option>
+					<option value='brother'>sister</option>
+					<option value='aunt'>aunt</option>
+					<option value='uncle'>uncle</option>
+					<option value='cousin'>cousin</option>
+					<option value='daughter'>daughter</option>
+					<option value='son'>son</option>
+					<option value='me'>me</option>
+				</select>
 			</div>
 			<div class='info-question'>
 				<p>If the subject was at an internment camp, which one?</p>
-				<input placeholder='Camp name'>
+				<select class='answer' name='select' data-key='camp'>
+					<option value='' selected>Choose...</option> 
+					<option value='Gila River, Arizona'>Gila River, Arizona</option>
+					<option value='Granada, Colorado'>Granada, Colorado</option>
+					<option value='Heart Mountain, Wyoming'>Heart Mountain, Wyoming</option>
+					<option value='Jerome, Arkansas'>Jerome, Arkansas</option>
+					<option value='Manzanar, California'>Manzanar, California</option>
+					<option value='Minidoka, Idaho'>Minidoka, Idaho</option>
+					<option value='Poston, Arizona'>Poston, Arizona</option>
+					<option value='Rohwer, Arkansas'>Rohwer, Arkansas</option>
+					<option value='Topaz, Utah'>Topaz, Utah</option>
+					<option value='Tule Lake, California'>Tule Lake, California</option>
+				</select>
+				</div>
+			<div class='info-question'>
+				<p>What city / state did the subject live in before camp?</p>
+				<input class='answer' data-key='before' placeholder='Los Angeles, CA'>
 			</div>
 			<div class='info-question'>
-				<p>What city / state did they live in before camp?</p>
-				<input placeholder='Los Angeles, CA'>
+				<p>What city / state did the subject live in when after camp?</p>
+				<input class='answer' data-key='after' placeholder='Cleveland, OH'>
 			</div>
 			<div class='info-question'>
-				<p>What city / state did they live in when they left camp?</p>
-				<input placeholder='Cleveland, OH'>
+				<p>What is your e-mail address? (Will not be displayed. Only used if we have a question)</p>
+				<input class='answer' data-key='email' placeholder='example@something.com'>
 			</div>
 		</div>
 	</div>
@@ -43,34 +76,36 @@
 			<p>Select a story prompt below to respond to. If you want to respond to multiple prompts, you will have the opportunity to do so after each submission.
 			<div class='prompts'>
 				<p class='prompt'>
-					Something before camp?
+					This is a writing prompt to be replaced with a real question?
 				</p>
 				<p class='prompt'>
-					Something before camp?
+					This is a writing prompt to be replaced with a real question?
 				</p>
 				<p class='prompt'>
-					Something during camp?
+					This is a writing prompt to be replaced with a real question?
 				</p>
 				<p class='prompt'>
-					Something during camp?
+					This is a writing prompt to be replaced with a real question?
 				</p>
 				<p class='prompt'>
-					Something during camp?
+					This is a writing prompt to be replaced with a real question?
 				</p>
 				<p class='prompt'>
-					Something after camp?
+					This is a writing prompt to be replaced with a real question?
 				</p>
 				<p class='prompt'>
-					Something after camp?
+					This is a writing prompt to be replaced with a real question?
 				</p>
 			</div>
 		</div>
 		<div class='user-story-form hide'>
-			<textarea maxlength='400'></textarea>
+			<textarea class='prompt-textarea' maxlength='400'></textarea>
 			<p>Upload an image (optional)</p>
-			<input type='file' id='file-upload' name='photo' />
+			<input type='file' id='file-upload' class='hide' name='photo' />
+			<div class='btn choose-image'>Choose image</div>
+			<p class='image-result'></p>
 			<p>Caption for the image:</p>
-			<input placeholder='Caption goes here to describe image.'>
+			<input class='image-caption' placeholder='Caption goes here to describe image.'>
 			<div class='submit-container'>
 				<div class='btn'>Submit</div>
 			</div>
