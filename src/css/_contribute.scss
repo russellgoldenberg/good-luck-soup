@@ -69,4 +69,19 @@
 		color: #aaa;
   		font-style: italic;
 	}
+
+	.message {
+		margin-top: 1em;
+		text-align: center;
+		color: $gray-dark;
+		padding: 1em;
+	}
+
+	.success {
+		color: #009900;
+	}
+
+	.error {
+		color: #990000;
+	}
 }

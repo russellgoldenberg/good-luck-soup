@@ -2,8 +2,9 @@
 	var _promptKey;
 	var _writingMode;
 	var _uploadUrl = 'http://goodlucksoup.com/dev/php/upload.php';
+	var _submitted = false;
 
-	var MB = 1048576;
+	var MB = 2097152;
 	var _imgFile;
 
 	var $prompt = $('.prompt');
@@ -15,6 +16,7 @@
 	var $chooseImage = $('.choose-image');
 	var $fileUpload = $('#file-upload');
 	var $imageResult = $('.image-result');
+	var $message = $('.message');
 
 	var init = function() {
 		setupEvents();
@@ -31,7 +33,11 @@
 		});	
 
 		$submit.on('click', function() {
-			submitData();
+			if(!_submitted) {
+				submitData();	
+			} else {
+				$message.text('Submission was already succesful. Refresh page to submit another story.');
+			}
 		});
 
 		$chooseImage.on('click', function() {
@@ -45,10 +51,10 @@
 		        if(_imgFile) {
 		        	var invalid = invalidImage(_imgFile);
 		        	if(invalid) {
-		        		$imageResult.text('Your image "' + _imgFile.name + '" ' + invalid);
+		        		$imageResult.text('Your image "' + _imgFile.name + '" ' + invalid).addClass('error').removeClass('success');
 		        		_imgFile = null;
 		        	} else {
-		        		$imageResult.text('Your image "' + _imgFile.name + '" meets criteria.')
+		        		$imageResult.text('Your image "' + _imgFile.name + '" meets criteria.').addClass('success').removeClass('error');
 		        	}
 		        }
 		    }
@@ -74,6 +80,8 @@
 			formData.append('image_file', _imgFile);
 			formData.append('image_caption', caption);	
 		}
+
+		$message.text('Submission in progress...').removeClass('success error');
 		$.ajax({
 			url: _uploadUrl,
 			type: 'POST',
@@ -82,10 +90,18 @@
 			cache: false,
 			processData:false,
 			success: function(data){
-				console.log(data);
+				_submitted = true;
+				$message.text('Success!').addClass('success');
+				clearContent();
+				setTimeout(function() {
+					$message.text('Refresh to submit another story.').removeClass('success error');
+				}, 3000);
 			},
 			error: function(err){
-				console.log('error', err);
+				$message.text('Something went wrong. Please contact [email here].').addClass('error');
+				if(console && console.log) {
+					console.log('error', err);
+				}
 			} 
 		});
 	};
@@ -112,10 +128,20 @@
 				return 'is the wrong file type. It Must be a jpg, png, or gif.'
 			}
 		} else {
-			return 'is too big. It Must be less than 1 mb.'
+			return 'is too big. It Must be less than 2 mb.'
 		}
 
 		return null;
+	};
+
+	var clearContent = function() {
+		_writingMode = false;
+		$imageResult.text('');
+		$promptTextarea.val('');
+		$prompt.removeClass('hide');
+		$infoQuestionInput.each(function() {
+			$(this).val('');
+		});
 	};
 
 	init();
