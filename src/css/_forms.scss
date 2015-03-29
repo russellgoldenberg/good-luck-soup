@@ -1,4 +1,4 @@
-.contribute-container {
+.moderate-container, .contribute-container {
 	max-width: $content-width-medium;
 	margin: 0 auto;
 	.hed {
@@ -83,5 +83,26 @@
 
 	.error {
 		color: #990000;
+	}
+
+
+	.moderate-btn-container {
+		margin: 1em 0;
+		text-align: center;
+	}
+
+	.submission {
+		border-top: 1px solid #ccc;
+		padding: 1em;	
+		margin: 2em 0;
+	}
+	
+	.submission h3 {
+		margin: 0.5em 0;
+	}
+
+	.approve-btn-container {
+		text-align: center;
+		margin-top: 2em;
 	}
 }
