@@ -104,5 +104,9 @@
 	.approve-btn-container {
 		text-align: center;
 		margin-top: 2em;
+		.btn {
+			float: left;
+			margin-right: 1em;
+		}
 	}
 }

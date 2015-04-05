@@ -9,6 +9,7 @@ window.G = (function () {
 			log('Good Luck Soup v0.1.0');
 			G.ui.init();
 			G.intro.init();
+			G.story.init();
 		},
 		mode: function(mode) {
 			if(mode) {

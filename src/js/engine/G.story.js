@@ -1,11 +1,27 @@
 'use strict';
 G.story = (function () {
 	
+	var _data;	
 	var _currentIndex = 0;
 
 	var NUM_CHAPTERS = 7;
 
+	window.onLoadFeatured = function(response) {
+		console.log(response);
+	};
+
 	var self = {
+		init: function() {
+			$.ajax({
+				url: 'http://goodlucksoup.com/featured-data.jsonp',
+				dataType: 'jsonp',
+				jsonpCallback: 'onLoadFeatured',
+				error: function() {
+					console.log('error loading data');
+				}
+			});
+		},
+
 		generate: function(cb) {
 			_currentIndex = 0;
 			

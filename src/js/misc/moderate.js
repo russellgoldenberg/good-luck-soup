@@ -33,11 +33,12 @@
 		});
 
 		$submissions.on('click', '.approve-btn', function() {
+			var featured = +$(this).attr('data-featured');
 			var id = $(this).attr('data-id');
 			$.ajax({
 				url: _moderateUrl,
 				type: 'POST',
-				data:  {'approve': id},
+				data:  {'approve': id, 'featured': featured},
 				success: function(data){
 					if(data.error) {
 						alert(data.error);
@@ -80,7 +81,8 @@
 				}
 			}
 			html += '<div class="approve-btn-container">';
-			html += '<div class="btn approve-btn" data-id="' + el.id + '">Approve</div></div>';
+			html += '<div class="btn approve-btn" data-id="' + el.id + '" data-featured="1">Approve (feature)</div></div>';
+			html += '<div class="btn approve-btn" data-id="' + el.id + '" data-featured="0">Approve (database)</div></div>';
 			html += '</div>';
 			$submissions.append(html);
 		});
