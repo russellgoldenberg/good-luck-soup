@@ -1,85 +1,115 @@
 'use strict';
 G.audio = (function () {
 
+	var init = function() {
+		Chapter.setup();
+	};
+
 	var Chapter = {
 		path: 'assets/audio/story/',
-		players: {},
+		player: $('#audio-player-chapter'),
 		timeout: null,
+		current: null,
+		playing: false,
+
+		setup: function() {
+			Chapter.player.jPlayer({
+	            swfPath: 'js/lib',
+	            loop: false,
+	            supplied: 'mp3',
+	            timeupdate: Chapter.updateProgress,
+	            error: function(e) {
+	            	log('audio error');
+	            },
+				abort: function(e) {
+					log('audio abort');
+				},
+				play: function(e) {
+					
+				},
+				pause: function(e) {
+					
+				},
+				ended: function(e) {
+					Chapter.playing = false;
+					Chapter.toggleIcon();	
+				}
+        	});
+		},
+
+		hack: function() {
+			Chapter.player.jPlayer('setMedia', {
+	            mp3: Chapter.path + 'hack.mp3',
+	        }).jPlayer('pause');
+		},
 
 		toggle: function(params) {
-			if(Chapter.players[params.id]) {
-				if(Chapter.playing === params.id) {
-					Chapter.pause(Chapter.players[params.id]);
+			if(Chapter.current && Chapter.current === params.id) {
+				if(Chapter.playing) {
+					Chapter.pause();
 				} else {
-					Chapter.play(Chapter.players[params.id]);
+					Chapter.play();
 				}
 			} else {
-				Chapter.setupPlayer(params);
+				Chapter.setMedia(params);
+				Chapter.play();
 			}
 		},
 
-		setupPlayer: function(params) {
-			Chapter.players[params.id] = new Howl({
-				src: [Chapter.path + params.id + '.mp3', Chapter.path + params.id + '.ogg'],
-				autoplay: false,
-				loop: false,
-				preload: true,
-				volume: 0.8,
-				onload: function(s) {
-					Chapter.play(this);
-				},
-				onend: function() {
-					Chapter.playing = null;
-					Chapter.toggleIcon(this.el);
-				}
-			});
-
-			Chapter.players[params.id].goodluckId = params.id;
-			Chapter.players[params.id].el = { 
+		setMedia: function(params) {
+			Chapter.current = params.id;
+			Chapter.el = {
 				root: params.el,
 				play: params.el.find('.icon-play'), 
 				pause: params.el.find('.icon-pause'),
 				progress: params.el.siblings('.audio-player-progress')
 			};
+			Chapter.player.jPlayer('setMedia', {
+				mp3: Chapter.path + params.id + '.mp3'
+			});
 		},
 
-		play: function(howlee) {
-			Chapter.playing = howlee.goodluckId;
-			Chapter.toggleIcon(howlee.el);
-			howlee.play();
-			Chapter.updateProgress(howlee);
+		play: function() {
+			Chapter.playing = true;
+			Chapter.player.jPlayer('play');
+			Chapter.toggleIcon();
 		},
 
-		pause: function(howlee) {
-			howlee = howlee || Chapter.players[Chapter.playing];
-			if(howlee) {
-				clearTimeout(Chapter.timeout);
-				Chapter.playing = null;
-				Chapter.toggleIcon(howlee.el);
-				howlee.pause();
+		pause: function() {
+			if(Chapter.current && Chapter.playing) {
+				Chapter.playing = false;
+				Chapter.player.jPlayer('pause');
+				Chapter.toggleIcon();
 			}
 		},
 
-		toggleIcon: function(el) {
-			el.play.toggleClass('hide');
-			el.pause.toggleClass('hide');
+		toggleIcon: function() {
+			if(Chapter.current) {
+				Chapter.el.play.toggleClass('hide');
+				Chapter.el.pause.toggleClass('hide');	
+			}
 		},
 
-		updateProgress: function(howlee) {
-			var progress = Math.min((howlee.seek() / howlee.duration() * 100), 100) + '%';
-			G.ui.updateAudioProgress({el: howlee.el, percent: progress});
-			if(Chapter.playing) {
-				Chapter.timeout = setTimeout(function() { Chapter.updateProgress(howlee) }, G.data.duration.quarter);
+		updateProgress: function(e) {
+			if(Chapter.current) {
+				var total = e.jPlayer.status.duration;
+	        	var position = e.jPlayer.status.currentTime;
+
+	        	var percent = position / total * 100;
+
+				var progress = Math.min(percent, 100) + '%';
+				G.ui.updateAudioProgress({el: Chapter.el, percent: progress});	
 			}
 		}
 	};
 
 
 	var self = {
+		init: init,
+		hack: Chapter.hack,
 		pauseChapter: function() {
 			Chapter.pause();
 		},
-
 		toggleChapter: function(params) {
 			Chapter.toggle(params);
 		}

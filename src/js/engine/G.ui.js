@@ -37,6 +37,7 @@ G.ui = (function () {
 
 	var setupEvents = function() {
 		$dom.introBtn.on('click', function() {
+			G.audio.hack();
 			if(G.intro.loaded) {
 				var action = $(this).attr('data-action');
 				Intro[action](this);
