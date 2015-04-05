@@ -8,7 +8,7 @@ gulp.task('prod-libs', function() {
 			'src/js/libs/noframework.waypoints.min.js',
 			'src/js/libs/inview.min.js',
 			'src/js/libs/handlebars.runtime.min.js',
-			'src/js/libs/howler.min.js',
+			'src/js/libs/jquery.player.min.js',
 			'src/js/libs/raf.min.js'
 		])
 		.pipe(concat('libs.js'))
