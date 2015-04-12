@@ -3,9 +3,13 @@
 	var _writingMode;
 	var _uploadUrl = 'http://goodlucksoup.com/dev/php/upload.php';
 	var _submitted = false;
-
-	var MB = 2097152;
 	var _imgFile;
+	var _placeholderTimeout;
+	var _placeholders = ['me','my grandmother','my grandfather','my mother','my father','my cousin(s)','my aunt/uncle','enjoying dinner as a family','food','learning how to ride a bicycle','having difficult conversations about camp','learning how to dance','experience(s) at school','moving to a new home','travelling with my family','my parents childhood','my childhood','growing up with my siblings','my children','my significant other','my childhood after camp','getting my first job','family parties','moving to America','grandchildren','religion','holidays','traditions'];
+	var _ideas = ['What brought your family to the United States/Canada?','What did your family do when they first came to the United States/Canada?','For me, being Japanese American/Canadian means...','Have you or a family member ever been discriminated against? Please explain.','Do you have a personal, or family story about the internment camp experience? Please explain.','After the internment camps, I/my...','I identify as...','How do you preserve your Japanese heritage?'];
+	var _currentIdea = Math.floor(Math.random() * _ideas.length);
+	
+	var MB = 2097152;
 
 	var $prompt = $('.prompt');
 	var $submit = $('.submit-container .btn');
@@ -17,21 +21,17 @@
 	var $fileUpload = $('#file-upload');
 	var $imageResult = $('.image-result');
 	var $message = $('.message');
+	var $inputAbout = $('.story-about-input');
+	var $ideaButton = $('.user-story-idea .btn');
+	var $showIdea = $('.show-idea');
 
 	var init = function() {
 		setupEvents();
+		randomPlaceholder();
+		$inputAbout.focus();
 	};
 
 	var setupEvents = function() {
-		$prompt.on('click', function() {
-			if(!_writingMode) {
-				_writingMode = true;
-				_promptKey = $(this).index();
-				$prompt.not(this).addClass('hide');
-				$storyForm.removeClass('hide');	
-			}
-		});	
-
 		$submit.on('click', function() {
 			if(!_submitted) {
 				submitData();	
@@ -59,51 +59,61 @@
 		        }
 		    }
 		});
+
+		$ideaButton.on('click', showIdea );
 	};
 
 	var submitData = function() {
 		var formData = new FormData();
 
 		$infoQuestionInput.each(function() {
-			var val = $(this).val();
+			var val = $(this).val().trim();
 			var key = $(this).attr('data-key');
 			formData.append(key, val);
 		});
 
-		var promptVal = addHTML($promptTextarea.val());
+		var about = $inputAbout.val().trim();
+		formData.append('about', about);
 
-		formData.append('story_text', promptVal);
-		formData.append('story_key', _promptKey);
+		var val = $promptTextarea.val().trim();
+		//cant submit empty story
 
-		if(_imgFile) {
-			var caption = $imageCaption.val().trim();
-			formData.append('image_file', _imgFile);
-			formData.append('image_caption', caption);	
+		if(val.length) {
+			var promptVal = addHTML(val);
+			formData.append('story_text', promptVal);
+
+			if(_imgFile) {
+				var caption = $imageCaption.val().trim();
+				formData.append('image_file', _imgFile);
+				formData.append('image_caption', caption);	
+			}
+
+			$message.text('Submission in progress...').removeClass('success error');
+			$.ajax({
+				url: _uploadUrl,
+				type: 'POST',
+				data:  formData,
+				contentType: false,
+				cache: false,
+				processData:false,
+				success: function(data){
+					_submitted = true;
+					$message.text('Success!').addClass('success');
+					clearContent();
+					setTimeout(function() {
+						$message.text('Refresh to submit another story.').removeClass('success error');
+					}, 3000);
+				},
+				error: function(err){
+					$message.text('Something went wrong. Please contact [email here].').addClass('error');
+					if(console && console.log) {
+						console.log('error', err);
+					}
+				} 
+			});
+		} else {
+			$message.text('You must enter a story before submitting.').addClass('error');
 		}
-
-		$message.text('Submission in progress...').removeClass('success error');
-		$.ajax({
-			url: _uploadUrl,
-			type: 'POST',
-			data:  formData,
-			contentType: false,
-			cache: false,
-			processData:false,
-			success: function(data){
-				_submitted = true;
-				$message.text('Success!').addClass('success');
-				clearContent();
-				setTimeout(function() {
-					$message.text('Refresh to submit another story.').removeClass('success error');
-				}, 3000);
-			},
-			error: function(err){
-				$message.text('Something went wrong. Please contact [email here].').addClass('error');
-				if(console && console.log) {
-					console.log('error', err);
-				}
-			} 
-		});
 	};
 
 	var addHTML = function(str) {
@@ -142,6 +152,23 @@
 		$infoQuestionInput.each(function() {
 			$(this).val('');
 		});
+	};
+
+	var randomPlaceholder = function() {
+		var str = _placeholders[Math.floor(Math.random() * _placeholders.length)];
+		$inputAbout.attr('placeholder', str);
+		_placeholderTimeout = setTimeout(randomPlaceholder, 4000);
+	};
+
+	var showIdea = function() {
+		var str = _ideas[_currentIdea] + '<span class="click-again">[click again to get another idea]</span>';
+
+		$showIdea.html(str);
+
+		_currentIdea++;
+		if(_currentIdea >= _ideas.length) {
+			_currentIdea = 0;
+		}
 	};
 
 	init();

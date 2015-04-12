@@ -2,116 +2,77 @@
 	<h1 class='hed'>
 		<a href='/'>Good Luck Soup</a>
 	</h1>
-	<h2 class='explainer-hed'>
-		Contribute a story
-	</h2>
-	<div class='info'>
-		<p>
-			Answer the questions below to contribute to the project. You must have permission to use any photos you upload. All submissions will be moderated before they appear.
-		</p>
-		<div class='info-form'>
-			<h3>General Information</h3>
+	<p>
+		Good Luck Soup is a transmedia documentary project on the journey of Japanese Americans and Japanese Canadians before, during, and after World War II.
+	</p>
+	<section>
+		<h2 class='explainer-hed'>
+			Contribute a story
+		</h2>
+		<div class='info'>
+			<p>
+				Contribute to our collection of memories of the Japanese American and Japanese Canadian experience by sharing your own story through photographs and text. Below is a sample story:
+			</p>
+			<div class='sample'>
+				<h3 class='sample-title'>Dressed in the best</h3>
+				<div class='sample-img-container'>
+					<img src='../assets/img/contribute/sample.jpg'>
+					<div class='sample-caption'>
+						My mom, sister, and I at a Park in Cleveland.
+					</div>
+				</div>
+				<p>
+					When I was growing up in Cleveland my mother, Eva, made sure we had the opportunity to be exposed to and learn cultural items that she couldn't while growing up in California farm country. Keeping in mind that her family lost just about all their possessions during the war she enjoyed dressing us in the best clothes that she and my dad could afford. She especially spent a lot of effort taking my sister Beverly to Japanese dance and piano classes.
+				</p>
+				<p>
+					Since she couldn’t afford babysitters Mom had to take me to Beverly’s classes and I had to learn how to bide my time and be stoic during the countless hours of waiting to get back home. Beverly’s kimono’s were always very colorful and many of our parent’s friends would fuss over her like a Kokeshi doll. I used to think how beautiful I would be too if I wore a colorful Kimono.
+				</p>
+			</div>
+		</div>
+	</section>
+	<section>
+		<div class='user-story'>
+			<h2 class='explainer-hed'>Share your own</h2>
+			<div class='story-about'>
+				<p>This is a story about <input placeholder='my grandmother' class='story-about-input'></p>
+			</div>
+			<div class='user-story-idea'>
+				<div class='btn'>Not sure what to write?</div>
+				<p class='show-idea'></p>
+			</div>
+			<div class='user-story-form'>
+				<textarea class='prompt-textarea' maxlength='400'></textarea>
+				<p>Upload a related photo (optional):</p>
+				<input type='file' id='file-upload' class='hide' name='photo' />
+				<div class='btn choose-image'>Choose photo</div>
+				<p class='image-result'></p>
+				<p>Caption for the photo:</p>
+				<input class='image-caption' placeholder='Describe the photo (who, what, where, when).'>
+			</div>
+
+
 			<div class='info-question'>
-				<p>What is your name? (leave blank for anonymous)</p>
+				<p>What would you like to title your story?</p>
+				<input class='answer' data-key='hed' placeholder='My story'>
+			</div>
+
+			<div class='info-question'>
+				<p>What is your name? <span>(leave blank for anonymous)</span></p>
 				<input class='answer' data-key='name' placeholder='Jane Doe'>
 			</div>
+
 			<div class='info-question'>
-				<p>What is the name of the subject of this story? (if yourself, write your name)</p>
-				<input class='answer' data-key='subject' placeholder='John Doe'>
+				<p>What is your email? <span>(This will not be displayed and only used if we have a question)</span></p>
+				<input class='answer' data-key='email' placeholder='janedoe@email.com'>
 			</div>
-			<div class='info-question'>
-				<p>What is the subject's relationship to you?</p>
-				<!-- <input class='answer' data-key='relationship' placeholder='Grandmother'> -->
-				<select class='answer' name='select' data-key='relationship'>
-					<option value='' selected>Choose...</option> 
-					<option value='great grandmother'>great grandmother</option>
-					<option value='great grandfather'>great grandfather</option>
-					<option value='grandmother'>grandmother</option>
-					<option value='grandfather'>grandfather</option>
-					<option value='mother'>mother</option>
-					<option value='father'>father</option>
-					<option value='sister'>brother</option>
-					<option value='brother'>sister</option>
-					<option value='aunt'>aunt</option>
-					<option value='uncle'>uncle</option>
-					<option value='cousin'>cousin</option>
-					<option value='daughter'>daughter</option>
-					<option value='son'>son</option>
-					<option value='me'>me</option>
-				</select>
-			</div>
-			<div class='info-question'>
-				<p>If the subject was at an internment camp, which one?</p>
-				<select class='answer' name='select' data-key='camp'>
-					<option value='' selected>Choose...</option> 
-					<option value='Gila River, Arizona'>Gila River, Arizona</option>
-					<option value='Granada, Colorado'>Granada, Colorado</option>
-					<option value='Heart Mountain, Wyoming'>Heart Mountain, Wyoming</option>
-					<option value='Jerome, Arkansas'>Jerome, Arkansas</option>
-					<option value='Manzanar, California'>Manzanar, California</option>
-					<option value='Minidoka, Idaho'>Minidoka, Idaho</option>
-					<option value='Poston, Arizona'>Poston, Arizona</option>
-					<option value='Rohwer, Arkansas'>Rohwer, Arkansas</option>
-					<option value='Topaz, Utah'>Topaz, Utah</option>
-					<option value='Tule Lake, California'>Tule Lake, California</option>
-				</select>
-				</div>
-			<div class='info-question'>
-				<p>What city / state did the subject live in before camp?</p>
-				<input class='answer' data-key='city_before' placeholder='Los Angeles, CA'>
-			</div>
-			<div class='info-question'>
-				<p>What city / state did the subject live in when after camp?</p>
-				<input class='answer' data-key='city_after' placeholder='Cleveland, OH'>
-			</div>
-			<div class='info-question'>
-				<p>What is your e-mail address? (This will not be displayed. Only used if we have a question)</p>
-				<input class='answer' data-key='email' placeholder='example@something.com'>
-			</div>
-		</div>
-	</div>
-	<div class='user-story'>
-		<div class='user-story-prompts'>
-			<h3>Story prompts</h3>
-			<p>Select a story prompt below to respond to. If you want to respond to multiple prompts, simply refresh the page after your submission.
-			<div class='prompts'>
-				<p class='prompt'>
-					This is a writing prompt to be replaced with a real question?
-				</p>
-				<p class='prompt'>
-					This is a writing prompt to be replaced with a real question?
-				</p>
-				<p class='prompt'>
-					This is a writing prompt to be replaced with a real question?
-				</p>
-				<p class='prompt'>
-					This is a writing prompt to be replaced with a real question?
-				</p>
-				<p class='prompt'>
-					This is a writing prompt to be replaced with a real question?
-				</p>
-				<p class='prompt'>
-					This is a writing prompt to be replaced with a real question?
-				</p>
-				<p class='prompt'>
-					This is a writing prompt to be replaced with a real question?
-				</p>
-			</div>
-		</div>
-		<div class='user-story-form hide'>
-			<textarea class='prompt-textarea' maxlength='400'></textarea>
-			<p>Upload an image (optional):</p>
-			<input type='file' id='file-upload' class='hide' name='photo' />
-			<div class='btn choose-image'>Choose image</div>
-			<p class='image-result'></p>
-			<p>Caption for the image:</p>
-			<input class='image-caption' placeholder='Caption goes here to describe image.'>
+
 			<div class='message'></div>
 			<div class='submit-container'>
 				<div class='btn'>Submit</div>
 			</div>
+
 		</div>
-	</div>
+	</section>
 </div>
 <!-- smoosh -->
 <script src='assets/js/libs/jquery-1.11.2.min.js'></script>
