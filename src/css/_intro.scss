@@ -63,9 +63,10 @@
 .hed-text {
 	line-height: 0.9;
 	font-size: 8em;
-	font-family: $mono;
-	font-weight: 700;
+	font-family: $sans-alt;
+	font-weight: 300;
 	color: $white;
+	color: $primary;
 	margin-bottom: 0.5em;
 	opacity: 0.9;
 	@include breakpoint-small {
