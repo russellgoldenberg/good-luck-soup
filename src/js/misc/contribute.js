@@ -1,7 +1,7 @@
 (function () {
 	var _promptKey;
 	var _writingMode;
-	var _uploadUrl = 'http://goodlucksoup.com/dev/php/upload.php';
+	var _uploadUrl = 'http://goodlucksoup.com/php/upload.php';
 	var _submitted = false;
 	var _imgFile;
 	var _placeholderTimeout;
@@ -24,11 +24,12 @@
 	var $inputAbout = $('.story-about-input');
 	var $ideaButton = $('.user-story-idea .btn');
 	var $showIdea = $('.show-idea');
+	var $wordcount = $('.wordcount');
+	var $wordcountSpan = $('.wordcount span');
 
 	var init = function() {
 		setupEvents();
 		randomPlaceholder();
-		$inputAbout.focus();
 	};
 
 	var setupEvents = function() {
@@ -61,6 +62,17 @@
 		});
 
 		$ideaButton.on('click', showIdea );
+
+		$promptTextarea.on('keyup', function() {
+			var count = $(this).val().trim().split(' ').length;
+			$wordcountSpan.text(count);
+			if(count > 100 && count < 300) {
+				$wordcount.addClass('good');
+			} else {
+				$wordcount.removeClass('good');
+			}
+		});
+
 	};
 
 	var submitData = function() {
@@ -105,7 +117,7 @@
 					}, 3000);
 				},
 				error: function(err){
-					$message.text('Something went wrong. Please contact [email here].').addClass('error');
+					$message.text('Something went wrong. Please contact matthew.hash@gmail.com.').addClass('error');
 					if(console && console.log) {
 						console.log('error', err);
 					}
@@ -147,11 +159,8 @@
 	var clearContent = function() {
 		_writingMode = false;
 		$imageResult.text('');
-		$promptTextarea.val('');
 		$prompt.removeClass('hide');
-		$infoQuestionInput.each(function() {
-			$(this).val('');
-		});
+		$('input, textarea').val('');
 	};
 
 	var randomPlaceholder = function() {

@@ -243,7 +243,6 @@ G.ui = (function () {
 
 				G.story.currentIndex(-1);
 
-				console.log(G.story.currentIndex());
 				$dom.currentStory = $dom.story.eq(G.story.currentIndex());
 
 				if(G.story.currentIndex() < G.story.numChapters() - 1)  {

@@ -4,7 +4,8 @@
 	.hed {
 		font-size: 3em;
 		font-family: $sans-alt;
-		font-weight: 300;
+		font-weight: 400;
+		text-transform: uppercase;
 		margin: 1em 0.5em;
 		a {
 			color: $primary;
@@ -12,7 +13,9 @@
 		}
 	}
 	.explainer-hed {
+		font-family: $sans;
 		text-align: center;
+		@extend %title-case;
 		// text-decoration: underline;
 	}
 
@@ -23,6 +26,8 @@
 	}
 
 	h3 {
+		font-family: $sans;
+		@extend %title-case;
 		font-size: 1.6em;
 		margin: 2em 0 1em 0;
 	}
@@ -38,7 +43,8 @@
 	}
 
 	textarea {
-		height: 20em;
+		margin-top: 0.5em;
+		height: 15em;
 	}
 
 	.user-story {
@@ -168,5 +174,20 @@
 			font-size: 0.85em;
 			color: #999;
 		}
+	}
+
+	.wordcount {
+		margin: 0;
+		font-size: 1em;
+		margin-bottom: 1em;
+		text-align: right;
+		color: #990000;
+		&.good {
+			color: #009900;
+		}
+	}
+
+	input.chapter {
+		width: 100px;
 	}
 }

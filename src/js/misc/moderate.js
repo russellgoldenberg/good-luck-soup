@@ -1,5 +1,5 @@
 (function () {
-	var _moderateUrl = 'http://goodlucksoup.com/dev/php/moderate.php';
+	var _moderateUrl = 'http://goodlucksoup.com/php/moderate.php';
 
 	$submit = $('.submit');
 	$inputCode = $('.input-code');
@@ -35,24 +35,36 @@
 		$submissions.on('click', '.approve-btn', function() {
 			var featured = +$(this).attr('data-featured');
 			var id = $(this).attr('data-id');
-			$.ajax({
-				url: _moderateUrl,
-				type: 'POST',
-				data:  {'approve': id, 'featured': featured},
-				success: function(data){
-					if(data.error) {
-						alert(data.error);
-					} else {
-						if(data.result) {
-							$('.submission-' + id).remove();
-							alert('approved');	
+			var parent = $(this).parentsUntil('.submissions')[2];
+			var chapter = $(parent).find('.chapter').val().trim();
+			var content = addHTML($(parent).find('.content').val().trim());
+			if(chapter) {
+				chapter = parseInt(chapter) - 1;
+				console.log(chapter);
+				$.ajax({
+					url: _moderateUrl,
+					type: 'POST',
+					data:  {'approve': id, 'featured': featured, 'chapter': chapter, 'content': content},
+					success: function(data){
+						console.log(data);
+						if(data.error) {
+							alert(data.error);
+						} else {
+							if(data.result) {
+								$('.submission-' + id).remove();
+								alert('approved');
+							} else {
+								alert('no data');
+							}
 						}
-					}
-				},
-				error: function(err){
-					alert('error talk to russell');
-				} 
-			});
+					},
+					error: function(err){
+						alert('error talk to russell');
+					} 
+				});
+			} else {
+				alert('enter chapter');
+			}
 		});
 	};
 
@@ -63,34 +75,52 @@
 			var html = '<div class="submission submission-' + el.id + '">';
 			html += '<h3>Info</h3>';
 			html += '<div class="name">name: ' + el.name + '</div>';
-			html += '<div class="subject">subject: ' + el.subject + '</div>';
-			html += '<div class="relationship">relationship: ' + el.relationship + '</div>';
 			html += '<div class="email">email: ' + el.email + '</div>';
 			html += '<div class="date">submitted: ' + el.datetime + '</div>';
-			html += '<div class="chapter">chapter: ' + (+el.chapter + 1) + '</div>';
-			html += '<div class="camp">camp: ' + el.camp + '</div>';
-			html += '<div class="city-before">city-before: ' + el['city_before'] + '</div>';
-			html += '<div class="city-after">city-after: ' + el['city_after'] + '</div>';
 
 			html += '<h3>Story</h3>';
-			html += '<div class="content">' + el.content + '</div>';
+			html += '<div class="story-hed">Title: ' + el.hed + '</div>';
+			html += '<div class="about">This is a story about ' + el.about + '</div>';
+			html += '<textarea class="content">' +  editableContent(el.content)  + '</textarea>';
+
 			if(el.image) {
-				html += '<div class="image"><img src="http://goodlucksoup.com/dev/uploaded-images/' + el.image + '">';
+				html += '<div class="image"><img src="http://goodlucksoup.com/uploaded-images/' + el.image + '">';
 				if(el['image_caption']) {
 					html += '<div class="image-caption">Caption: ' + el['image_caption'] + '</div>';	
 				}
 			}
+			html += '<p>Enter chapter number:</p><input class="chapter">';
 			html += '<div class="approve-btn-container">';
 			html += '<div class="btn approve-btn" data-id="' + el.id + '" data-featured="1">Approve (feature)</div></div>';
 			html += '<div class="btn approve-btn" data-id="' + el.id + '" data-featured="0">Approve (database)</div></div>';
 			html += '</div>';
+
 			$submissions.append(html);
 		});
 
 		//show data
 		//make buttons for each entry
 		//approve / delete php
-	}
+	};
+
+	var editableContent = function(str) {
+		str = str.replace(/\<p\>/g, '');
+		str = str.replace(/\<\/p\>/g, '\n\n');
+		return str;
+	};
+
+	var addHTML = function(str) {
+		var output = '';
+		str = str.split('\n');
+		str.forEach(function(s) {
+			s = s.trim();
+			if(s.length) {
+				output += '<p>' + s + '</p>'	
+			}
+		});
+
+		return output;
+	};
 
 	init();
 	
