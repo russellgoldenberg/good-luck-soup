@@ -1,5 +1,5 @@
-'use strict';
 G.ui = (function () {
+	'use strict';
 
 	var Actions;
 

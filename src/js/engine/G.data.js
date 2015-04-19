@@ -1,4 +1,3 @@
-'use strict';
 G.data = {
 	duration: { tenth: 100, quarter: 250, third: 333, half: 500, three_quarters: 750, second: 1000 },
 	

@@ -1,5 +1,5 @@
-'use strict';
 window.G = (function () {
+	'use strict';
 	
 	var _mode = 'intro';
 	var _isMobile = isMobile.any();

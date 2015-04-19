@@ -134,7 +134,7 @@
 		str.forEach(function(s) {
 			s = s.trim();
 			if(s.length) {
-				output += '<p>' + s + '</p>'	
+				output += '<p>' + s + '</p>';
 			}
 		});
 
@@ -147,10 +147,10 @@
 			if(t === 'image/jpg' || t === 'image/jpeg' || t === 'image/png' || t === 'image/gif') {
 				return null;
 			} else {
-				return 'is the wrong file type. It Must be a jpg, png, or gif.'
+				return 'is the wrong file type. It Must be a jpg, png, or gif.';
 			}
 		} else {
-			return 'is too big. It Must be less than 2 mb.'
+			return 'is too big. It Must be less than 2 mb.';
 		}
 
 		return null;

@@ -1,5 +1,5 @@
-'use strict';
 G.audio = (function () {
+	'use strict';
 
 	var init = function() {
 		Chapter.setup();

@@ -10,6 +10,7 @@ gulp.task('dev-init', function() {
 		'dev-css',
 		'dev-templates',
 		'dev-js',
+		'dev-libs',
 		'dev-img',
 		'dev-video',
 		'dev-audio',

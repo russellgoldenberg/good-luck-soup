@@ -104,8 +104,8 @@
 	};
 
 	var editableContent = function(str) {
-		str = str.replace(/\<p\>/g, '');
-		str = str.replace(/\<\/p\>/g, '\n\n');
+		str = str.replace(/<p\>/g, '');
+		str = str.replace(/<\/p\>/g, '\n\n');
 		return str;
 	};
 
@@ -115,7 +115,7 @@
 		str.forEach(function(s) {
 			s = s.trim();
 			if(s.length) {
-				output += '<p>' + s + '</p>'	
+				output += '<p>' + s + '</p>';
 			}
 		});
 

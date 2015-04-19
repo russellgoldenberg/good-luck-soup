@@ -1,6 +1,5 @@
-'use strict';
 G.story = (function () {
-	
+	'use strict';
 	var _data;	
 	var _currentIndex = 0;
 

@@ -1,5 +1,5 @@
-'use strict';
 G.intro = (function () {
+	'use strict';
 
 	var _filepath = {
 		img: 'assets/img/intro/',
