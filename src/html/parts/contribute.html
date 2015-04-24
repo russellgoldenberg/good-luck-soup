@@ -5,14 +5,11 @@
 	<p>
 		Good Luck Soup is a transmedia documentary project on the journey of Japanese Americans and Japanese Canadians before, during, and after World War II.
 	</p>
+	<p>
+		Contribute to our collection of memories by sharing your own story through photographs and text. Below is a sample story:
+	</p>
 	<section>
-		<h2 class='explainer-hed'>
-			Contribute a story
-		</h2>
 		<div class='info'>
-			<p>
-				Contribute to our collection of memories of the Japanese American and Japanese Canadian experience by sharing your own story through photographs and text. Below is a sample story:
-			</p>
 			<div class='sample'>
 				<h3 class='sample-title'>Dressed in the best</h3>
 				<div class='sample-img-container'>
@@ -34,38 +31,36 @@
 		<div class='user-story'>
 			<h2 class='explainer-hed'>Share your own</h2>
 			<div class='story-about'>
-				<p>This is a story about <input placeholder='my grandmother' class='story-about-input'></p>
+				<p>This is a story about
+					<input placeholder='my grandmother' maxlength='30' class='story-about-input'/>
+					<span class='btn'>?</span>
+				</p>
 			</div>
 			<div class='user-story-idea'>
-				<p>We recommend keeping it around 100-300 words. Check the counter below to see where you stand.</p>
-				<div class='btn'>Not sure what to write?</div>
 				<p class='show-idea'></p>
+				<p>We recommend keeping it around 100-300 words. Check the counter below to see where you stand.</p>
 			</div>
 			<div class='user-story-form'>
 				<textarea class='prompt-textarea' maxlength='400'></textarea>
-				<p class='wordcount'><span>0</span> words<p>
-				<p>Upload a related photo (optional):</p>
+				<p class='wordcount'><span>0</span> words</p>
+				<p>Upload a related photo (recommended):</p>
 				<input type='file' id='file-upload' class='hide' name='photo' />
 				<div class='btn choose-image'>Choose photo</div>
 				<p class='image-result'></p>
-				<p>Caption for the photo:</p>
-				<input class='image-caption' placeholder='Describe the photo (who, what, where, when).'>
-			</div>
-
-
-			<div class='info-question'>
-				<p>What would you like to title your story?</p>
-				<input class='answer' data-key='hed' placeholder='My story'>
+				<div class='caption-container hide'>
+					<p>Caption for the photo:</p>
+					<input class='image-caption' maxlength='120' placeholder='Describe the photo (who, what, where, when).'>
+				</div>
 			</div>
 
 			<div class='info-question'>
 				<p>What is your name? <span>(leave blank for anonymous)</span></p>
-				<input class='answer' data-key='name' placeholder='Jane Doe'>
+				<input class='answer' data-key='name' maxlength='30' placeholder='Jane Doe'>
 			</div>
 
 			<div class='info-question'>
 				<p>What is your email? <span>(This will not be displayed and only used if we have a question)</span></p>
-				<input class='answer' data-key='email' placeholder='janedoe@email.com'>
+				<input class='answer' data-key='email' maxlength='40' placeholder='janedoe@email.com'>
 			</div>
 
 			<div class='message'></div>

@@ -22,10 +22,11 @@
 	var $imageResult = $('.image-result');
 	var $message = $('.message');
 	var $inputAbout = $('.story-about-input');
-	var $ideaButton = $('.user-story-idea .btn');
+	var $ideaButton = $('.story-about .btn');
 	var $showIdea = $('.show-idea');
 	var $wordcount = $('.wordcount');
 	var $wordcountSpan = $('.wordcount span');
+	var $captionContainer = $('.caption-container');
 
 	var init = function() {
 		setupEvents();
@@ -56,6 +57,7 @@
 		        		_imgFile = null;
 		        	} else {
 		        		$imageResult.text('Your image "' + _imgFile.name + '" meets criteria.').addClass('success').removeClass('error');
+		        		$captionContainer.removeClass('hide');
 		        	}
 		        }
 		    }
@@ -72,25 +74,41 @@
 				$wordcount.removeClass('good');
 			}
 		});
-
 	};
 
 	var submitData = function() {
 		var formData = new FormData();
 
+		var invalid;
+
+		var about = $inputAbout.val().trim();
+		formData.append('hed', about);
+
+		if(!about.length && !invalid) {
+			invalid = 'You must tell us what the story is about above.';
+		}
+
+		var val = $promptTextarea.val().trim();
+
+		if(!val.length && !invalid) {
+			invalid = 'You must enter a story.';
+		}
+
 		$infoQuestionInput.each(function() {
 			var val = $(this).val().trim();
 			var key = $(this).attr('data-key');
+
 			formData.append(key, val);
+
+			if(key === 'email') {
+				if(val.indexOf('@') < 0 && !invalid) {
+					invalid = 'You must enter an email address.';
+				}
+			}
 		});
 
-		var about = $inputAbout.val().trim();
-		formData.append('about', about);
-
-		var val = $promptTextarea.val().trim();
-		//cant submit empty story
-
-		if(val.length) {
+		if(!invalid) {
+			//cant submit empty story
 			var promptVal = addHTML(val);
 			formData.append('story_text', promptVal);
 
@@ -114,7 +132,7 @@
 					clearContent();
 					setTimeout(function() {
 						$message.text('Refresh to submit another story.').removeClass('success error');
-					}, 3000);
+					}, 2000);
 				},
 				error: function(err){
 					$message.text('Something went wrong. Please contact matthew.hash@gmail.com.').addClass('error');
@@ -124,7 +142,7 @@
 				} 
 			});
 		} else {
-			$message.text('You must enter a story before submitting.').addClass('error');
+			$message.text(invalid).addClass('error');
 		}
 	};
 
@@ -166,7 +184,7 @@
 	var randomPlaceholder = function() {
 		var str = _placeholders[Math.floor(Math.random() * _placeholders.length)];
 		$inputAbout.attr('placeholder', str);
-		_placeholderTimeout = setTimeout(randomPlaceholder, 4000);
+		_placeholderTimeout = setTimeout(randomPlaceholder, 2000);
 	};
 
 	var showIdea = function() {
