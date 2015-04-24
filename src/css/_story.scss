@@ -15,24 +15,12 @@
 	background: $white;
 	&.current {
 		display: block;
-		// .story-top-text {
-		// 	display: block;
-		// }
-		// .story-top-next {
-		// 	display: none;
-		// }
 	}
 	&.next {
 		display: block;
 		.story-bottom {
 			display: none;
 		}
-		// .story-top-text {
-		// 	display: none;
-		// }
-		// .story-top-next {
-		// 	display: block;
-		// }
 		.story-top-bg {
 			opacity: 0.7;
 			@include transition-property(all);
@@ -40,6 +28,7 @@
 			@include transition-timing-function(ease-in);
 		}
 		.story-top {
+			height: 210px;
 			&:hover {
 				.story-top-bg {
 					@include transform(scale(1.02));
@@ -130,10 +119,6 @@
 }
 
 .story-top-hed {
-	// line-height: 1;
-	// @extend %title-case;
-	// font-weight: 800;
-
 	line-height: 1;
 	letter-spacing: 0.05em;
 	font-size: 0.75em;
@@ -147,6 +132,7 @@
 	background-color: $black;
 	cursor: pointer;
 	overflow: hidden;
+	height: 140px;
 	@include transition-property(height);
 	@include transition-duration(0.5s);
 	@include transition-timing-function(ease-in);
@@ -253,15 +239,6 @@
 		margin-top: -1px;
 		opacity: 0.3;
 	}
-	// .audio-player-progress-fg {
-	// 	width: 0;
-	// 	height: 100%;
-	// 	position: absolute;
-	// 	background-color: $primary;
-	// }
-	// .audio-player-text {
-	// 	position: relative;
-	// }
 	.audio-player-btn {
 		position: relative;
 		left: 0;
@@ -297,7 +274,6 @@
 	}
 	.user-divider {
 		font-style: normal;
-		// color: $gray-darkest;
 	}
 }
 

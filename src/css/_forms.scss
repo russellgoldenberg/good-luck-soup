@@ -1,13 +1,14 @@
 .moderate-container, .contribute-container {
 	max-width: $content-width-medium;
-	margin: 0 auto;
+	margin-left: auto;
+	margin-right: auto;
 	padding: 0 0.5em;
 	.hed {
 		font-size: 3em;
 		font-family: $sans-alt;
 		font-weight: 400;
 		text-transform: uppercase;
-		margin: 1em 0.5em;
+		padding-top: 1em;
 		a {
 			color: $primary;
 			text-decoration: none;
@@ -164,11 +165,14 @@
 	}
 
 	.show-idea {
-		font-size: 0.9em;
-		color: #666;
+		color: #333;
+		background: #efefef;
+		padding: 0.5em;
 		span {
+			margin: 0.5em 0;
+			font-size: 0.8em;
 			display: block;
-			color: #999;
+			color: #777;
 			font-size: 0.9em;
 		}
 	}

@@ -8,8 +8,8 @@ G.ui = (function () {
 	var _transition;
 	var _introWaypoints = [];
 	
-	var STORY_TOP_HEIGHT = 0.35;
-	var MAX_STORY_TOP_HEIGHT = 150;
+	var STORY_TOP_HEIGHT = 140;
+	var HEADER_HEIGHT = 42;
 
 	var setupDom = function() {
 		$dom = {
@@ -68,10 +68,6 @@ G.ui = (function () {
 		});
 	};
 
-	var getStoryTopHeight = function() {
-		return Math.max(_dimensions.h * STORY_TOP_HEIGHT * 0.5, MAX_STORY_TOP_HEIGHT);
-	};
-
 	var Intro = {
 		insertVideos: function() {
 			$dom.videoBgContainer.each(function() {
@@ -108,7 +104,6 @@ G.ui = (function () {
 			self.enableScroll(false);
 			G.story.generate(function() {
 				$dom.story = $('.story');
-				$dom.storyTop = $('.story-top');
 
 				$dom.currentStory = $dom.story.eq(0);
 				$dom.nextStory = $dom.story.eq(1);
@@ -132,11 +127,9 @@ G.ui = (function () {
 
 	var Story = {
 		revealAll: function() {
-			var offset = -1 * (_dimensions.h);
+			var offset = -1 * (_dimensions.h - HEADER_HEIGHT);
 			var offsetNext = offset + 'px';
 			var offsetCurrent = offset * 0.5 + 'px';
-
-			$dom.currentStory.find('.story-top').css('height', getStoryTopHeight());
 
 			$dom.currentStory.velocity({ 
 				properties: { 
@@ -164,7 +157,7 @@ G.ui = (function () {
 
 			self.enableScroll(false);
 
-			var offset = -1 * (_dimensions.h - _dimensions.h * STORY_TOP_HEIGHT);
+			var offset = -1 * (_dimensions.h - HEADER_HEIGHT - STORY_TOP_HEIGHT * 1.5);
 			var offsetNext = offset + 'px';
 			var offsetCurrent = offset * 0.5 + 'px';
 
@@ -172,22 +165,20 @@ G.ui = (function () {
 			$dom.nextStory.find('.story-top-next').addClass('off');
 			$dom.nextStory.find('.story-top-text').removeClass('off');
 
-			$dom.nextStory.find('.story-top').css('height', getStoryTopHeight());
-
 			if($dom.prevStory) {
 				$dom.prevStory.removeClass('prev');	
 			}
 
 			$dom.nextStory.velocity({ 
 				properties: { 
-					'translateY': offsetNext,
+					'translateY': offset,
 					'translateZ': 0
 				},
 				options: { 'duration': G.data.duration.half, complete: Story.transitionComplete }
 			});
 			$dom.currentStory.velocity({ 
 				properties: {
-					'translateY': offsetCurrent,
+					'translateY': '-100px',
 					'translateZ': 0,
 					'scale': 0.8,
 					'opacity': 0
@@ -238,9 +229,12 @@ G.ui = (function () {
 
 			self.jumpTo($dom.prevStory[0], function() {
 				self.enableScroll(true);
-				$dom.currentStory.removeClass('current');	
-				$dom.nextStory.removeClass('next');
+				$dom.currentStory.removeClass('current');
 
+				if($dom.nextStory) {
+					$dom.nextStory.removeClass('next');	
+				}
+				
 				G.story.currentIndex(-1);
 
 				$dom.currentStory = $dom.story.eq(G.story.currentIndex());
@@ -253,7 +247,6 @@ G.ui = (function () {
 					$dom.nextStory.find('.story-top-next').removeClass('off');
 					$dom.nextStory.find('.story-top-text').addClass('off');
 					$dom.nextStory.find('.story-top-prev').addClass('off');
-					$dom.nextStory.find('.story-top').css('height', _dimensions.h * STORY_TOP_HEIGHT);
 				} else {
 					$dom.nextStory = null;
 				}
@@ -271,6 +264,7 @@ G.ui = (function () {
 		},
 
 		transitionComplete: function() {
+			console.log(G.story.currentIndex());
 			self.enableScroll(true);
 			$dom.currentStory.removeClass('current');
 			$dom.currentStory = $dom.story.eq(G.story.currentIndex());
@@ -295,7 +289,6 @@ G.ui = (function () {
 			setupDom();
 			setupEvents();
 			self.resize();
-			// Intro.chapters();
 		},
 
 		resize: function() {
@@ -311,15 +304,13 @@ G.ui = (function () {
 
 			//stories are showing
 			if(G.mode() === 'story') {
-				$dom.storyTop.css('height', _dimensions.h * STORY_TOP_HEIGHT);
-				$dom.currentStory.find('.story-top').css('height', getStoryTopHeight());
 				$('.story-content-img-inner .main-img').css('max-height', _dimensions.h * 0.8);
 			}
 		},
 
 		jumpTo: function(el, cb) {
 			var complete = false;
-			var top = $(el).offset().top;
+			var top = $(el).offset().top - HEADER_HEIGHT;
 			$dom.htmlBody.animate({
 				scrollTop: top
 			}, G.data.duration.half, function() {

@@ -188,9 +188,9 @@
 	};
 
 	var showIdea = function() {
-		var str = _ideas[_currentIdea] + '<span class="click-again">[click again to get another idea]</span>';
+		var str = '<span class="idea-prompt">Here is a prompt to get you started:</span>' + _ideas[_currentIdea] + '<span class="click-again">[click the "?" again to get another prompt]</span>';
 
-		$showIdea.html(str);
+		$showIdea.html(str).removeClass('hide');
 
 		_currentIdea++;
 		if(_currentIdea >= _ideas.length) {
