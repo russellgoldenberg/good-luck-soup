@@ -2,13 +2,53 @@ G.audio = (function () {
 	'use strict';
 
 	var init = function() {
+		Ambient.setup();
 		Chapter.setup();
+	};
+
+	var Ambient = {
+		path: 'assets/audio/ambient/',
+		player: $('#audio-player-ambient'),
+		current: null,
+		playing: false,
+
+		setup: function() {
+			Ambient.player.jPlayer({
+	            swfPath: 'js/lib',
+	            loop: true,
+	            supplied: 'mp3',
+	            error: function(e) {
+	            	log('audio error');
+	            },
+				abort: function(e) {
+					log('audio abort');
+				},
+				play: function(e) {
+					
+				},
+				pause: function(e) {
+					
+				},
+				ended: function(e) {
+
+				}
+        	});
+		},
+
+		hack: function() {
+			log('hack the planet');
+			if(!Ambient.hacked && G.mobile()) {
+				Ambient.player.jPlayer('setMedia', {
+		            mp3: Ambient.path + 'hack.mp3',
+		        }).jPlayer('pause');
+			}
+			Ambient.hacked = true;
+		}
 	};
 
 	var Chapter = {
 		path: 'assets/audio/story/',
 		player: $('#audio-player-chapter'),
-		timeout: null,
 		current: null,
 		playing: false,
 
@@ -35,12 +75,6 @@ G.audio = (function () {
 					Chapter.toggleIcon();	
 				}
         	});
-		},
-
-		hack: function() {
-			Chapter.player.jPlayer('setMedia', {
-	            mp3: Chapter.path + 'hack.mp3',
-	        }).jPlayer('pause');
 		},
 
 		toggle: function(params) {
@@ -106,7 +140,7 @@ G.audio = (function () {
 
 	var self = {
 		init: init,
-		hack: Chapter.hack,
+		hack: Ambient.hack,
 		pauseChapter: function() {
 			Chapter.pause();
 		},

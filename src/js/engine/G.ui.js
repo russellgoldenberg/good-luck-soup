@@ -37,7 +37,8 @@ G.ui = (function () {
 
 	var setupEvents = function() {
 		$dom.introBtn.on('click', function() {
-			G.audio.hack();
+			G.audio.hack();	
+
 			if(G.intro.loaded) {
 				var action = $(this).attr('data-action');
 				Intro[action](this);
@@ -234,7 +235,7 @@ G.ui = (function () {
 				if($dom.nextStory) {
 					$dom.nextStory.removeClass('next');	
 				}
-				
+
 				G.story.currentIndex(-1);
 
 				$dom.currentStory = $dom.story.eq(G.story.currentIndex());
@@ -264,7 +265,6 @@ G.ui = (function () {
 		},
 
 		transitionComplete: function() {
-			console.log(G.story.currentIndex());
 			self.enableScroll(true);
 			$dom.currentStory.removeClass('current');
 			$dom.currentStory = $dom.story.eq(G.story.currentIndex());

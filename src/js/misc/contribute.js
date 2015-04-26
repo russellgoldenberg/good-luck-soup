@@ -5,7 +5,7 @@
 	var _submitted = false;
 	var _imgFile;
 	var _placeholderTimeout;
-	var _placeholders = ['me','my grandmother','my grandfather','my mother','my father','my cousin(s)','my aunt/uncle','enjoying dinner as a family','food','learning how to ride a bicycle','having difficult conversations about camp','learning how to dance','experience(s) at school','moving to a new home','travelling with my family','my parents childhood','my childhood','growing up with my siblings','my children','my significant other','my childhood after camp','getting my first job','family parties','moving to America','grandchildren','religion','holidays','traditions'];
+	var _placeholders = ['a racist experience','being half-Japanese','wearing a kimono','my family’s New Years Day tradition','what I learned from my grandparents','eating Japanese rice candy','dancing at Obon Odori','relocating after the internment camps','my identity','preserving Japanese heritage','growing up different'];
 	var _ideas = ['What brought your family to the United States/Canada?','What did your family do when they first came to the United States/Canada?','For me, being Japanese American/Canadian means...','Have you or a family member ever been discriminated against? Please explain.','Do you have a personal, or family story about the internment camp experience? Please explain.','After the internment camps, I/my...','I identify as...','How do you preserve your Japanese heritage?'];
 	var _currentIdea = Math.floor(Math.random() * _ideas.length);
 	

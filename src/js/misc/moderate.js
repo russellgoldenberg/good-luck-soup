@@ -33,22 +33,21 @@
 		});
 
 		$submissions.on('click', '.approve-btn', function() {
-			var featured = +$(this).attr('data-featured');
-			var id = $(this).attr('data-id');
-			var parent = $(this).parentsUntil('.submissions')[2];
+			var featured = parseInt($(this).attr('data-featured'));
+			var id = parseInt($(this).attr('data-id'));
+			var parent = $(this).parentsUntil('.submissions')[1];
 			var chapter = $(parent).find('.chapter').val().trim();
 			var content = addHTML($(parent).find('.content').val().trim());
 
 			var hed = $(parent).find('.story-hed-input').val().trim();
 			var caption = '';
 			var captionEl = $(parent).find('.image-caption-input');
-			if(captionEl) {
+			if(captionEl.length) {
 				caption = captionEl.val().trim();
 			}
 
-			if(chapter) {
+			if(chapter.length === 1) {
 				chapter = parseInt(chapter) - 1;
-				console.log(hed, caption);
 				$.ajax({
 					url: _moderateUrl,
 					type: 'POST',
@@ -93,13 +92,14 @@
 				if(el.image) {
 					html += '<div class="image"><img src="http://goodlucksoup.com/uploaded-images/' + el.image + '">';
 					if(el['image_caption']) {
-						html += '<div class="image-caption">Caption: <input class="image-caption-input" value="' + el['image_caption'] + '"></div>';	
+						html += '<div class="image-caption">Caption: <input class="image-caption-input" value="' + el['image_caption'] + '"></div>';
 					}
+					html += '</div>';
 				}
 				html += '<p>Enter chapter number:</p><input class="chapter">';
 				html += '<div class="approve-btn-container">';
-				html += '<div class="btn approve-btn" data-id="' + el.id + '" data-featured="1">Approve (feature)</div></div>';
-				html += '<div class="btn approve-btn" data-id="' + el.id + '" data-featured="0">Approve (database)</div></div>';
+				html += '<div class="btn approve-btn" data-id="' + el.id + '" data-featured="1">Approve (feature)</div>';
+				html += '<div class="btn approve-btn" data-id="' + el.id + '" data-featured="0">Approve (database)</div>';
 				html += '</div>';
 
 				$submissions.append(html);

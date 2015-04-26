@@ -25,6 +25,7 @@ G.story = (function () {
 			_currentIndex = 0;
 			
 			for(var i = 0; i < NUM_CHAPTERS; i++) {
+				log(i);
 				var chapter = testConfig.chapters[i];
 				var story = testStory[i];
 
