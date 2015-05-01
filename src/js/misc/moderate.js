@@ -76,6 +76,7 @@
 	};
 
 	var displaySubmissions = function(data) {
+		console.log(data);
 		if(data.length) {
 			$submissions.empty();
 			data.forEach(function(el) {

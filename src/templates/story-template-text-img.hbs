@@ -1,10 +1,15 @@
 <div class='template-text-img'>
-	<p class='story-content-user'>By <span class='user-name'>{{user}}</span> <span class='user-divider'>&bull;</span> <span class='user-date'>{{date}}</span></p>
+	<p class='story-content-user'>By <span class='user-name'>{{name}}</span> <span class='user-divider'>&bull;</span> <span class='user-date'>{{date}}</span></p>
 	<h2 class='story-content-hed'><span>{{hed}}</span></h2>
+	{{#if image}}
 	<div class='story-content-img-outer'>
 		<div class='story-content-img-inner'>
-			<img class='main-img' src='assets/img/story/{{img}}'>
+			<img class='main-img' src='http://goodlucksoup.com/uploaded-images/{{image}}'>
+			{{#if image_caption}}
+			<p class='story-content-img-caption'>{{image_caption}}</p>
+			{{/if}}
 		</div>
 	</div>
-	<div class='story-content-text'>{{{text}}}</div>
+	{{/if}}
+	<div class='story-content-text'>{{{content}}}</div>
 </div>

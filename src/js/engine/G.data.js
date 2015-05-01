@@ -12,5 +12,30 @@ G.data = {
 		],
 		audio: [
 		]
+	},
+
+	story: {
+		chapters: [{
+			'index': 1,
+			'hed': 'Immigration',
+		}, {
+			'index': 2,
+			'hed': 'Assimilation',
+		}, {
+			'index': 3,
+			'hed': 'Discrimination',
+		}, {
+			'index': 4,
+			'hed': 'Concentration',
+		}, {
+			'index': 5,
+			'hed': 'Migration',
+		}, {
+			'index': 6,
+			'hed': 'Evolution',
+		}, {
+			'index': 7,
+			'hed': 'Tradition',
+		}]
 	}
 };

@@ -19,6 +19,7 @@
   "homepage": "https://github.com/russellgoldenberg/good-luck-soup",
   "dependencies": {
     "browser-sync": "^2.0.1",
+    "fluent-ffmpeg": "^2.0.1",
     "gulp": "^3.8.11",
     "gulp-autoprefixer": "^2.1.0",
     "gulp-clean": "^0.3.0",
