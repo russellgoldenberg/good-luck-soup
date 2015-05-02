@@ -1,8 +1,8 @@
 this["GoodLuckSoup"] = this["GoodLuckSoup"] || {};
 this["GoodLuckSoup"]["templates"] = this["GoodLuckSoup"]["templates"] || {};
 this["GoodLuckSoup"]["templates"]["end"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  return "<div class='end'>\n	<div class='logo-lady'>\n		<img src='assets/img/lady.png'>\n	</div>\n	<div class='end-stories'>\n		<p>View more stories</p>\n		<div class='end-stories-choices center-text'>\n			<div class='btn' data-action='new-chapters'>\n				Generate new chapters\n			</div>\n			<span>or</span>\n			<div class='btn' data-action='database'>\n				View full database\n			</div>\n		</div>\n	</div>\n	\n	<div class='divider'></div>\n\n	<div class='end-other'>\n		<p>\n			Check out the feature length film \"Good Luck Soup,\" a companion to the interactive. Watch the trailer <a href='#'>here</a>. We are constantly looking to grow this collection of experiences and stories. <a href='http://goodlucksoup.com/contribute.html'>Contribute</a> your own.\n		</p>\n		<p>\n			Share this experience via <a href='#' class='twitter'>Twitter</a> or <a href='#' class='facebook'>Facebook</a>.\n		</p>\n	</div>\n</div>";
-  },"useData":true});
+  return "<div class='end'>\n	<div class='logo-lady'>\n		<img src='assets/img/lady.png'>\n	</div>\n	<div class='end-stories'>\n		<p>View more stories</p>\n		<div class='end-stories-choices center-text'>\n			<div class='btn' data-action='new-chapters'>\n				Generate new stories\n			</div>\n			<div class='btn' data-action='database'>\n				View full database\n			</div>\n		</div>\n	</div>\n\n	<div class='end-other'>\n		<p>\n			Or check out the feature length film <span class='bold'>Good Luck Soup</span>, a companion to the interactive. Watch the trailer <a href='#'>here</a>. We are constantly looking to grow this collection of experiences and stories. <a href='http://goodlucksoup.com/contribute.html'>Contribute</a> your own.\n		</p>\n	</div>\n</div>";
+},"useData":true});
 this["GoodLuckSoup"]["templates"]["intro-video"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
   return "<video class='video-bg' autoplay loop id='video-intro-"
@@ -29,9 +29,9 @@ this["GoodLuckSoup"]["templates"]["story-content"] = Handlebars.template({"compi
 },"useData":true});
 this["GoodLuckSoup"]["templates"]["story-template-audio"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
-  return "			<p class='story-content-img-caption'>"
+  return "				<figcaption class='story-content-img-caption'>"
     + escapeExpression(((helper = (helper = helpers.image_caption || (depth0 != null ? depth0.image_caption : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"image_caption","hash":{},"data":data}) : helper)))
-    + "</p>\n";
+    + "</figcaption>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div class='template-text-img'>\n	<p class='story-content-user'>By <span class='user-name'>"
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
@@ -39,27 +39,35 @@ this["GoodLuckSoup"]["templates"]["story-template-audio"] = Handlebars.template(
     + escapeExpression(((helper = (helper = helpers.date || (depth0 != null ? depth0.date : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"date","hash":{},"data":data}) : helper)))
     + "</span></p>\n	<h2 class='story-content-hed'><span>"
     + escapeExpression(((helper = (helper = helpers.hed || (depth0 != null ? depth0.hed : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"hed","hash":{},"data":data}) : helper)))
-    + "</span></h2>\n	<div class='story-content-img-outer'>\n		<div class='story-content-img-inner'>\n			<img class='main-img' src='http://goodlucksoup.com/uploaded-images/"
+    + "</span></h2>\n	<div class='story-content-img-outer'>\n		<div class='story-content-img-inner' data-width='"
+    + escapeExpression(((helper = (helper = helpers.image_width || (depth0 != null ? depth0.image_width : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"image_width","hash":{},"data":data}) : helper)))
+    + "' data-height='"
+    + escapeExpression(((helper = (helper = helpers.image_height || (depth0 != null ? depth0.image_height : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"image_height","hash":{},"data":data}) : helper)))
+    + "'>\n			<figure>\n				<img class='main-img' src='http://goodlucksoup.com/uploaded-images/"
     + escapeExpression(((helper = (helper = helpers.image || (depth0 != null ? depth0.image : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"image","hash":{},"data":data}) : helper)))
     + "'>\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.image_caption : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "			<div class='story-content-audio'>\n				<div class='audio-player'>\n					<div class='audio-player-progress'></div>\n					<div class='audio-player-btn btn' data-src='"
+  return buffer + "			</figure>\n			<div class='story-content-audio'>\n				<div class='audio-player'>\n					<div class='audio-player-progress'></div>\n					<div class='audio-player-btn btn' data-src='"
     + escapeExpression(((helper = (helper = helpers.media || (depth0 != null ? depth0.media : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"media","hash":{},"data":data}) : helper)))
     + "'>\n						<span class='icon-play'><img src='assets/img/icons/play.svg'></span>\n						<span class='icon-pause hide'><img src='assets/img/icons/pause.svg'></span>\n					</div>\n				</div>\n			</div>\n		</div>\n	</div>\n</div>";
 },"useData":true});
 this["GoodLuckSoup"]["templates"]["story-template-text-img"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
-  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "	<div class='story-content-img-outer'>\n		<div class='story-content-img-inner'>\n			<img class='main-img' src='http://goodlucksoup.com/uploaded-images/"
+  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "	<div class='story-content-img-outer'>\n		<div class='story-content-img-inner' data-width='"
+    + escapeExpression(((helper = (helper = helpers.image_width || (depth0 != null ? depth0.image_width : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"image_width","hash":{},"data":data}) : helper)))
+    + "' data-height='"
+    + escapeExpression(((helper = (helper = helpers.image_height || (depth0 != null ? depth0.image_height : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"image_height","hash":{},"data":data}) : helper)))
+    + "'>\n			<figure>\n				<img class='main-img' src='http://goodlucksoup.com/uploaded-images/"
     + escapeExpression(((helper = (helper = helpers.image || (depth0 != null ? depth0.image : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"image","hash":{},"data":data}) : helper)))
     + "'>\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.image_caption : depth0), {"name":"if","hash":{},"fn":this.program(2, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "		</div>\n	</div>\n";
+  return buffer + "			</figure>\n		</div>\n	</div>\n";
 },"2":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
-  return "			<p class='story-content-img-caption'>"
+  return "				<figcaption class='story-content-img-caption'>"
     + escapeExpression(((helper = (helper = helpers.image_caption || (depth0 != null ? depth0.image_caption : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"image_caption","hash":{},"data":data}) : helper)))
-    + "</p>\n";
+    + "</figcaption>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div class='template-text-img'>\n	<p class='story-content-user'>By <span class='user-name'>"
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))

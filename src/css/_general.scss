@@ -9,7 +9,7 @@ body {
 		margin-top: $header-height;
 	}
 	@include breakpoint-medium {
-		font-size: 13px;
+		font-size: 14px;
 	}
 }
 
@@ -103,7 +103,7 @@ img {
 }
 
 
-.fullscreen, .fullscreen-peek, .fullscreen-jumbo {
+.fullscreen, .fullscreen-peek, .fullscreen-jumbo, .fullscreen-min {
 	position: relative;
 	overflow: hidden;
 }

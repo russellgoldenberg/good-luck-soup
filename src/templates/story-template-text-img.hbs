@@ -3,11 +3,13 @@
 	<h2 class='story-content-hed'><span>{{hed}}</span></h2>
 	{{#if image}}
 	<div class='story-content-img-outer'>
-		<div class='story-content-img-inner'>
-			<img class='main-img' src='http://goodlucksoup.com/uploaded-images/{{image}}'>
-			{{#if image_caption}}
-			<p class='story-content-img-caption'>{{image_caption}}</p>
-			{{/if}}
+		<div class='story-content-img-inner' data-width='{{image_width}}' data-height='{{image_height}}'>
+			<figure>
+				<img class='main-img' src='http://goodlucksoup.com/uploaded-images/{{image}}'>
+				{{#if image_caption}}
+				<figcaption class='story-content-img-caption'>{{image_caption}}</figcaption>
+				{{/if}}
+			</figure>
 		</div>
 	</div>
 	{{/if}}

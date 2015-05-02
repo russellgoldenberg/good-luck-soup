@@ -10,6 +10,7 @@ G.ui = (function () {
 	
 	var STORY_TOP_HEIGHT = 140;
 	var HEADER_HEIGHT = 42;
+	var MAX_WIDTH = 960;
 
 	var setupDom = function() {
 		$dom = {
@@ -70,7 +71,7 @@ G.ui = (function () {
 
 		//intro scroll throttle
 		if(!G.mobile()) {
-			$dom.window.on('scroll', $.throttle(G.data.duration.tenth, Intro.onScroll));	
+			$dom.window.on('scroll', $.throttle(G.data.duration.second, Intro.onScroll));	
 		}
 	};
 
@@ -110,7 +111,9 @@ G.ui = (function () {
 			$dom.introBtn.last().text('loading...');
 			self.enableScroll(false);
 
-			$dom.window.off('scroll');
+			if(!G.mobile()) {
+				$dom.window.off('scroll');	
+			}
 			G.audio.fadeIntro();
 
 			G.story.generate(function() {
@@ -127,11 +130,11 @@ G.ui = (function () {
 				$dom.currentStory.find('.story-top-next').addClass('off');
 				self.resize();
 
-				//TODO this simulates actual preloading
-				setTimeout(function() {
-					$dom.storyContainer.removeClass('hide').removeClass('transparent');
-					Story.revealAll();
-				}, 700);
+				$dom.storyContainer.removeClass('hide').removeClass('transparent');
+				
+				//TODO preload audio, or images?
+				setTimeout(Story.revealAll, 17);
+				
 			});
 		},
 
@@ -139,6 +142,7 @@ G.ui = (function () {
 			var pos = $dom.window.scrollTop();
 			var top = $dom.audioPlayerIntroTop.offset().top;
 			var bottom = $dom.audioPlayerIntroBottom.offset().top;
+
 			G.audio.updateIntro(pos, top, bottom);
 		}
 	};
@@ -161,7 +165,7 @@ G.ui = (function () {
 						options: { 'duration': 0 }
 					});
 					self.enableScroll(true);
-					$dom.introContainer.addClass('hide');
+					$dom.introContainer.addClass('hide').remove();
 					$dom.window.scrollTop(0);
 				}}
 			});
@@ -298,6 +302,41 @@ G.ui = (function () {
 			}
 
 			$dom.window.scrollTop(0);
+		},
+
+		setImageDimensions: function() {
+			
+			var getRealHeight = function(maxHeight, ratio) {
+				var maxWidth = Math.min(MAX_WIDTH, _dimensions.w * 0.9);
+				var found = false;
+				while(!found) {
+					var currentWidth = ratio * maxHeight;
+					if(currentWidth > maxWidth) {
+						maxHeight -= 1;
+					} else {
+						found = true;
+					}
+				}
+				return maxHeight;
+			};
+
+			var $el = $('.story-content-img-inner');
+
+			$el.each(function() {
+				var naturalW = $(this).attr('data-width');
+				var naturalH = $(this).attr('data-height');
+
+				var maxHeight = Math.min(_dimensions.h * 0.8, naturalH);
+				var ratio = naturalW / naturalH;
+
+				var h = Math.floor(getRealHeight(maxHeight, ratio));
+				var w = Math.floor(h * ratio);
+				
+				$(this).find('figure').css({
+					width: w,
+					height: h
+				});
+			});
 		}
 	};
 
@@ -312,8 +351,8 @@ G.ui = (function () {
 			_dimensions.w = window.innerWidth;
 			_dimensions.h = window.innerHeight;
 
-			$dom.fullscreen.css('min-height', _dimensions.h);
-			$dom.fullscreen.css('height', _dimensions.h);
+			$dom.fullscreen.css('min-height', _dimensions.h - HEADER_HEIGHT);
+			$dom.fullscreen.css('height', _dimensions.h - HEADER_HEIGHT);
 			$dom.fullscreenPeek.css('min-height', _dimensions.h * 0.8);
 			$dom.fullscreenPeek.css('height', _dimensions.h * 0.8);
 			$dom.fullscreenJumbo.css('min-height', _dimensions.h * 1.4);
@@ -321,7 +360,7 @@ G.ui = (function () {
 
 			//stories are showing
 			if(G.mode() === 'story') {
-				$('.story-content-img-inner .main-img').css('max-height', _dimensions.h * 0.8);
+				Story.setImageDimensions();
 			}
 		},
 

@@ -4,6 +4,10 @@ G.story = (function () {
 	var _currentIndex = 0;
 	var _currentViewing = -1;
 	var _storiesUrl = 'http://goodlucksoup.com/php/get-stories.php';
+	var _filepath = {
+		img: 'http://goodlucksoup.com/uploaded-images/', //TODO replace with relative path
+		audio: 'assets/audio/ambient/'
+	};
 
 	var NUM_CHAPTERS = 7;
 
@@ -125,11 +129,43 @@ G.story = (function () {
 			$chapter.find('.story-bottom').append(htmlEnd);
 		}
 
-		var $el = $('<div class="story" data-chapter="' + (chapter) + '"></div>');
+		var $el = $('<div class="story" data-chapter="' + (chapter.index) + '"></div>');
 		$el.append($chapter);
 
 		G.ui.appendChapter($el);
-	}
+	};
+
+	var preloadStories = function(data, cb) {
+		var loadStory = function(i) {
+			var chapter = G.data.story.chapters[i];
+			var story = data[i];
+			story = refineStory(story);
+			
+			if(story.image) {
+				var url = _filepath.img + story.image;
+				loadImage(url, function(img) {
+					story.image_width = img.naturalWidth;
+					story.image_height = img.naturalHeight;
+					createHtml(story, chapter);
+					advance(i);
+				});
+			} else {
+				createHtml(story, chapter);
+				advance(i);
+			}
+		};
+
+		var advance = function(i) {
+			i++;
+			if(i < NUM_CHAPTERS) {
+				loadStory(i);
+			} else {
+				cb();
+			}
+		};
+
+		loadStory(0);
+	};
 
 	var self = {
 		init: function() {
@@ -157,14 +193,7 @@ G.story = (function () {
 					console.log(err);
 					//TODO handle error
 				} else if(data) {
-					for(var i = 0; i < NUM_CHAPTERS; i++) {
-						var chapter = G.data.story.chapters[i];
-						var story = data[i];
-
-						story = refineStory(story);
-						createHtml(story, chapter);
-					}
-					cb();
+					preloadStories(data, cb);
 				} else {
 					// TODO handle no data
 				}

@@ -64,21 +64,21 @@
 }
 
 .hed-text {
-	line-height: 0.9;
+	line-height: 1;
 	font-size: 8em;
 	font-family: $sans-alt;
 	font-weight: 700;
 	color: $white;
 	margin-bottom: 1.25em;
 	opacity: 0.9;
-
+	padding: 0 0.25em;
 	color: $primary;
 	font-size: 6em;
 	text-transform: uppercase;
 	font-weight: 400;
 
 	@include breakpoint-small {
-		font-size: 5em;
+		font-size: 3.8em;
 	}
 }
 
@@ -134,10 +134,10 @@ p.saying-subhed {
 }
 
 .intro-stories {
-	font-size: 0.95em;
-	@include breakpoint-small {
-		font-size: 0.85em;
-	}	
+	height: auto;
+	width: 100%;
+	position: relative;
+	padding: 4em 0;
 }
 
 .logo-intro {

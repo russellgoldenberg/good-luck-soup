@@ -18,6 +18,21 @@ G.audio = (function () {
 
 		setup: function(cb) {
 			if(G.mobile()) {
+				//setup the audio players
+				Intro.player.mobile.jPlayer({
+		            swfPath: 'js/lib',
+		            loop: true,
+		            supplied: 'mp3',
+		            volume: 1,
+		            error: function(e) { log('audio error'); },
+					abort: function(e) { log('audio abort'); },
+					canplaythrough: function(e) { 
+						console.log('ahooy');
+						Intro.player.mobile.jPlayer('play');	
+					}
+	        	});
+
+				cb();
 
 			} else {
 				
@@ -32,6 +47,7 @@ G.audio = (function () {
 		            swfPath: 'js/lib',
 		            loop: true,
 		            supplied: 'mp3',
+		            volume: 1,
 		            error: function(e) { log('audio error'); },
 					abort: function(e) { log('audio abort'); },
 					canplaythrough: function(e) { 
@@ -44,6 +60,7 @@ G.audio = (function () {
 		            swfPath: 'js/lib',
 		            loop: true,
 		            supplied: 'mp3',
+		            volume: 0,
 		            error: function(e) { log('audio error'); },
 					abort: function(e) { log('audio abort'); },
 					canplaythrough: function(e) {
@@ -66,18 +83,35 @@ G.audio = (function () {
 
 		play: function() {
 			Intro.playing = true;
-			Intro.player.top.jPlayer('play');
-			Intro.player.bottom.jPlayer('play');
+			if(G.mobile()) {
+				Intro.player.mobile.jPlayer('setMedia', {
+					mp3: Intro.path + 'intro-mobile.mp3'
+				});
+				// Intro.player.mobile.jPlayer('play');
+			} else {
+				Intro.player.top.jPlayer('play');
+				Intro.player.bottom.jPlayer('play');
+			}
+			
 		},
 
 		update: function(pos, top, bottom) {
 			if(Intro.playing) {
 				var total = bottom - top;
-				Intro.volume.bottom = Math.min(1, Math.max(0, ((pos - top) / total)));
-				Intro.volume.top = Math.min(1, Math.max(0, ((bottom - pos) / total)));
 
-				Intro.player.top.jPlayer('volume', Intro.volume.top);
-				Intro.player.bottom.jPlayer('volume', Intro.volume.bottom);	
+				var newTop = Math.min(1, Math.max(0, ((bottom - pos) / total)));
+				var newBottom = Math.min(1, Math.max(0, ((pos - top) / total)));
+
+				Intro.player.top.jPlayerFade().to(G.data.duration.half * 0.9, Intro.volume.top, newTop);
+				Intro.player.bottom.jPlayerFade().to(G.data.duration.half, Intro.volume.bottom, newBottom);
+
+				Intro.volume.top = newTop;
+				Intro.volume.bottom = newBottom;
+
+				// Intro.volume.bottom = Math.min(1, Math.max(0, ((pos - top) / total)));
+				// Intro.volume.top = Math.min(1, Math.max(0, ((bottom - pos) / total)));
+				// Intro.player.top.jPlayer('volume', Intro.volume.top);
+				// Intro.player.bottom.jPlayer('volume', Intro.volume.bottom);	
 			}
 		},
 
@@ -85,11 +119,14 @@ G.audio = (function () {
 			if(Intro.playing) {
 				if(G.mobile()) {
 					Intro.player.mobile.jPlayerFade().to(G.data.duration.second * 2, 0.8, 0, function() {
+						Intro.player.mobile.jPlayer('destroy');
 						Ambient.setup();
 					});
 				} else {
 					Intro.player.top.jPlayerFade().to(G.data.duration.second * 2, Intro.volume.top, 0);
 					Intro.player.bottom.jPlayerFade().to(G.data.duration.second * 2, Intro.volume.bottom, 0, function() {
+						Intro.player.top.jPlayer('destroy');
+						Intro.player.bottom.jPlayer('destroy');
 						Ambient.setup();
 					});
 				}
