@@ -36,6 +36,13 @@ G.data = {
 		}, {
 			'index': 7,
 			'hed': 'Tradition',
-		}]
+		}],
+		preset: [
+			[40, false, 13, false, 5, false, 31],
+			[false, true, false, true, false, true, false],
+			[false, false, true, false, true, false, true],
+			[false, true, false, true, false, true, false],
+			[true, false, true, false, true, false, false]
+		]
 	}
 };

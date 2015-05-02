@@ -1,9 +1,14 @@
 // utilities
 
-// debounce
-function isObject(b){return!(!b||!objectTypes[typeof b])}function isFunction(b){return"function"==typeof b}var nativeMax=Math.max;
-function debounce(b,e,a){var f,c,g,h,k,d,p,l=0,m=!1,n=!0;if(!isFunction(b))throw new TypeError;e=nativeMax(0,e)||0;if(!0===a)var q=!0,n=!1;else isObject(a)&&(q=a.leading,m="maxWait"in a&&(nativeMax(e,a.maxWait)||0),n="trailing"in a?a.trailing:n);var r=function(){var a=e-(new Date-h);0>=a?(c&&clearTimeout(c),a=p,c=d=p=void 0,a&&(l=+new Date,g=b.apply(k,f))):d=setTimeout(r,a)},t=function(){d&&clearTimeout(d);c=d=p=void 0;if(n||m!==e)l=+new Date,g=b.apply(k,f)};return function(){f=arguments;h=+new Date;
-k=this;p=n&&(d||!q);if(!1===m)var a=q&&!d;else{c||q||(l=h);var s=m-(h-l);0>=s?(c&&(c=clearTimeout(c)),l=h,g=b.apply(k,f)):c||(c=setTimeout(t,s))}d||e===m||(d=setTimeout(r,e));a&&(g=b.apply(k,f));return g}};
+/*
+ * jQuery throttle / debounce - v1.1 - 3/7/2010
+ * http://benalman.com/projects/jquery-throttle-debounce-plugin/
+ * 
+ * Copyright (c) 2010 "Cowboy" Ben Alman
+ * Dual licensed under the MIT and GPL licenses.
+ * http://benalman.com/about/license/
+ */
+(function(b,c){var $=b.jQuery||b.Cowboy||(b.Cowboy={}),a;$.throttle=a=function(e,f,j,i){var h,d=0;if(typeof f!=="boolean"){i=j;j=f;f=c}function g(){var o=this,m=+new Date()-d,n=arguments;function l(){d=+new Date();j.apply(o,n)}function k(){h=c}if(i&&!h){l()}h&&clearTimeout(h);if(i===c&&m>e){l()}else{if(f!==true){h=setTimeout(i?k:l,i===c?e-m:e)}}}if($.guid){g.guid=j.guid=j.guid||$.guid++}return g};$.debounce=function(d,e,f){return f===c?a(d,e,false):a(d,f,e!==false)}})(this);
 
 // msg logging
 window.log = function(input) {
@@ -35,4 +40,24 @@ window.loadImage = function(url, cb) {
 	};
 
 	img.src = url;
+};
+
+// http://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+window.shuffleArray = function(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex ;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 };

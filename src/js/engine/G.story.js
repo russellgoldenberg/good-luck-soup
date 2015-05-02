@@ -1,8 +1,8 @@
 G.story = (function () {
 	'use strict';
-	var _data;	
-	var _preset = [0,1,2,3,4,5,6]; //ids for specific posts to start with
+	var _data = {'custom': [], 'general': []};
 	var _currentIndex = 0;
+	var _currentViewing = -1;
 	var _storiesUrl = 'http://goodlucksoup.com/php/get-stories.php';
 
 	var NUM_CHAPTERS = 7;
@@ -13,19 +13,59 @@ G.story = (function () {
 
 	var sortFeaturedData = function(response) {
 		response.data.forEach(function(datum) {
-			var chapter = parseInt(datum.chapter);
-			_data[chapter].push(datum);
+			
+			//integerize
+			datum.chapter = parseInt(datum.chapter);
+			datum.id = parseInt(datum.id);
+			
+			var chapter = datum.chapter;
+			if(datum.custom) {
+				_data.custom[chapter].push(datum);
+			} else {
+				_data.general[chapter].push(datum);
+			}
 		});
+
+		//shuffle arrays
+		for(var i = 0; i < NUM_CHAPTERS; i++) {
+			if(_data.custom[i]) {
+				_data.custom[i] = shuffleArray(_data.custom[i]);	
+			}
+			if(_data.general[i]) {
+				_data.general[i] = shuffleArray(_data.general[i]);	
+			}
+
+			//find the preset item in the array, put it at first spot
+			var id = G.data.story.preset[0][i];
+			if(id) {
+				for(var d = 0; d < _data.custom[i].length; d++) {
+					var datum = _data.custom[i][d];
+					if(datum.id === id) {
+						var preset = _data.custom[i].splice(d, 1);
+						_data.custom[i].splice(0,0,preset[0]);
+						break;
+					}
+				}
+			}
+		}
+
+		console.log(_data);
 	};
 
 	var getStoryIds = function() {
 		//pop it off the top yo
 		var output = [];
-		for (var i = 0; i < _data.length; i++) {
-			var datum = _data[i].shift();
+		//determine where to pull from
+
+		var preset = _currentViewing === 0 ? 0 : _currentViewing % 4 + 1;
+
+		for (var i = 0; i < NUM_CHAPTERS; i++) {
+			var custom = G.data.story.preset[preset][i];
+			var pool = custom ? 'custom' : 'general';
+			var datum = _data[pool][i].shift();
 			output.push(datum);
 			//add back to end
-			_data[i].push(datum);
+			_data[pool][i].push(datum);
 		}
 		return output;
 	};
@@ -64,6 +104,10 @@ G.story = (function () {
 		//name
 		story.name = story.name || 'Anonymous';
 
+		//date 
+		var date = ((new Date(story.datetime)).toDateString());
+		story.date = date.substring(4,date.length);
+
 		return story;
 	};
 
@@ -76,12 +120,12 @@ G.story = (function () {
 		var $chapter = $(htmlChapter);
 		$chapter.find('.story-content-template').html(htmlTemplate);
 
-		if(chapter === NUM_CHAPTERS - 1) {
+		if(chapter.index === NUM_CHAPTERS) {
 			var htmlEnd = GoodLuckSoup.templates['end']();
 			$chapter.find('.story-bottom').append(htmlEnd);
 		}
 
-		var $el = $('<div class="story" data-chapter="' + (chapter + 1) + '"></div>');
+		var $el = $('<div class="story" data-chapter="' + (chapter) + '"></div>');
 		$el.append($chapter);
 
 		G.ui.appendChapter($el);
@@ -89,9 +133,9 @@ G.story = (function () {
 
 	var self = {
 		init: function() {
-			_data = [];
 			for(var i = 0; i < NUM_CHAPTERS; i++) {
-				_data[i] = [];
+				_data.custom[i] = [];
+				_data.general[i] = [];
 			}
 			$.ajax({
 				url: 'http://goodlucksoup.com/featured-data.jsonp',
@@ -105,7 +149,7 @@ G.story = (function () {
 
 		generate: function(cb) {
 			_currentIndex = 0;
-
+			_currentViewing += 1;
 			var ids = getStoryIds();
 
 			getStoryData(ids, function(err, data) {

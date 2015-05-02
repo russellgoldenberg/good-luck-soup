@@ -83,7 +83,7 @@ this["GoodLuckSoup"]["templates"]["story-template-video"] = Handlebars.template(
     + escapeExpression(((helper = (helper = helpers.date || (depth0 != null ? depth0.date : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"date","hash":{},"data":data}) : helper)))
     + "</span></p>\n	<h2 class='story-content-hed'><span>"
     + escapeExpression(((helper = (helper = helpers.hed || (depth0 != null ? depth0.hed : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"hed","hash":{},"data":data}) : helper)))
-    + "</span></h2>\n	<div class='story-content-video'>\n		<video src='"
-    + escapeExpression(((helper = (helper = helpers.video || (depth0 != null ? depth0.video : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"video","hash":{},"data":data}) : helper)))
-    + ".mp4'>\n			You must have a browser that supports video.\n		</video>\n	</div>\n</div>";
+    + "</span></h2>\n	<div class='story-content-video' data-media='"
+    + escapeExpression(((helper = (helper = helpers.media || (depth0 != null ? depth0.media : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"media","hash":{},"data":data}) : helper)))
+    + "'>\n	</div>\n</div>";
 },"useData":true});

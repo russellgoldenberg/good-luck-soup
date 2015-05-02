@@ -19,12 +19,14 @@ G.intro = (function () {
 			});
 		};
 
-		var loadAllAudio = function(i, callback) {
-			callback();
+		var loadAllAudio = function(callback) {
+			G.audio.loadIntro(function() {
+				callback();	
+			});
 		};
 
 		loadAllImages(0, function() {
-			loadAllAudio(0, function() {
+			loadAllAudio(function() {
 				_loaded = true;
 				cb();
 			});

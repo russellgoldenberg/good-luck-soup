@@ -26,6 +26,8 @@ G.ui = (function () {
 			stories: $('.stories'),
 			storyTitleOverlineSpan: $('.story-title-overline span'),
 			storyTitleHed: $('.story-title-hed'),
+			audioPlayerIntroTop: $('#audio-player-intro-top'),
+			audioPlayerIntroBottom: $('#audio-player-intro-bottom'),
 			story: null,
 			storyTop: null,
 			introVideoBg: null,
@@ -37,15 +39,13 @@ G.ui = (function () {
 
 	var setupEvents = function() {
 		$dom.introBtn.on('click', function() {
-			G.audio.hack();	
-
-			if(G.intro.loaded) {
+			if(G.intro.loaded()) {
 				var action = $(this).attr('data-action');
 				Intro[action](this);
 			}
 		});
 
-		$dom.window.on('resize', debounce(self.resize, 150));
+		$dom.window.on('resize', $.debounce(G.data.duration.quarter, self.resize));
 
 		$dom.stories.on('click', '.story-top', function() {
 			var index = $(this).attr('data-index');
@@ -67,6 +67,11 @@ G.ui = (function () {
 				Story.transitionToPrev();
 			}
 		});
+
+		//intro scroll throttle
+		if(!G.mobile()) {
+			$dom.window.on('scroll', $.throttle(G.data.duration.tenth, Intro.onScroll));	
+		}
 	};
 
 	var Intro = {
@@ -95,6 +100,7 @@ G.ui = (function () {
 		},
 
 		begin: function() {
+			G.audio.playIntro();
 			self.jumpTo('.intro-preface');
 		},
 
@@ -103,6 +109,10 @@ G.ui = (function () {
 			Waypoint.disableAll();
 			$dom.introBtn.last().text('loading...');
 			self.enableScroll(false);
+
+			$dom.window.off('scroll');
+			G.audio.fadeIntro();
+
 			G.story.generate(function() {
 				$dom.story = $('.story');
 
@@ -123,6 +133,13 @@ G.ui = (function () {
 					Story.revealAll();
 				}, 700);
 			});
+		},
+
+		onScroll: function() {
+			var pos = $dom.window.scrollTop();
+			var top = $dom.audioPlayerIntroTop.offset().top;
+			var bottom = $dom.audioPlayerIntroBottom.offset().top;
+			G.audio.updateIntro(pos, top, bottom);
 		}
 	};
 

@@ -2,37 +2,131 @@ G.audio = (function () {
 	'use strict';
 
 	var init = function() {
-		Ambient.setup();
 		Chapter.setup();
+	};
+
+	var Intro = {
+		path: 'assets/audio/ambient/',
+		player: {
+			mobile: $('#audio-player-intro-mobile'),
+			top: $('#audio-player-intro-top'),
+			bottom: $('#audio-player-intro-bottom')
+		},
+		volume: { top: 1, bottom: 0, mobile: 0.8 },
+		playing: false,
+		loaded: { top: false, bottom: false },
+
+		setup: function(cb) {
+			if(G.mobile()) {
+
+			} else {
+				
+				var checkLoad = function() {
+					if(Intro.loaded.top && Intro.loaded.bottom) {
+						cb();
+					}
+				};
+
+				//setup the audio players
+				Intro.player.top.jPlayer({
+		            swfPath: 'js/lib',
+		            loop: true,
+		            supplied: 'mp3',
+		            error: function(e) { log('audio error'); },
+					abort: function(e) { log('audio abort'); },
+					canplaythrough: function(e) { 
+						Intro.loaded.top = true;
+						checkLoad();
+					}
+	        	});
+
+	        	Intro.player.bottom.jPlayer({
+		            swfPath: 'js/lib',
+		            loop: true,
+		            supplied: 'mp3',
+		            error: function(e) { log('audio error'); },
+					abort: function(e) { log('audio abort'); },
+					canplaythrough: function(e) {
+						Intro.loaded.bottom = true;
+						checkLoad();
+					}
+	        	});	
+
+	        	//load the files
+	        	Intro.player.top.jPlayer('setMedia', {
+					mp3: Intro.path + 'intro-top.mp3'
+				});
+				Intro.player.bottom.jPlayer('setMedia', {
+					mp3: Intro.path + 'intro-bottom.mp3'
+				});
+
+
+			}
+		},
+
+		play: function() {
+			Intro.playing = true;
+			Intro.player.top.jPlayer('play');
+			Intro.player.bottom.jPlayer('play');
+		},
+
+		update: function(pos, top, bottom) {
+			if(Intro.playing) {
+				var total = bottom - top;
+				Intro.volume.bottom = Math.min(1, Math.max(0, ((pos - top) / total)));
+				Intro.volume.top = Math.min(1, Math.max(0, ((bottom - pos) / total)));
+
+				Intro.player.top.jPlayer('volume', Intro.volume.top);
+				Intro.player.bottom.jPlayer('volume', Intro.volume.bottom);	
+			}
+		},
+
+		fade: function() {
+			if(Intro.playing) {
+				if(G.mobile()) {
+					Intro.player.mobile.jPlayerFade().to(G.data.duration.second * 2, 0.8, 0, function() {
+						Ambient.setup();
+					});
+				} else {
+					Intro.player.top.jPlayerFade().to(G.data.duration.second * 2, Intro.volume.top, 0);
+					Intro.player.bottom.jPlayerFade().to(G.data.duration.second * 2, Intro.volume.bottom, 0, function() {
+						Ambient.setup();
+					});
+				}
+			}
+		}
 	};
 
 	var Ambient = {
 		path: 'assets/audio/ambient/',
-		player: $('#audio-player-ambient'),
+		player: {
+			top: $('#audio-player-intro-top'),
+			bottom: $('#audio-player-intro-bottom')
+		},
 		current: null,
 		playing: false,
 
 		setup: function() {
-			Ambient.player.jPlayer({
-	            swfPath: 'js/lib',
-	            loop: true,
-	            supplied: 'mp3',
-	            error: function(e) {
-	            	log('audio error');
-	            },
-				abort: function(e) {
-					log('audio abort');
-				},
-				play: function(e) {
+			// Ambient.player.jPlayer({
+	  //           swfPath: 'js/lib',
+	  //           loop: true,
+	  //           supplied: 'mp3',
+	  //           error: function(e) {
+	  //           	log('audio error');
+	  //           },
+			// 	abort: function(e) {
+			// 		log('audio abort');
+			// 	},
+			// 	play: function(e) {
 					
-				},
-				pause: function(e) {
+			// 	},
+			// 	pause: function(e) {
 					
-				},
-				ended: function(e) {
+			// 	},
+			// 	ended: function(e) {
 
-				}
-        	});
+			// 	}
+   //      	});
 		},
 
 		hack: function() {
@@ -140,13 +234,12 @@ G.audio = (function () {
 
 	var self = {
 		init: init,
-		hack: Ambient.hack,
-		pauseChapter: function() {
-			Chapter.pause();
-		},
-		toggleChapter: function(params) {
-			Chapter.toggle(params);
-		}
+		loadIntro: Intro.setup,
+		playIntro: Intro.play,
+		updateIntro: Intro.update,
+		fadeIntro: Intro.fade,
+		pauseChapter: Chapter.pause,
+		toggleChapter: Chapter.toggle,
 	};
 	
 	return self; 

@@ -9,6 +9,7 @@ gulp.task('prod-libs', function() {
 			'src/libs/inview.min.js',
 			'src/libs/handlebars.runtime.min.js',
 			'src/libs/jquery.jplayer.min.js',
+			'src/libs/jplayer.fade.min.js',
 			'src/libs/raf.min.js'
 		])
 		.pipe(concat('libs.js'))
