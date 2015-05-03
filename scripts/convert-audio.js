@@ -1,7 +1,7 @@
 var ffmpeg = require('fluent-ffmpeg');
 var fs = require('fs');
 
-var _directory = '../story-audio-raw/';
+var _directory = '../story-audio-convert/';
 var _files;
 var _len;
 
@@ -26,7 +26,7 @@ var convert = function(i) {
 	if(_files[i] !== '.DS_Store') {
 		var params = {
 			filepath: _directory + _files[i],
-			outpath: '../src/audio/story-final/' + _files[i]
+			outpath: '../story-audio-output/' + _files[i]
 		};
 
 		var dotIndex = params.outpath.lastIndexOf('.');

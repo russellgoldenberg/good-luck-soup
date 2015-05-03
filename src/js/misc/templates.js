@@ -1,7 +1,7 @@
 this["GoodLuckSoup"] = this["GoodLuckSoup"] || {};
 this["GoodLuckSoup"]["templates"] = this["GoodLuckSoup"]["templates"] || {};
 this["GoodLuckSoup"]["templates"]["end"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  return "<div class='end'>\n	<div class='logo-lady'>\n		<img src='assets/img/lady.png'>\n	</div>\n	<div class='end-stories'>\n		<p>View more stories</p>\n		<div class='end-stories-choices center-text'>\n			<div class='btn' data-action='new-chapters'>\n				Generate new stories\n			</div>\n			<div class='btn' data-action='database'>\n				View full database\n			</div>\n		</div>\n	</div>\n\n	<div class='end-other'>\n		<p>\n			Or check out the feature length film <span class='bold'>Good Luck Soup</span>, a companion to the interactive. Watch the trailer <a href='#'>here</a>. We are constantly looking to grow this collection of experiences and stories. <a href='http://goodlucksoup.com/contribute.html'>Contribute</a> your own.\n		</p>\n	</div>\n</div>";
+  return "<div class='end'>\n	<div class='logo-lady'>\n		<img src='assets/img/lady.png'>\n	</div>\n	<div class='end-stories'>\n		<p>View more stories</p>\n		<div class='end-stories-choices center-text'>\n			<div class='btn' data-action='newChapters'>\n				Generate new stories\n			</div>\n			<div class='btn' data-action='database'>\n				View full database\n			</div>\n		</div>\n	</div>\n\n	<div class='end-other'>\n		<p>\n			Or check out the feature length film <span class='bold'>Good Luck Soup</span>, a companion to the interactive. Watch the trailer <a href='#'>here</a>. We are constantly looking to grow this collection of experiences and stories. <a href='http://goodlucksoup.com/contribute.html'>Contribute</a> your own.\n		</p>\n	</div>\n</div>";
 },"useData":true});
 this["GoodLuckSoup"]["templates"]["intro-video"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
@@ -91,7 +91,11 @@ this["GoodLuckSoup"]["templates"]["story-template-video"] = Handlebars.template(
     + escapeExpression(((helper = (helper = helpers.date || (depth0 != null ? depth0.date : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"date","hash":{},"data":data}) : helper)))
     + "</span></p>\n	<h2 class='story-content-hed'><span>"
     + escapeExpression(((helper = (helper = helpers.hed || (depth0 != null ? depth0.hed : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"hed","hash":{},"data":data}) : helper)))
-    + "</span></h2>\n	<div class='story-content-video' data-media='"
+    + "</span></h2>\n	<div class='story-content-video-container'>\n		<div class='story-video' id='story-content-video-"
     + escapeExpression(((helper = (helper = helpers.media || (depth0 != null ? depth0.media : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"media","hash":{},"data":data}) : helper)))
-    + "'>\n	</div>\n</div>";
+    + "' data-video='"
+    + escapeExpression(((helper = (helper = helpers.media || (depth0 != null ? depth0.media : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"media","hash":{},"data":data}) : helper)))
+    + "'></div>\n		<div class='story-content-video-player'>\n			<div class='video-player-btn btn' data-video='"
+    + escapeExpression(((helper = (helper = helpers.media || (depth0 != null ? depth0.media : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"media","hash":{},"data":data}) : helper)))
+    + "'>\n				<span class='icon-play'><img src='assets/img/icons/play.svg'></span>\n				<span class='icon-pause hide'><img src='assets/img/icons/pause.svg'></span>\n			</div>\n		</div>\n	</div>\n</div>";
 },"useData":true});

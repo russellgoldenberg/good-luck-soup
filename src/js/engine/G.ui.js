@@ -61,12 +61,22 @@ G.ui = (function () {
 			G.audio.toggleChapter({el: $(this), id: src});
 		});
 
+		$dom.stories.on('click', '.video-player-btn', function() {
+			var id = $(this).attr('data-video');
+			G.video.toggleChapter(id, $(this));
+		});
+
 		$dom.stories.on('click', '.btn-prev', function() {
 			var current = $(this).closest('.story').hasClass('current');
 			var prevIndex = G.story.currentIndex() - 1;
 			if(prevIndex > -1) {
 				Story.transitionToPrev();
 			}
+		});
+
+		$dom.stories.on('click', '.end-stories-choices .btn', function() {
+			var action = $(this).attr('data-action');
+			Story[action]($(this));
 		});
 
 		//intro scroll throttle
@@ -131,7 +141,6 @@ G.ui = (function () {
 				self.resize();
 
 				$dom.storyContainer.removeClass('hide').removeClass('transparent');
-				
 				//TODO preload audio, or images?
 				setTimeout(Story.revealAll, 17);
 				
@@ -173,6 +182,11 @@ G.ui = (function () {
 
 		appendChapter: function(el) {
 			$dom.stories.append(el);
+			var video = $(el).find('.story-video');
+			if(video.length) {
+				var id = $(video).attr('data-video');
+				G.video.createChapter(id);
+			}
 		},
 
 		transitionToNext: function() {
@@ -335,6 +349,55 @@ G.ui = (function () {
 				$(this).find('figure').css({
 					width: w,
 					height: h
+				});
+			});
+		},
+
+		newChapters: function(btn) {
+			self.enableScroll(false);
+			btn.text('Loading...');
+
+			G.story.generate(function() {
+				//delete all except current
+				$dom.story.not('.current').remove();
+				
+				$dom.story = $('.story');
+				$dom.currentStory = $dom.story.eq(0);
+				$dom.nextStory = $dom.story.eq(1);
+				$dom.nextStory.addClass('next');
+
+				$dom.nextStory.find('.story-top-next').addClass('off');
+				$dom.nextStory.find('.story-top-text').removeClass('off');
+				$dom.prevStory = null;
+				
+				self.resize();
+
+				var offset = -1 * (_dimensions.h - HEADER_HEIGHT);
+				var offsetNext = offset + 'px';
+				var offsetCurrent = offset * 0.5 + 'px';
+
+				$dom.currentStory.velocity({ 
+					properties: { 
+						'translateY': offsetNext,
+						'translateZ': 0
+					},
+					options: { 'duration': G.data.duration.half, complete: function(){
+						$dom.currentStory.css('transform', '');
+						$dom.currentStory.velocity({ 
+							properties: { 'translateY': 0 },
+							options: { 'duration': 0 }
+						});
+						self.enableScroll(true);
+						$dom.window.scrollTop(0);
+						$dom.currentStory.remove();
+
+						$dom.story = $('.story');
+						var cur = G.story.currentIndex();
+						$dom.currentStory = $dom.story.eq(cur);
+						$dom.currentStory.addClass('current').removeClass('next');
+						$dom.nextStory = $dom.story.eq((cur+1));
+						$dom.nextStory.addClass('next');
+					}}
 				});
 			});
 		}

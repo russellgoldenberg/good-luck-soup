@@ -38,7 +38,7 @@ G.data = {
 			'hed': 'Tradition',
 		}],
 		preset: [
-			[40, false, 13, false, 5, false, 31],
+			[49, false, 8, false, 65, false, 31],
 			[false, true, false, true, false, true, false],
 			[false, false, true, false, true, false, true],
 			[false, true, false, true, false, true, false],

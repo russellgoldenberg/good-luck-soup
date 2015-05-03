@@ -1,6 +1,13 @@
 <div class='template-video'>
 	<p class='story-content-user'>By <span class='user-name'>{{name}}</span> <span class='user-divider'>&bull;</span> <span class='user-date'>{{date}}</span></p>
 	<h2 class='story-content-hed'><span>{{hed}}</span></h2>
-	<div class='story-content-video' data-media='{{media}}'>
+	<div class='story-content-video-container'>
+		<div class='story-video' id='story-content-video-{{media}}' data-video='{{media}}'></div>
+		<div class='story-content-video-player'>
+			<div class='video-player-btn btn' data-video='{{media}}'>
+				<span class='icon-play'><img src='assets/img/icons/play.svg'></span>
+				<span class='icon-pause hide'><img src='assets/img/icons/pause.svg'></span>
+			</div>
+		</div>
 	</div>
 </div>
