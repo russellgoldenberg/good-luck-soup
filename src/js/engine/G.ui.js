@@ -128,27 +128,28 @@ G.ui = (function () {
 			if(!G.mobile()) {
 				$dom.window.off('scroll');	
 			}
-			G.audio.fadeIntro();
 
 			G.story.generate(function() {
-				G.video.destroyIntro();
-				$dom.story = $('.story');
+				G.audio.fadeIntroToAmbient(function() {
+					G.video.destroyIntro();
+					G.audio.setupAmient();
+					$dom.story = $('.story');
 
-				$dom.currentStory = $dom.story.eq(0);
-				$dom.nextStory = $dom.story.eq(1);
-				$dom.prevStory = null;
+					$dom.currentStory = $dom.story.eq(0);
+					$dom.nextStory = $dom.story.eq(1);
+					$dom.prevStory = null;
 
-				$dom.currentStory.addClass('current');
-				$dom.nextStory.addClass('next');
+					$dom.currentStory.addClass('current');
+					$dom.nextStory.addClass('next');
 
-				$dom.currentStory.find('.story-top-text').removeClass('off');
-				$dom.currentStory.find('.story-top-next').addClass('off');
-				self.resize();
+					$dom.currentStory.find('.story-top-text').removeClass('off');
+					$dom.currentStory.find('.story-top-next').addClass('off');
+					self.resize();
 
-				$dom.storyContainer.removeClass('hide').removeClass('transparent');
-				//TODO preload audio, or images?
-				setTimeout(Story.revealAll, 17);
-				
+					$dom.storyContainer.removeClass('hide').removeClass('transparent');
+					
+					setTimeout(Story.revealAll, 17);
+				});
 			});
 		},
 
@@ -179,10 +180,22 @@ G.ui = (function () {
 						options: { 'duration': 0 }
 					});
 					self.enableScroll(true);
-					$dom.introContainer.addClass('hide').remove();
+
 					$dom.window.scrollTop(0);
 				}}
 			});
+
+			$dom.introContainer.velocity({
+				properties: {
+					'translateY': '-200px',
+					'translateZ': 0,
+					'opacity': 0
+				},
+				options: {'duration': G.data.duration.half, complete: function() {
+					$dom.introContainer.addClass('hide').remove();
+				}}
+			});
+			
 		},
 
 		appendChapter: function(el) {
@@ -364,6 +377,8 @@ G.ui = (function () {
 			self.enableScroll(false);
 			btn.text('Loading...');
 
+			G.audio.destroyChapter();
+			G.video.destroyChapter();
 			G.story.generate(function() {
 				//delete all except current
 				$dom.story.not('.current').remove();

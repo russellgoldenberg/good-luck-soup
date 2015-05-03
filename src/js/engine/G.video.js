@@ -91,10 +91,10 @@ G.video = (function () {
 					log('video abort');
 				},
 				play: function(e) {
-					
+					G.audio.fadeAmbient('out');
 				},
 				pause: function(e) {
-					
+					G.audio.fadeAmbient('in');
 				},
 				ended: function(e) {
 				},
@@ -111,7 +111,7 @@ G.video = (function () {
 					Chapter.playing = null;
 				} else {
 					Chapter.playing = id;
-					Chapter.el[id].jPlayer('play').jPlayer('pauseOthers');
+					Chapter.el[id].jPlayer('play');
 				}
 				btn.find('.icon-play').toggleClass('hide');
 				btn.find('.icon-pause').toggleClass('hide');
@@ -125,6 +125,14 @@ G.video = (function () {
 				$('.video-player-btn .icon-play').removeClass('hide');
 				$('.video-player-btn .icon-pause').addClass('hide');
 			}
+		},
+
+		destroy: function() {
+			for(var p in Chapter.el) {
+				Chapter.el[p].jPlayer('destroy');
+			}
+			Chapter.el = {};
+			Chapter.playing = false;
 		}
 	};
 
@@ -136,7 +144,8 @@ G.video = (function () {
 		destroyIntro: Intro.destroy,
 		createChapter: Chapter.create,
 		toggleChapter: Chapter.toggle,
-		pauseChapter: Chapter.pause
+		pauseChapter: Chapter.pause,
+		destroyChapter: Chapter.destroy,
 	};
 	
 	return self; 

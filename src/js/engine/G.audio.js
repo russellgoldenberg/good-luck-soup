@@ -51,8 +51,10 @@ G.audio = (function () {
 		            error: function(e) { log('audio error'); },
 					abort: function(e) { log('audio abort'); },
 					canplaythrough: function(e) { 
-						Intro.loaded.top = true;
-						checkLoad();
+						if(!Intro.loaded.top) {
+							Intro.loaded.top = true;
+							checkLoad();	
+						}
 					}
 	        	});
 
@@ -64,8 +66,10 @@ G.audio = (function () {
 		            error: function(e) { log('audio error'); },
 					abort: function(e) { log('audio abort'); },
 					canplaythrough: function(e) {
-						Intro.loaded.bottom = true;
-						checkLoad();
+						if(!Intro.loaded.bottom) {
+							Intro.loaded.bottom = true;
+							checkLoad();	
+						}
 					}
 	        	});	
 
@@ -81,7 +85,7 @@ G.audio = (function () {
 			}
 		},
 
-		play: function() {
+		play: function() {	
 			Intro.playing = true;
 			if(G.mobile()) {
 				Intro.player.mobile.jPlayer('setMedia', {
@@ -92,7 +96,6 @@ G.audio = (function () {
 				Intro.player.top.jPlayer('play');
 				Intro.player.bottom.jPlayer('play');
 			}
-			
 		},
 
 		update: function(pos, top, bottom) {
@@ -115,55 +118,69 @@ G.audio = (function () {
 			}
 		},
 
-		fade: function() {
+		fade: function(cb) {
 			if(Intro.playing) {
 				if(G.mobile()) {
 					Intro.player.mobile.jPlayerFade().to(G.data.duration.second * 2, 0.8, 0, function() {
 						Intro.player.mobile.jPlayer('destroy');
-						Ambient.setup();
+						cb();
 					});
 				} else {
 					Intro.player.top.jPlayerFade().to(G.data.duration.second * 2, Intro.volume.top, 0);
 					Intro.player.bottom.jPlayerFade().to(G.data.duration.second * 2, Intro.volume.bottom, 0, function() {
 						Intro.player.top.jPlayer('destroy');
 						Intro.player.bottom.jPlayer('destroy');
-						Ambient.setup();
+						cb();
 					});
 				}
+			} else {
+				cb();
 			}
 		}
 	};
 
 	var Ambient = {
+		num: 6,
+		current: 0,
+		volume: {max: 0.1, min: 0.02 },
 		path: 'assets/audio/ambient/',
-		player: {
-			top: $('#audio-player-intro-top'),
-			bottom: $('#audio-player-intro-bottom')
-		},
-		current: null,
-		playing: false,
+		player: $('#audio-player-ambient'),
 
 		setup: function() {
-			// Ambient.player.jPlayer({
-	  //           swfPath: 'js/lib',
-	  //           loop: true,
-	  //           supplied: 'mp3',
-	  //           error: function(e) {
-	  //           	log('audio error');
-	  //           },
-			// 	abort: function(e) {
-			// 		log('audio abort');
-			// 	},
-			// 	play: function(e) {
+			Ambient.player.jPlayer({
+	            swfPath: 'js/lib',
+	            supplied: 'mp3',
+	            volume: Ambient.volume.max,
+	            ready: function() {
+	            	Ambient.player.jPlayer('setMedia', {
+			            mp3: Ambient.path + 'story-' + Ambient.current + '.mp3',
+			        });
+	            },
+	            error: function(e) {
+	            	log('audio error');
+	            },
+				abort: function(e) {
+					log('audio abort');
+				},
+				play: function(e) {
 					
-			// 	},
-			// 	pause: function(e) {
+				},
+				pause: function(e) {
 					
-			// 	},
-			// 	ended: function(e) {
-
-			// 	}
-   //      	});
+				},
+				ended: function(e) {
+					Ambient.current++;
+					if(Ambient.current >= Ambient.num) {
+						Ambient.current = 0;
+					}
+					Ambient.player.jPlayer('setMedia', {
+			            mp3: Ambient.path + 'story-' + Ambient.current + '.mp3',
+			        });
+				},
+				canplaythrough: function() {
+					Ambient.player.jPlayer('play');
+				}
+        	});
 		},
 
 		hack: function() {
@@ -174,6 +191,12 @@ G.audio = (function () {
 		        }).jPlayer('pause');
 			}
 			Ambient.hacked = true;
+		},
+
+		fade: function(dir) {
+			var to = dir === 'in' ? Ambient.volume.max : Ambient.volume.min;
+			var from = dir === 'in' ? Ambient.volume.min : Ambient.volume.max;
+			Ambient.player.jPlayerFade().to(G.data.duration.second, from, to);
 		}
 	};
 
@@ -196,10 +219,10 @@ G.audio = (function () {
 					log('audio abort');
 				},
 				play: function(e) {
-					
+					Ambient.fade('out');
 				},
 				pause: function(e) {
-					
+					Ambient.fade('in');
 				},
 				ended: function(e) {
 					Chapter.playing = false;
@@ -265,6 +288,11 @@ G.audio = (function () {
 				var progress = Math.min(percent, 100) + '%';
 				G.ui.updateAudioProgress({el: Chapter.el, percent: progress});	
 			}
+		},
+
+		destroy: function() {
+			Chapter.current = null;
+			Chapter.playing = false;
 		}
 	};
 
@@ -274,9 +302,12 @@ G.audio = (function () {
 		loadIntro: Intro.setup,
 		playIntro: Intro.play,
 		updateIntro: Intro.update,
-		fadeIntro: Intro.fade,
+		fadeIntroToAmbient: Intro.fade,
 		pauseChapter: Chapter.pause,
 		toggleChapter: Chapter.toggle,
+		destroyChapter: Chapter.destroy,
+		setupAmient: Ambient.setup,
+		fadeAmbient: Ambient.fade
 	};
 	
 	return self; 
