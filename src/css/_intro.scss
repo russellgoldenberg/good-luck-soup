@@ -56,6 +56,17 @@
 	z-index: 0;
 }
 
+.intro-container video {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	min-width: 100%;
+	min-height: 100%;
+	width: auto;
+	height: auto;
+	z-index: 0;
+}
+
 .hed {
 	text-align: center;
 }
@@ -95,8 +106,6 @@
 }
 
 .video-text-outer {	
-	// position: absolute;
-	// bottom: 2em;
 	@extend %vertical-align;
 	width: 100%;
 }
@@ -118,18 +127,14 @@
 p.saying-hed {
 	text-align:center;
 	font-size: 1.8em;
-	// @extend %title-case;
 	border-bottom: $gray-lightest;
 	padding: 0 0.25em;
 }
 p.saying-subhed {
 	text-align: center;
 	max-width: $content-width-large;
-	.or {
-		border-bottom: 1px solid shade($white, 20%);
-		border-top: 1px solid shade($white, 20%);
-		margin: 0.5em 0;
-		display: inline-block;
+	@include breakpoint-small {
+		font-size: 1.1em;
 	}
 }
 

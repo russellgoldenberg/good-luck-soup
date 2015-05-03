@@ -20,7 +20,7 @@ G.ui = (function () {
 			fullscreen: $('.fullscreen'),
 			fullscreenPeek: $('.fullscreen-peek'),
 			fullscreenJumbo: $('.fullscreen-jumbo'),
-			videoBgContainer: $('.video-bg-container'),
+			introVideoBg: $('.video-bg'),
 			introBtn: $('.intro-container .btn'),
 			introContainer: $('.intro-container'),
 			storyContainer: $('.stories-container'),
@@ -31,7 +31,6 @@ G.ui = (function () {
 			audioPlayerIntroBottom: $('#audio-player-intro-bottom'),
 			story: null,
 			storyTop: null,
-			introVideoBg: null,
 			currentStory: null,
 			nextStory: null,
 			prevStory: null,
@@ -87,27 +86,32 @@ G.ui = (function () {
 
 	var Intro = {
 		insertVideos: function() {
-			$dom.videoBgContainer.each(function() {
-				var index = $(this).attr('data-index');
-				var html = GoodLuckSoup.templates['intro-video']({index: index});
-				$(this).prepend(html);
-			});
-			$dom.introVideoBg = $('.intro-container .video-bg');
-		},
-
-		setupWaypoints: function() {
-			$dom.introVideoBg.each(function() {
-				var waypoint = new Waypoint.Inview({
-					'element': $(this)[0],
-					'enter': function(direction) {
-						this.element.play();
-					},
-					'exited': function(direction) {
-						this.element.pause();
+			var numVideos = 6;
+			var insertNext = function(i) {
+				G.video.insertIntro(i, function() {
+					i++;
+					if(i < numVideos) {
+						insertNext(i);
 					}
 				});
-				_introWaypoints.push(waypoint);
+			};
+			
+			insertNext(0);
+		},
+
+		setupWaypoint: function(el) {
+			var waypoint = new Waypoint.Inview({
+				'element': el[0],
+				'enter': function(direction) {
+					var id = el.attr('data-video');
+					G.video.playIntro(id);
+				},
+				'exited': function(direction) {
+					var id = el.attr('data-video');
+					G.video.pauseIntro(id);
+				}
 			});
+			_introWaypoints.push(waypoint);
 		},
 
 		begin: function() {
@@ -127,6 +131,7 @@ G.ui = (function () {
 			G.audio.fadeIntro();
 
 			G.story.generate(function() {
+				G.video.destroyIntro();
 				$dom.story = $('.story');
 
 				$dom.currentStory = $dom.story.eq(0);
@@ -240,6 +245,7 @@ G.ui = (function () {
 
 			// pause audio if playing
 			G.audio.pauseChapter();
+			G.video.pauseChapter();
 		},
 
 		transitionToPrev: function() {
@@ -297,6 +303,7 @@ G.ui = (function () {
 
 			// pause audio if playing
 			G.audio.pauseChapter();
+			G.video.pauseChapter();
 		},
 
 		transitionComplete: function() {
@@ -457,7 +464,6 @@ G.ui = (function () {
 			//insert intro videos
 			if(!G.mobile()) {
 				Intro.insertVideos();
-				Intro.setupWaypoints();
 			}
 		},
 
@@ -468,7 +474,9 @@ G.ui = (function () {
 		updateAudioProgress: function(params) {
 			params.el.root.css('left', params.percent);
 			params.el.progress.css('width', params.percent);
-		}
+		},
+
+		setupWaypoint: Intro.setupWaypoint
 	};
 
 	return self; 
