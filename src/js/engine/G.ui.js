@@ -120,6 +120,7 @@ G.ui = (function () {
 		},
 
 		chapters: function() {
+			G.audio.hackAmbient();
 			G.mode('story');
 			Waypoint.disableAll();
 			$dom.introBtn.last().text('loading...');
@@ -132,7 +133,7 @@ G.ui = (function () {
 			G.story.generate(function() {
 				G.audio.fadeIntroToAmbient(function() {
 					G.video.destroyIntro();
-					G.audio.setupAmient();
+					G.audio.loadAmbient();
 					$dom.story = $('.story');
 
 					$dom.currentStory = $dom.story.eq(0);

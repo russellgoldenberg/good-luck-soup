@@ -3,6 +3,7 @@ G.audio = (function () {
 
 	var init = function() {
 		Chapter.setup();
+		Ambient.setup();
 	};
 
 	var Intro = {
@@ -27,7 +28,6 @@ G.audio = (function () {
 		            error: function(e) { log('audio error'); },
 					abort: function(e) { log('audio abort'); },
 					canplaythrough: function(e) { 
-						console.log('ahooy');
 						Intro.player.mobile.jPlayer('play');	
 					}
 	        	});
@@ -145,17 +145,13 @@ G.audio = (function () {
 		volume: {max: 0.1, min: 0.02 },
 		path: 'assets/audio/ambient/',
 		player: $('#audio-player-ambient'),
+		loaded: false,
 
 		setup: function() {
 			Ambient.player.jPlayer({
 	            swfPath: 'js/lib',
 	            supplied: 'mp3',
 	            volume: Ambient.volume.max,
-	            ready: function() {
-	            	Ambient.player.jPlayer('setMedia', {
-			            mp3: Ambient.path + 'story-' + Ambient.current + '.mp3',
-			        });
-	            },
 	            error: function(e) {
 	            	log('audio error');
 	            },
@@ -178,25 +174,37 @@ G.audio = (function () {
 			        });
 				},
 				canplaythrough: function() {
-					Ambient.player.jPlayer('play');
+					if(Ambient.loaded) {
+						Ambient.player.jPlayer('play');	
+					}
 				}
         	});
 		},
 
+		load: function() {
+			Ambient.loaded = true;
+			Ambient.player.jPlayer('setMedia', {
+	            mp3: Ambient.path + 'story-' + Ambient.current + '.mp3',
+	        });
+		},
+
 		hack: function() {
-			log('hack the planet');
-			if(!Ambient.hacked && G.mobile()) {
-				Ambient.player.jPlayer('setMedia', {
-		            mp3: Ambient.path + 'hack.mp3',
-		        }).jPlayer('pause');
-			}
-			Ambient.hacked = true;
+			Ambient.player.jPlayer('setMedia', {
+	            mp3: Ambient.path + 'hack.mp3',
+	        }).jPlayer('pause');
 		},
 
 		fade: function(dir) {
-			var to = dir === 'in' ? Ambient.volume.max : Ambient.volume.min;
-			var from = dir === 'in' ? Ambient.volume.min : Ambient.volume.max;
-			Ambient.player.jPlayerFade().to(G.data.duration.second, from, to);
+			if(G.mobile()) {
+				var choice = dir === 'in' ? 'play' : 'pause';
+				Ambient.player.jPlayer(choice);
+			} else {
+				var to = dir === 'in' ? Ambient.volume.max : Ambient.volume.min;
+				var from = dir === 'in' ? Ambient.volume.min : Ambient.volume.max;
+				Ambient.player.jPlayerFade().to(G.data.duration.second, from, to);	
+			}
+			
+			
 		}
 	};
 
@@ -302,12 +310,13 @@ G.audio = (function () {
 		loadIntro: Intro.setup,
 		playIntro: Intro.play,
 		updateIntro: Intro.update,
+		hackAmbient: Ambient.hack,
 		fadeIntroToAmbient: Intro.fade,
+		loadAmbient: Ambient.load,
+		fadeAmbient: Ambient.fade,
 		pauseChapter: Chapter.pause,
 		toggleChapter: Chapter.toggle,
 		destroyChapter: Chapter.destroy,
-		setupAmient: Ambient.setup,
-		fadeAmbient: Ambient.fade
 	};
 	
 	return self; 
