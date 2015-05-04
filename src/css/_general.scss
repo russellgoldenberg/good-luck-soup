@@ -147,6 +147,7 @@ img {
 }
 
 .header {
+	backface-visibility: hidden;
 	background: $black;
 	color: $primary;
 	height: $header-height;

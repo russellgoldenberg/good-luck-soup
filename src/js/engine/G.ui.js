@@ -473,7 +473,8 @@ G.ui = (function () {
 		},
 
 		showIntro: function() {
-			$dom.introBtn.first().text('Begin');
+			$dom.introBtn.first().find('span').text('Begin');
+			$dom.introBtn.first().find('img').removeClass('hide');
 			//show below the fold
 			$dom.belowTheFold.removeClass('hide');
 			//insert intro videos
