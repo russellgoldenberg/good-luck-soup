@@ -10,7 +10,8 @@ gulp.task('prod-libs', function() {
 			'src/libs/handlebars.runtime.min.js',
 			'src/libs/jquery.jplayer.min.js',
 			'src/libs/jplayer.fade.min.js',
-			'src/libs/raf.min.js'
+			'src/libs/raf.min.js',
+			'src/libs/localforage-1.2.3.min.js'
 		])
 		.pipe(concat('libs.js'))
 		.pipe(gulp.dest('prod/assets/js'));

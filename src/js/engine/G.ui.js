@@ -80,7 +80,9 @@ G.ui = (function () {
 
 		//intro scroll throttle
 		if(!G.mobile()) {
-			$dom.window.on('scroll', $.throttle(G.data.duration.second, Intro.onScroll));	
+			if(G.mode() === 'intro') {
+				$dom.window.on('scroll', $.throttle(G.data.duration.second, Intro.onScroll));		
+			}			
 		}
 	};
 
@@ -423,6 +425,14 @@ G.ui = (function () {
 					}}
 				});
 			});
+		},
+
+		database: function(btn) {
+
+		},
+
+		contribute: function(btn) {
+			window.location.href = 'http://goodlucksoup.com/contribute.html';
 		}
 	};
 

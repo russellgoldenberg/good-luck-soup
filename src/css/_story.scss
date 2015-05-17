@@ -33,6 +33,7 @@
 			@include transition-timing-function(ease-in);
 		}
 		.story-top {
+			backface-visibility: hidden;
 			height: 210px;
 			&:hover {
 				.story-top-bg {
@@ -178,6 +179,9 @@
 
 .story-content-template {
 	padding: 2em 0.5em 8em 0.5em;
+	&.single-story {
+		padding-bottom: 2em;	
+	}
 }
 
 .story-content-hed {
@@ -376,5 +380,19 @@
 	}
 	.divider {
 		margin: 2em auto 1em auto;
+	}
+}
+
+.story-share {
+	max-width: 320px;
+	margin: 0 auto;
+	text-align: center;
+	a {
+		display: inline-block;
+		width: 32px;
+		height: 32px;
+	}
+	img  {
+		height: 100%;
 	}
 }

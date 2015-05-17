@@ -1,10 +1,6 @@
 G.video = (function () {
 	'use strict';
 
-	var init = function() {
-		Chapter.setup();
-	};
-
 	var Intro = {
 		path: 'assets/video/intro/',
 		players: {},

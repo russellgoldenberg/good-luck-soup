@@ -240,15 +240,28 @@ G.audio = (function () {
 		},
 
 		toggle: function(params) {
-			if(Chapter.current && Chapter.current === params.id) {
-				if(Chapter.playing) {
-					Chapter.pause();
+			if(G.mode() === 'share') {
+				if(Chapter.current) {
+					if(Chapter.playing) {
+						Chapter.pause();
+					} else {
+						Chapter.play();
+					}
 				} else {
+					Chapter.setMedia(params);
 					Chapter.play();
 				}
 			} else {
-				Chapter.setMedia(params);
-				Chapter.play();
+				if(Chapter.current && Chapter.current === params.id) {
+					if(Chapter.playing) {
+						Chapter.pause();
+					} else {
+						Chapter.play();
+					}
+				} else {
+					Chapter.setMedia(params);
+					Chapter.play();
+				}	
 			}
 		},
 

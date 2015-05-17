@@ -36,6 +36,9 @@ h2 {
 
 a {
 	color: shade($primary, 15%);
+	&.btn {
+		text-decoration: none;
+	}
 }
 
 img {

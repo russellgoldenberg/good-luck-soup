@@ -75,7 +75,6 @@ G.story = (function () {
 	};
 
 	var getStoryData = function(ids, cb) {
-
 		var stringIds = '';
 		for(var i = 0; i < ids.length; i++) {
 			if(i > 0) {
@@ -124,6 +123,11 @@ G.story = (function () {
 		var $chapter = $(htmlChapter);
 		$chapter.find('.story-content-template').html(htmlTemplate);
 
+		var share = generateShare(story);
+		var htmlShare = GoodLuckSoup.templates['story-share'](share);
+
+		$chapter.find('.story-content-template').append(htmlShare);
+
 		if(chapter.index === NUM_CHAPTERS) {
 			var htmlEnd = GoodLuckSoup.templates['end']();
 			$chapter.find('.story-bottom').append(htmlEnd);
@@ -133,6 +137,16 @@ G.story = (function () {
 		$el.append($chapter);
 
 		G.ui.appendChapter($el);
+	};
+
+	var generateShare = function(story) {
+		var text = '“' + story.hed + '” - A Good Luck Soup story ';
+		var href = 'http://goodlucksoup.com/story.html?id=' + story.id;
+		var encoded = encodeURIComponent(text);
+		return {
+			twitter: 'https://twitter.com/intent/tweet?text=' + encoded + '&via=GoodLuckSoup&url=' + encodeURI(href),
+    		facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURI(href)
+		};
 	};
 
 	var preloadStories = function(data, cb) {
@@ -209,6 +223,29 @@ G.story = (function () {
 
 		numChapters: function() {
 			return NUM_CHAPTERS;
+		},
+
+		direct: function(id) {
+			var ids = [{id: id}];
+			getStoryData(ids, function(err, data) {
+				if(!err && data) {
+					var story = refineStory(data[0]);
+					var template = 'story-template-' + story.template;
+					var htmlTemplate = GoodLuckSoup.templates[template](story);
+
+					var $chapter = $('<div class="story-content-template single-story"></div>');
+					$chapter.html(htmlTemplate);
+
+					var share = generateShare(story);
+					var htmlShare = GoodLuckSoup.templates['story-share'](share);
+
+					$chapter.append(htmlShare);
+
+					G.ui.appendChapter($chapter);
+				} else {
+					// TODO handle no data
+				}
+			});
 		}
 	};
 	

@@ -1,4 +1,4 @@
-.moderate-container, .contribute-container {
+.moderate-container, .contribute-container, .about-container {
 	max-width: $content-width-medium;
 	margin-left: auto;
 	margin-right: auto;
@@ -200,4 +200,10 @@
 	.chapter {
 		width: 100px;
 	}
+}
+
+p.small {
+	color: #666;
+	font-size: 1em;
+	font-style: italic;
 }
