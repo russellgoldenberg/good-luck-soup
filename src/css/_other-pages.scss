@@ -18,6 +18,7 @@
 		font-family: $sans;
 		text-align: center;
 		@extend %title-case;
+		padding-top: 1em;
 		// text-decoration: underline;
 	}
 
@@ -199,6 +200,18 @@
 	i
 	.chapter {
 		width: 100px;
+	}
+
+	ol.credits {
+		text-align: center;
+		margin-bottom: 4em;
+		li {
+			margin: 0.5em 0;
+			font-size: 1.2em;
+			span {
+				font-weight: bold;
+			}
+		}
 	}
 }
 

@@ -28,16 +28,16 @@
 		}
 		.story-top-bg {
 			opacity: 0.7;
-			@include transition-property(all);
-			@include transition-duration(0.2s);
-			@include transition-timing-function(ease-in);
+			transform: transition-property(all);
+			transform: transition-duration(0.2s);
+			transform: transition-timing-function(ease-in);
 		}
 		.story-top {
 			backface-visibility: hidden;
 			height: 210px;
 			&:hover {
 				.story-top-bg {
-					@include transform(scale(1.02));
+					transform: scale(1.02);
 				}
 			}
 		}
@@ -62,9 +62,9 @@
 	font-family: $sans;
 	font-size: 2em;
 	@extend %vertical-align;
-	@include transition-property(all);
-	@include transition-duration(0.6s);
-	@include transition-timing-function(ease-in);
+	transform: transition-property(all);
+	transform: transition-duration(0.6s);
+	transform: transition-timing-function(ease-in);
 	top: 55%;
 	&.off {
 		opacity: 0;
@@ -77,9 +77,9 @@
 	width: 100%;
 	text-align: center;
 	opacity: 1;
-	@include transition-property(all);
-	@include transition-duration(0.25s);
-	@include transition-timing-function(ease-in);
+	transform: transition-property(all);
+	transform: transition-duration(0.25s);
+	transform: transition-timing-function(ease-in);
 	.btn {
 		opacity: 0.7;
 		border-radius: 3em;
@@ -106,9 +106,9 @@
 	font-family: $serif;
 	color: $primary;
 	font-size: 1.2em;
-	@include transition-property(all);
-	@include transition-duration(0.5s);
-	@include transition-timing-function(ease-in);
+	transform: transition-property(all);
+	transform: transition-duration(0.5s);
+	transform: transition-timing-function(ease-in);
 	&.off {
 		display: none;
 		opacity: 0;
@@ -139,9 +139,9 @@
 	cursor: pointer;
 	overflow: hidden;
 	height: 140px;
-	@include transition-property(height);
-	@include transition-duration(0.5s);
-	@include transition-timing-function(ease-in);
+	transform: transition-property(height);
+	transform: transition-duration(0.5s);
+	transform: transition-timing-function(ease-in);
 }
 
 .story-top-bg {
@@ -150,9 +150,9 @@
 	width: 100%;
 	@extend %bg-cover;
 	opacity: 0.2;
-	@include transition-property(opacity);
-	@include transition-duration(0.6s);
-	@include transition-timing-function(ease-in);
+	transform: transition-property(opacity);
+	transform: transition-duration(0.6s);
+	transform: transition-timing-function(ease-in);
 }
 
 .story-top-bg-1{
@@ -256,9 +256,9 @@
 		letter-spacing: 0;
 		width: 3em;
 		height: 3em;
-		@include transition-property(left);
-		@include transition-duration(250);
-		@include transition-timing-function(linear);
+		transform: transition-property(left);
+		transform: transition-duration(250);
+		transform: transition-timing-function(linear);
 		&:hover {
 			opacity: 1;
 		}
@@ -298,9 +298,9 @@
 		letter-spacing: 0;
 		width: 3em;
 		height: 3em;
-		@include transition-property(left);
-		@include transition-duration(250);
-		@include transition-timing-function(linear);
+		transform: transition-property(left);
+		transform: transition-duration(250);
+		transform: transition-timing-function(linear);
 		&:hover {
 			opacity: 1;
 		}
@@ -319,7 +319,7 @@
 	text-align: center;
 	font-style: italic;
 	color: $gray-light;
-	border-bottom: 1px dashed shade($white, 15%);
+	border-bottom: 1px dashed darken($white, 15%);
 	.user-date {
 		color: $gray-light;
 	}

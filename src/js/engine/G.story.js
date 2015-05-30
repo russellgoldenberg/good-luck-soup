@@ -182,7 +182,7 @@ G.story = (function () {
 	};
 
 	var self = {
-		init: function() {
+		init: function(visited) {
 			for(var i = 0; i < NUM_CHAPTERS; i++) {
 				_data.custom[i] = [];
 				_data.general[i] = [];

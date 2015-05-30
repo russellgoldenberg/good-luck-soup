@@ -35,9 +35,9 @@
 }
 
 %expand {
-	@include transition-property(height, top);
-	@include transition-duration($transition-fast);
-	@include transition-timing-function(ease-in);
+	transform: transition-property(height, top);
+	transform: transition-duration($transition-fast);
+	transform: transition-timing-function(ease-in);
 }
 
 @mixin breakpoint-small {

@@ -35,7 +35,7 @@ h2 {
 }
 
 a {
-	color: shade($primary, 15%);
+	color: darken($primary, 15%);
 	&.btn {
 		text-decoration: none;
 	}
@@ -85,7 +85,7 @@ img {
 
 .btn {
 	background-color: $primary;
-	color: shade($primary, 50%);
+	color: darken($primary, 50%);
 	padding: 0.5em 1em;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
@@ -97,11 +97,11 @@ img {
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
-	@include transition-property(background-color, opacity);
-	@include transition-duration($transition-fast);
-	@include transition-timing-function(ease-in);
+	transform: transition-property(background-color, opacity);
+	transform: transition-duration($transition-fast);
+	transform: transition-timing-function(ease-in);
 	&:hover {
-		background-color: shade($primary, 10%);
+		background-color: darken($primary, 10%);
 	}
 }
 
@@ -127,9 +127,9 @@ img {
 	width: 100%;
 	text-align: center;
 	opacity: 0;
-	@include transition-property(opacity);
-	@include transition-duration($transition-fast);
-	@include transition-timing-function(ease-in);
+	transform: transition-property(opacity);
+	transform: transition-duration($transition-fast);
+	transform: transition-timing-function(ease-in);
 	img {
 		padding: 0.5em;
 		height: 100px;

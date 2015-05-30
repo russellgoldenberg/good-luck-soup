@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var sass = require('gulp-ruby-sass');
+var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync');
 var notify = require('gulp-notify');
@@ -7,11 +7,9 @@ var rename = require('gulp-rename');
 
 //compile all sass and autoprefix
 gulp.task('dev-css', function() {
-	return sass('src/css/main-dev.scss', {
-			style: 'expanded', compass: true
-		})
-		.on('error', handleErrors)
-		.pipe(autoprefixer({browsers:['last 2 versions'], cascade: false}))
+	gulp.src('src/css/main-dev.scss')
+	    .pipe(sass().on('error', handleErrors))
+	    .pipe(autoprefixer({browsers:['last 2 versions'], cascade: false}))
 		.pipe(rename('main.css'))
 		.pipe(gulp.dest('dev/assets/css'))
 		.pipe(browserSync.reload({stream:true}));

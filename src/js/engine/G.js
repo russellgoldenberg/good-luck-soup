@@ -15,11 +15,11 @@ window.G = (function () {
 			}
 		},
 		kickoff: function() {
-			self.visit(function() {
+			self.visit(function(value) {
 				G.ui.init();
 				G.audio.init();
 				G.intro.init();
-				G.story.init();
+				G.story.init(value);
 			});
 		},
 		direct: function(id) {
@@ -38,11 +38,11 @@ window.G = (function () {
 			return _isMobile;
 		},
 		visit: function(cb) {
-			self.storgeItem({'key': 'sequences_viewed', callback: function(err, value) {
-				cb();
+			self.storageItem({'key': 'sequences_viewed', callback: function(err, value) {
+				cb(value);
 			}});
 		},
-		storgeItem: function(params) {
+		storageItem: function(params) {
 			// if value then set
 			if(params.value) {
 				localforage.setItem(params.key, params.value);

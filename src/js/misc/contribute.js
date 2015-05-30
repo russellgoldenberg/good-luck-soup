@@ -107,6 +107,10 @@
 			}
 		});
 
+		if(window.location.hostname.indexOf('goodlucksoup') === -1) {
+			invalid = false;
+		}
+
 		if(!invalid) {
 			//cant submit empty story
 			var promptVal = addHTML(val);
