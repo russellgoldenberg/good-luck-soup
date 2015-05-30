@@ -28,9 +28,9 @@
 		}
 		.story-top-bg {
 			opacity: 0.7;
-			transform: transition-property(all);
-			transform: transition-duration(0.2s);
-			transform: transition-timing-function(ease-in);
+			transition-property: all;
+			transition-duration: 0.2s;
+			transition-timing-function:  ease-i;
 		}
 		.story-top {
 			backface-visibility: hidden;
@@ -62,9 +62,9 @@
 	font-family: $sans;
 	font-size: 2em;
 	@extend %vertical-align;
-	transform: transition-property(all);
-	transform: transition-duration(0.6s);
-	transform: transition-timing-function(ease-in);
+	transition-property: all;
+	transition-duration: 0.6s;
+	transition-timing-function: ease-in;
 	top: 55%;
 	&.off {
 		opacity: 0;
@@ -77,9 +77,9 @@
 	width: 100%;
 	text-align: center;
 	opacity: 1;
-	transform: transition-property(all);
-	transform: transition-duration(0.25s);
-	transform: transition-timing-function(ease-in);
+	transition-property: all;
+	transition-duration: 0.25s;
+	transition-timing-function: ease-in;
 	.btn {
 		opacity: 0.7;
 		border-radius: 3em;
@@ -106,9 +106,9 @@
 	font-family: $serif;
 	color: $primary;
 	font-size: 1.2em;
-	transform: transition-property(all);
-	transform: transition-duration(0.5s);
-	transform: transition-timing-function(ease-in);
+	transition-property: all;
+	transition-duration: 0.5s;
+	transition-timing-function: ease-in;
 	&.off {
 		display: none;
 		opacity: 0;
@@ -139,9 +139,9 @@
 	cursor: pointer;
 	overflow: hidden;
 	height: 140px;
-	transform: transition-property(height);
-	transform: transition-duration(0.5s);
-	transform: transition-timing-function(ease-in);
+	transition-property: height;
+	transition-duration: 0.5s;
+	transition-timing-function: ease-in;
 }
 
 .story-top-bg {
@@ -150,9 +150,9 @@
 	width: 100%;
 	@extend %bg-cover;
 	opacity: 0.2;
-	transform: transition-property(opacity);
-	transform: transition-duration(0.6s);
-	transform: transition-timing-function(ease-in);
+	transition-property: opacity;
+	transition-duration: 0.6s;
+	transition-timing-function: ease-in;
 }
 
 .story-top-bg-1{
@@ -256,9 +256,9 @@
 		letter-spacing: 0;
 		width: 3em;
 		height: 3em;
-		transform: transition-property(left);
-		transform: transition-duration(250);
-		transform: transition-timing-function(linear);
+		transition-property: left;
+		transition-duration: 250;
+		transition-timing-function: linear;
 		&:hover {
 			opacity: 1;
 		}
@@ -298,9 +298,9 @@
 		letter-spacing: 0;
 		width: 3em;
 		height: 3em;
-		transform: transition-property(left);
-		transform: transition-duration(250);
-		transform: transition-timing-function(linear);
+		transition-property: left;
+		transition-duration: 250;
+		transition-timing-function: linear;
 		&:hover {
 			opacity: 1;
 		}

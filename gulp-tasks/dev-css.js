@@ -26,4 +26,4 @@ var handleErrors = function() {
 
 	console.log(error);
 	this.emit('end');
-}
+};

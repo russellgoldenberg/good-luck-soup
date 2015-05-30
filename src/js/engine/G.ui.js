@@ -7,6 +7,7 @@ G.ui = (function () {
 	var _dimensions = {};
 	var _transition;
 	var _introWaypoints = [];
+	var _generatingChapters;
 	
 	var STORY_TOP_HEIGHT = 140;
 	var HEADER_HEIGHT = 42;
@@ -122,38 +123,42 @@ G.ui = (function () {
 		},
 
 		chapters: function() {
-			G.audio.hackAmbient();
-			G.mode('story');
-			Waypoint.disableAll();
-			$dom.introBtn.last().text('loading...');
-			self.enableScroll(false);
+			if(!_generatingChapters) {
+				_generatingChapters = true;
+				G.audio.hackAmbient();
+				G.mode('story');
+				Waypoint.disableAll();
+				$dom.introBtn.last().text('loading...');
+				self.enableScroll(false);
 
-			if(!G.mobile()) {
-				$dom.window.off('scroll');	
-			}
+				if(!G.mobile()) {
+					$dom.window.off('scroll');	
+				}
 
-			G.story.generate(function() {
-				G.audio.fadeIntroToAmbient(function() {
-					G.video.destroyIntro();
-					G.audio.loadAmbient();
-					$dom.story = $('.story');
+				G.story.generate(function() {
+					G.audio.fadeIntroToAmbient(function() {
+						G.video.destroyIntro();
+						G.audio.loadAmbient();
+						$dom.story = $('.story');
 
-					$dom.currentStory = $dom.story.eq(0);
-					$dom.nextStory = $dom.story.eq(1);
-					$dom.prevStory = null;
+						$dom.currentStory = $dom.story.eq(0);
+						$dom.nextStory = $dom.story.eq(1);
+						$dom.prevStory = null;
 
-					$dom.currentStory.addClass('current');
-					$dom.nextStory.addClass('next');
+						$dom.currentStory.addClass('current');
+						$dom.nextStory.addClass('next');
 
-					$dom.currentStory.find('.story-top-text').removeClass('off');
-					$dom.currentStory.find('.story-top-next').addClass('off');
-					self.resize();
+						$dom.currentStory.find('.story-top-text').removeClass('off');
+						$dom.currentStory.find('.story-top-next').addClass('off');
+						self.resize();
 
-					$dom.storyContainer.removeClass('hide').removeClass('transparent');
-					
-					setTimeout(Story.revealAll, 17);
+						$dom.storyContainer.removeClass('hide').removeClass('transparent');
+						
+						setTimeout(Story.revealAll, 17);
+						_generatingChapters = false;
+					});
 				});
-			});
+			}
 		},
 
 		onScroll: function() {
@@ -377,57 +382,62 @@ G.ui = (function () {
 		},
 
 		newChapters: function(btn) {
-			self.enableScroll(false);
-			btn.text('Loading...');
+			if(!_generatingChapters) {
+				_generatingChapters = true;
+				self.enableScroll(false);
+				btn.text('Loading...');
 
-			G.audio.destroyChapter();
-			G.video.destroyChapter();
-			G.story.generate(function() {
-				//delete all except current
-				$dom.story.not('.current').remove();
-				
-				$dom.story = $('.story');
-				$dom.currentStory = $dom.story.eq(0);
-				$dom.nextStory = $dom.story.eq(1);
-				$dom.nextStory.addClass('next');
+				G.audio.destroyChapter();
+				G.video.destroyChapter();
+				G.story.generate(function() {
+					//delete all except current
+					$dom.story.not('.current').remove();
+					
+					$dom.story = $('.story');
+					$dom.currentStory = $dom.story.eq(0);
+					$dom.nextStory = $dom.story.eq(1);
+					$dom.nextStory.addClass('next');
 
-				$dom.nextStory.find('.story-top-next').addClass('off');
-				$dom.nextStory.find('.story-top-text').removeClass('off');
-				$dom.prevStory = null;
-				
-				self.resize();
+					$dom.nextStory.find('.story-top-next').addClass('off');
+					$dom.nextStory.find('.story-top-text').removeClass('off');
+					$dom.prevStory = null;
+					
+					self.resize();
 
-				var offset = -1 * (_dimensions.h - HEADER_HEIGHT);
-				var offsetNext = offset + 'px';
-				var offsetCurrent = offset * 0.5 + 'px';
+					var offset = -1 * (_dimensions.h - HEADER_HEIGHT);
+					var offsetNext = offset + 'px';
+					var offsetCurrent = offset * 0.5 + 'px';
 
-				$dom.currentStory.velocity({ 
-					properties: { 
-						'translateY': offsetNext,
-						'translateZ': 0
-					},
-					options: { 'duration': G.data.duration.half, complete: function(){
-						$dom.currentStory.css('transform', '');
-						$dom.currentStory.velocity({ 
-							properties: { 'translateY': 0 },
-							options: { 'duration': 0 }
-						});
-						self.enableScroll(true);
-						$dom.window.scrollTop(0);
-						$dom.currentStory.remove();
+					$dom.currentStory.velocity({ 
+						properties: { 
+							'translateY': offsetNext,
+							'translateZ': 0
+						},
+						options: { 'duration': G.data.duration.half, complete: function(){
+							$dom.currentStory.css('transform', '');
+							$dom.currentStory.velocity({ 
+								properties: { 'translateY': 0 },
+								options: { 'duration': 0 }
+							});
+							self.enableScroll(true);
+							$dom.window.scrollTop(0);
+							$dom.currentStory.remove();
 
-						$dom.story = $('.story');
-						var cur = G.story.currentIndex();
-						$dom.currentStory = $dom.story.eq(cur);
-						$dom.currentStory.addClass('current').removeClass('next');
-						$dom.nextStory = $dom.story.eq((cur+1));
-						$dom.nextStory.addClass('next');
-					}}
+							$dom.story = $('.story');
+							var cur = G.story.currentIndex();
+							$dom.currentStory = $dom.story.eq(cur);
+							$dom.currentStory.addClass('current').removeClass('next');
+							$dom.nextStory = $dom.story.eq((cur+1));
+							$dom.nextStory.addClass('next');
+
+							_generatingChapters = false;
+						}}
+					});
 				});
-			});
+			}
 		},
 
-		database: function(btn) {
+		archive: function(btn) {
 
 		},
 
