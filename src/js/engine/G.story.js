@@ -225,23 +225,39 @@ G.story = (function () {
 			return NUM_CHAPTERS;
 		},
 
-		direct: function(id) {
+		direct: function(id, cb) {
 			var ids = [{id: id}];
 			getStoryData(ids, function(err, data) {
 				if(!err && data) {
 					var story = refineStory(data[0]);
-					var template = 'story-template-' + story.template;
-					var htmlTemplate = GoodLuckSoup.templates[template](story);
 
-					var $chapter = $('<div class="story-content-template single-story"></div>');
-					$chapter.html(htmlTemplate);
+					var createHTML = function() {
+						var template = 'story-template-' + story.template;
+						var htmlTemplate = GoodLuckSoup.templates[template](story);
 
-					var share = generateShare(story);
-					var htmlShare = GoodLuckSoup.templates['story-share'](share);
+						var $chapter = $('<div class="story-content-template single-story"></div>');
+						$chapter.html(htmlTemplate);
 
-					$chapter.append(htmlShare);
+						var share = generateShare(story);
+						var htmlShare = GoodLuckSoup.templates['story-share'](share);
 
-					G.ui.appendChapter($chapter);
+						$chapter.append(htmlShare);
+
+						G.ui.appendChapter($chapter);
+						cb();
+					};
+
+					if(story.image) {
+						var url = _filepath.img + story.image;	
+						loadImage(url, function(img) {
+							story.image_width = img.naturalWidth;
+							story.image_height = img.naturalHeight;
+							
+							createHTML();
+						});
+					} else {
+						createHTML();
+					}
 				} else {
 					// TODO handle no data
 				}

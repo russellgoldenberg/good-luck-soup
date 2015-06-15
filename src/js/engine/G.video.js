@@ -75,7 +75,7 @@ G.video = (function () {
 				ready: function() {
 					Chapter.el[id].jPlayer('setMedia', {
 						m4v: Chapter.path + id + '.mp4',
-						poster: 'assets/img/story/poster.jpg',
+						poster: 'assets/img/story/poster-' + id + '.jpg',
 						title: id
 					});
 				},

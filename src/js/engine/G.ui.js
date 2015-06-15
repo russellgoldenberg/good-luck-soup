@@ -465,7 +465,8 @@ G.ui = (function () {
 			$dom.fullscreenJumbo.css('height', _dimensions.h * 1.4);
 
 			//stories are showing
-			if(G.mode() === 'story') {
+			var mode = G.mode();
+			if(mode === 'story' || mode === 'share') {
 				Story.setImageDimensions();
 			}
 		},

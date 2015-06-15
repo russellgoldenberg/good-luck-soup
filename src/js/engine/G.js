@@ -26,7 +26,7 @@ window.G = (function () {
 			_mode = 'share';
 			G.ui.init();
 			G.audio.init();
-			G.story.direct(id);
+			G.story.direct(id, G.ui.resize);
 		},
 		mode: function(mode) {
 			if(mode) {
