@@ -42,6 +42,13 @@
 			var hed = $(parent).find('.story-hed-input').val().trim();
 			var caption = '';
 			var captionEl = $(parent).find('.image-caption-input');
+				
+			var emailVal = $(parent).find('.email').text().split('email: ');
+			var email = false;
+			if(emailVal.length > 1) {
+				email = emailVal[1];
+			}
+
 			if(captionEl.length) {
 				caption = captionEl.val().trim();
 			}
@@ -51,7 +58,7 @@
 				$.ajax({
 					url: _moderateUrl,
 					type: 'POST',
-					data:  {'approve': id, 'featured': featured, 'chapter': chapter, 'content': content, 'hed': hed, 'caption': caption },
+					data:  {'approve': id, 'featured': featured, 'chapter': chapter, 'content': content, 'hed': hed, 'caption': caption, 'email': email },
 					success: function(data){
 						console.log(data);
 						if(data.error) {
