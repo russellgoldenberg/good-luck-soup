@@ -1,5 +1,6 @@
 // STORY OVERALL
 .stories-container {
+	min-height: 320px;
 	@include breakpoint-small {
 		font-size: 0.9em;
 	}
