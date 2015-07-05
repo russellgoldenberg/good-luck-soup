@@ -1,15 +1,25 @@
 <div class='main-container archive-container'>
-	<h1 class='hed'>
-		<a href='/'>Good Luck Soup</a>
-	</h1>
+	<h2 class='explainer-hed'>Archive</h2>
 	<p>
-		Good Luck Soup is a transmedia documentary project on the journey of Japanese Americans and Japanese Canadians before, during, and after World War II.
+		A searchable database of every story collected by the team and contributed by the public.
 	</p>
-	<p>
-		This archive contains all stories created by the Good Luck Soup team and those contributed by the general public.
-	</p> 
+
+	<div class='search-by-name'>
+		<p>Find stories by creator name:</p>
+		<form id='search'>
+			<input placeholder='Enter a name' />
+		</form>
+	</div>
+
+	<div class='chapters'>
+
+	</div>
 </div>
 <!-- smoosh -->
-<script type='text/javascript' src='assets/js/libs/jquery-1.11.2.min.js'></script>
-<script type='text/javascript' src='assets/js/misc/archive.js'></script>
+<script>
+	window.G = {};
+</script>
+<script src='assets/js/libs/jquery-1.11.2.min.js'></script>
+<script src='assets/js/engine/G.data.js'></script>
+<script src='assets/js/misc/archive.js'></script>
 <!-- endsmoosh -->

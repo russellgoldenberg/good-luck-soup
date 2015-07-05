@@ -213,10 +213,57 @@
 			}
 		}
 	}
+
+	p.small {
+		color: #666;
+		font-size: 1em;
+		font-style: italic;
+	}
 }
 
-p.small {
-	color: #666;
-	font-size: 1em;
-	font-style: italic;
+.archive-container {
+	max-width: 720px;
+	// archive
+	.chapters ul {
+		height: 100%;
+		overflow: hidden;
+	}
+	.chapters li, .chapters a {
+		display: block;
+		position: relative;
+	}
+
+	.chapters li {
+		max-width: 240px;
+		width: 33.33%;
+		float: left;
+		margin: 0.25em 0;
+		padding-right: 0.5em;
+		@include breakpoint-medium {
+			font-size: 1em;
+		}
+		a {
+			background-color: $black;
+		}
+		// &:last-child {
+		// 	padding: 0;
+		// }
+		span {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			display: inline-block;
+			color: $white;
+			text-shadow: 0 0 3px $black;
+			font-size: 1.2em;
+			// text-align: center;
+			width: 100%;
+			line-height: 1.2;
+			padding: 0.25em 0.5em;
+		}
+		img {
+			display: block;
+			opacity: 0.7;
+		}
+	}
 }
