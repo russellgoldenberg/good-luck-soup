@@ -39,7 +39,7 @@ G.video = (function () {
 					//only fire once, not on loop
 					if(!Intro.players[id].loaded) {
 						Intro.players[id].loaded = true;
-						Intro.players[id].el.removeClass('hide');
+						Intro.players[id].el.removeClass('transparent');
 						G.ui.setupWaypoint(Intro.players[id].el);
 						cb();
 					}

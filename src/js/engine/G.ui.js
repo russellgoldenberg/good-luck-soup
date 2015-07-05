@@ -36,6 +36,10 @@ G.ui = (function () {
 			nextStory: null,
 			prevStory: null,
 		};
+
+		if(G.mobile()) {
+			$('html').addClass('mobile');
+		}
 	};
 
 	var setupEvents = function() {

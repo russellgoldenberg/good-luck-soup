@@ -23,7 +23,11 @@
 	height: 100%;
 	width: 100%;
 	top: 0;
-	background: $white no-repeat center center;
+	background-color: $black;
+}
+
+.mobile .video-bg-container {
+	background: $black no-repeat center center;
 	background-size: cover;
 	&.intro-bg-0 {
 		background-image: url(#{$filepath}/img/intro/intro-0.jpg);
@@ -54,6 +58,7 @@
 	width: auto;
 	height: auto;
 	z-index: 0;
+	transition: opacity 0.5s;
 }
 
 .intro-container video {
