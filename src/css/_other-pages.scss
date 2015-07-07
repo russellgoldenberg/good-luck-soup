@@ -233,37 +233,62 @@
 		position: relative;
 	}
 
+	h3 {
+		@include breakpoint-medium {
+			font-size: 1.3em;
+			margin: 0.25em 0;
+		}
+	}
 	.chapters li {
-		max-width: 240px;
 		width: 33.33%;
 		float: left;
 		margin: 0.25em 0;
-		padding-right: 0.5em;
-		@include breakpoint-medium {
-			font-size: 1em;
+		padding: 0 0.5em;
+		@include breakpoint-small {
+			width: 100%;
+			padding-right: 0;
 		}
 		a {
-			background-color: $black;
+			text-decoration: none;
+			color: $black;
 		}
-		// &:last-child {
-		// 	padding: 0;
+		&:last-child {
+			// padding-right: 0;
+		}
+		p {
+			margin: 0.5em 0;
+			text-align: center;
+		}
+		// span {
+		// 	position: absolute;
+		// 	bottom: 0;
+		// 	left: 0;
+		// 	display: inline-block;
+		// 	color: $white;
+		// 	text-shadow: 0 0 3px $black;
+		// 	font-size: 1.2em;
+		// 	// text-align: center;
+		// 	width: 100%;
+		// 	line-height: 1.2;
+		// 	padding: 0.25em 0.5em;
 		// }
-		span {
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			display: inline-block;
-			color: $white;
-			text-shadow: 0 0 3px $black;
-			font-size: 1.2em;
-			// text-align: center;
-			width: 100%;
-			line-height: 1.2;
-			padding: 0.25em 0.5em;
-		}
+
 		img {
 			display: block;
-			opacity: 0.7;
+			border: 1px solid #ccc;
 		}
+	}
+
+	.chapters a.btn {
+		display: inline-block;
+	}
+
+	.archive-back {
+		margin-bottom: 2em;
+		text-align: center;
+	}
+
+	.archive-see-more {
+		text-align: center;
 	}
 }

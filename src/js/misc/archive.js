@@ -5,21 +5,83 @@
 	var NUM_CHAPTERS = 7;
 
 	var init = function() {
-		for(var i = 0; i < NUM_CHAPTERS; i++) {
-			_data[i] = [];
-		}
-		$.ajax({
-			url: 'http://goodlucksoup.com/featured-data.jsonp',
-			dataType: 'jsonp',
-			jsonpCallback: 'onLoadFeatured',
-			error: function() {
-				console.log('error loading data');
+		var chapter = checkChapter();
+		if(chapter) {
+			displaySingleChapter(chapter);
+		} else {
+			for(var i = 0; i < NUM_CHAPTERS; i++) {
+				_data[i] = [];
 			}
-		});
+			$.ajax({
+				url: 'http://goodlucksoup.com/featured-data.jsonp',
+				dataType: 'jsonp',
+				jsonpCallback: 'onLoadFeatured',
+				error: function() {
+					console.log('error loading data');
+				}
+			});
+		}
+	};
+
+	var checkChapter = function() {
+		var search = window.location.search;
+		if(search.length && search.indexOf('chapter=') > -1) {
+			var index = search.indexOf('=') + 1;
+			var chapter = parseInt(search.substring(index, search.length));
+			if(chapter >-1 && chapter < 8) {
+				return chapter;
+			} else {
+				return false;
+			}
+		}
+		return false;
 	};
 
 	var setupEvents = function() {
 	
+	};
+
+	var displaySingleChapter = function(chapter) {
+		var url = 'http://goodlucksoup.com/php/get-chapter.php';
+		$.ajax({
+			url: url,
+			type: 'POST',
+			data:  {'chapter': (chapter - 1)},
+			success: function(response) {
+				renderSingleChapter(response.data, chapter - 1);
+			},
+			error: function(err){
+				cb(err);
+			} 
+		});
+	};
+
+	var renderSingleChapter = function(items, index) {
+		var html = '';
+		html += '<h3>Chapter ' + (index + 1) + ' : ' + G.data.story.chapters[index].hed + '</h3>';
+		items.forEach(function(item, i) {
+			if(i%3 === 0) {
+				html += '<ul>';
+			}
+			html += '<li><a target="_blank" href="http://goodlucksoup.com/story.html?id=' + item.id + '">';
+
+			if(item.image) {
+				item.image = 'http://goodlucksoup.com/uploaded-images/' + item.image.replace('.jpg', '_thumb.jpg');
+			} else {
+				item.image = 'assets/img/story/chapter-' + (index + 1) + '.jpg';
+			}
+			html += '<img src="' + item.image + '" />';
+			html += '<p>' + item.hed + '</p>';
+			html += '</a></li>';
+
+			if(i%3 === 2 || i === items.length - 1) {
+				html += '</ul>';
+			}
+		});
+
+		html += '<div class="archive-back"><a class="btn" href="/archive.html">Back to archive</a></div>';
+
+		$('.chapters').append(html);
 	};
 
 	var displayChapters = function() {
@@ -36,19 +98,18 @@
 			html += '<li><a target="_blank" href="http://goodlucksoup.com/story.html?id=' + item.id + '">';
 
 			if(item.image) {
-				item.image = item.image.replace('.jpg', '_thumb.jpg');
+				item.image = 'http://goodlucksoup.com/uploaded-images/' + item.image.replace('.jpg', '_thumb.jpg');
 			} else {
-				// TODO no plan?
+				item.image = 'assets/img/story/chapter-' + (index + 1) + '.jpg';
 			}
-			html += '<img src="http://goodlucksoup.com/uploaded-images/' + item.image + '" />';
-			html += '<span>' + item.hed + '</span>';
-
+			html += '<img src="' + item.image + '" />';
+			html += '<p>' + item.hed + '</p>';
 			html += '</a></li>';
 		});
 
 		html += '</ul>';
 
-		html += '<p><a href="#">See more</a></p>';
+		html += '<div class="archive-see-more"><a class="btn" href="/archive.html?chapter=' + (index + 1) + '">See more</a></div>';
 
 		$('.chapters').append(html);
 	};
