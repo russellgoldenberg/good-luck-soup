@@ -237,7 +237,8 @@
 	h3 {
 		@include breakpoint-medium {
 			font-size: 1.3em;
-			margin: 0.25em 0;
+			margin: 0.5em 0;
+			margin-top: 1.5em;
 		}
 	}
 	.chapters li {
@@ -290,5 +291,28 @@
 
 	.archive-see-more {
 		text-align: center;
+	}
+
+	#search {
+		.inputs {
+			height: 100%;
+			overflow: hidden;
+			margin-bottom: 1em;
+		}
+
+		.inputs > * {
+			float: left;
+		}
+
+		input  {
+			width: 45%;
+		}
+
+		.or {
+			display: inline-block;
+			width: 10%;
+			text-align: center;
+			padding: 0.5em 0;
+		}
 	}
 }
