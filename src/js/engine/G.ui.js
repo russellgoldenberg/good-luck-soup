@@ -446,7 +446,7 @@ G.ui = (function () {
 		},
 
 		contribute: function(btn) {
-			window.location.href = 'http://goodlucksoup.com/contribute.html';
+			// window.location.href = 'http://goodlucksoup.com/contribute.html';
 		}
 	};
 

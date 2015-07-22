@@ -64,7 +64,7 @@
 	};
 
 	var findName = function(name) {
-		var threshold = 6;
+		var threshold = 8;
 		var output = [];
 		for(var i = 0; i < _names.length; i++) {
 			var score = levenshteinDistance(name, _names[i].name);

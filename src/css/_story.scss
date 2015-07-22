@@ -354,8 +354,13 @@
 		
 		.btn {
 			display: block;
-			max-width: 300px;
+			width: 280px;
 			margin: 0.5em auto;
+
+			a {
+				text-decoration: none;
+				color: $black;
+			}
 		}
 	}
 
@@ -385,10 +390,9 @@
 }
 
 .story-share {
-	max-width: 320px;
 	margin: 0 auto;
 	text-align: center;
-	a {
+	a.social {
 		display: inline-block;
 		width: 32px;
 		height: 32px;

@@ -1,5 +1,10 @@
 <div class='story-share'>
 	<p>Share this story</p>
-	<a target='_blank' href='{{twitter}}'><img src='assets/img/icons/twitter.svg'/></a>
-	<a target='_blank' href='{{facebook}}'><img src='assets/img/icons/facebook.svg'/></a>
+	<a class='social' target='_blank' href='{{twitter}}'><img src='assets/img/icons/twitter.svg'/></a>
+	<a class='social' target='_blank' href='{{facebook}}'><img src='assets/img/icons/facebook.svg'/></a>
+	{{#if archive}}
+	<p>
+		<a href='{{archive}}'>View archive of all stories in this chapter</a>
+	<p>
+	{{/if}}
 </div>

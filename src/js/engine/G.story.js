@@ -124,6 +124,11 @@ G.story = (function () {
 		$chapter.find('.story-content-template').html(htmlTemplate);
 
 		var share = generateShare(story);
+
+		if(_currentViewing > 0) {
+			share.archive = 'http://goodlucksoup.com/archive.html?chapter=' + (_currentIndex + 1); 
+		}
+
 		var htmlShare = GoodLuckSoup.templates['story-share'](share);
 
 		$chapter.find('.story-content-template').append(htmlShare);

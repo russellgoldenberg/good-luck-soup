@@ -1,7 +1,7 @@
 this["GoodLuckSoup"] = this["GoodLuckSoup"] || {};
 this["GoodLuckSoup"]["templates"] = this["GoodLuckSoup"]["templates"] || {};
 this["GoodLuckSoup"]["templates"]["end"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  return "<div class='end'>\n	<div class='logo-lady'>\n		<img src='assets/img/lady.png'>\n	</div>\n	<div class='end-stories'>\n		<p>More stories</p>\n		<div class='end-stories-choices center-text'>\n			<div class='btn' data-action='newChapters'>\n				Generate new chapters\n			</div>\n			<div class='btn' data-action='archive'>\n				View full archive\n			</div>\n			<div class='btn' data-action='contribute'>\n				Submit your own\n			</div>\n		</div>\n	</div>\n\n	<div class='end-other'>\n		<p>\n			Or check out the feature length film <span class='bold'>Good Luck Soup</span>, a companion to the interactive. Watch the trailer <a href='#'>here</a>.\n		</p>\n	</div>\n</div>";
+  return "<div class='end'>\n	<div class='logo-lady'>\n		<img src='assets/img/lady.png'>\n	</div>\n	<div class='end-stories'>\n		<p>More stories</p>\n		<div class='end-stories-choices center-text'>\n			<button class='btn' data-action='newChapters'>\n				Generate new chapters\n			</button>\n			<a href='http://goodlucksoup.com/archive.html' class='btn' data-action='archive'>\n				View full archive\n			</a>\n			<a href='http://goodlucksoup.com/contribute.html' class='btn' data-action='contribute'>\n				Submit your own\n			</a>\n		</div>\n	</div>\n\n	<div class='end-other'>\n		<p>\n			Or check out the feature length film <span class='bold'>Good Luck Soup</span>, a companion to the interactive. Watch the trailer <a href='#'>here</a>.\n		</p>\n	</div>\n</div>";
   },"useData":true});
 this["GoodLuckSoup"]["templates"]["story-content"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
@@ -17,13 +17,20 @@ this["GoodLuckSoup"]["templates"]["story-content"] = Handlebars.template({"compi
     + escapeExpression(((helper = (helper = helpers.hed || (depth0 != null ? depth0.hed : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"hed","hash":{},"data":data}) : helper)))
     + "</div>\n		</div>\n	</div>\n	<div class='story-bottom'>\n		<div class='story-content-template'></div>\n	</div>\n</div>";
 },"useData":true});
-this["GoodLuckSoup"]["templates"]["story-share"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+this["GoodLuckSoup"]["templates"]["story-share"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
-  return "<div class='story-share'>\n	<p>Share this story</p>\n	<a target='_blank' href='"
+  return "	<p>\n		<a href='"
+    + escapeExpression(((helper = (helper = helpers.archive || (depth0 != null ? depth0.archive : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"archive","hash":{},"data":data}) : helper)))
+    + "'>View archive of all stories in this chapter</a>\n	<p>\n";
+},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div class='story-share'>\n	<p>Share this story</p>\n	<a class='social' target='_blank' href='"
     + escapeExpression(((helper = (helper = helpers.twitter || (depth0 != null ? depth0.twitter : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"twitter","hash":{},"data":data}) : helper)))
-    + "'><img src='assets/img/icons/twitter.svg'/></a>\n	<a target='_blank' href='"
+    + "'><img src='assets/img/icons/twitter.svg'/></a>\n	<a class='social' target='_blank' href='"
     + escapeExpression(((helper = (helper = helpers.facebook || (depth0 != null ? depth0.facebook : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"facebook","hash":{},"data":data}) : helper)))
-    + "'><img src='assets/img/icons/facebook.svg'/></a>\n</div>";
+    + "'><img src='assets/img/icons/facebook.svg'/></a>\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.archive : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "</div>";
 },"useData":true});
 this["GoodLuckSoup"]["templates"]["story-template-audio"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
