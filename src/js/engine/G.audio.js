@@ -312,8 +312,8 @@ G.audio = (function () {
 		},
 
 		destroy: function() {
+			Chapter.pause();
 			Chapter.current = null;
-			Chapter.playing = false;
 		}
 	};
 
