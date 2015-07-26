@@ -109,8 +109,12 @@ G.video = (function () {
 					Chapter.playing = id;
 					Chapter.el[id].jPlayer('play');
 				}
-				btn.find('.icon-play').toggleClass('hide');
-				btn.find('.icon-pause').toggleClass('hide');
+				if(G.mobile()) {
+					btn.remove();
+				} else {
+					btn.find('.icon-play').toggleClass('hide');
+					btn.find('.icon-pause').toggleClass('hide');	
+				}
 			}
 		},
 
@@ -131,7 +135,6 @@ G.video = (function () {
 			Chapter.playing = false;
 		}
 	};
-
 
 	var self = {
 		playIntro: Intro.play,

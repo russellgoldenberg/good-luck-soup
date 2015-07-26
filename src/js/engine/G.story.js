@@ -53,7 +53,7 @@ G.story = (function () {
 			}
 		}
 
-		console.log(_data);
+		// console.log(_data);
 	};
 
 	var getStoryIds = function() {
@@ -187,7 +187,7 @@ G.story = (function () {
 	};
 
 	var self = {
-		init: function(visited) {
+		init: function() {
 			for(var i = 0; i < NUM_CHAPTERS; i++) {
 				_data.custom[i] = [];
 				_data.general[i] = [];

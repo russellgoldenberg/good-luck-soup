@@ -15,12 +15,12 @@ window.G = (function () {
 			}
 		},
 		kickoff: function() {
-			self.visit(function(value) {
-				G.ui.init();
-				G.audio.init();
-				G.intro.init();
-				G.story.init(value);
-			});
+			// self.visit(function(value) {
+			G.ui.init();
+			G.audio.init();
+			G.intro.init();
+			G.story.init();
+			// });
 		},
 		direct: function(id) {
 			_mode = 'share';
@@ -37,24 +37,6 @@ window.G = (function () {
 		mobile: function() {
 			return _isMobile;
 		},
-		visit: function(cb) {
-			self.storageItem({'key': 'sequences_viewed', callback: function(err, value) {
-				cb(value);
-			}});
-		},
-		storageItem: function(params) {
-			// if value then set
-			if(params.value) {
-				localforage.setItem(params.key, params.value);
-			} else{
-				localforage.getItem(params.key, function(err, value) {
-					if(params.callback && typeof params.callback === 'function') {
-						params.callback(err, value);
-					}
-				});
-			}
-		},
-
 		checkShare: function() {
 			var pathname = window.location.pathname;
 			var search = window.location.search;
