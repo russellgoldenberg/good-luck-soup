@@ -126,7 +126,7 @@ G.story = (function () {
 		var share = generateShare(story);
 
 		if(_currentViewing > 0) {
-			share.archive = 'http://goodlucksoup.com/archive.html?chapter=' + (_currentIndex + 1); 
+			share.archive = 'http://goodlucksoup.com/archive.html?chapter=' + chapter.index; 
 		}
 
 		var htmlShare = GoodLuckSoup.templates['story-share'](share);
