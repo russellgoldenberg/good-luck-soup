@@ -55,7 +55,8 @@ G.ui = (function () {
 		$dom.stories.on('click', '.story-top', function() {
 			var index = $(this).attr('data-index');
 			var next = $(this).closest('.story').hasClass('next');
-			if(next) {
+			if(next && !_transition) {
+				_transition = true;
 				Story.transitionToNext();
 			}
 		});
@@ -73,7 +74,8 @@ G.ui = (function () {
 		$dom.stories.on('click', '.btn-prev', function() {
 			var current = $(this).closest('.story').hasClass('current');
 			var prevIndex = G.story.currentIndex() - 1;
-			if(prevIndex > -1) {
+			if(prevIndex > -1 && !_transition) {
+				_transition = true;
 				Story.transitionToPrev();
 			}
 		});
@@ -207,7 +209,6 @@ G.ui = (function () {
 					$dom.introContainer.addClass('hide').remove();
 				}}
 			});
-			
 		},
 
 		appendChapter: function(el) {
@@ -242,6 +243,7 @@ G.ui = (function () {
 				},
 				options: { 'duration': G.data.duration.half, complete: Story.transitionComplete }
 			});
+
 			$dom.currentStory.velocity({ 
 				properties: {
 					'translateY': '-100px',
@@ -324,6 +326,8 @@ G.ui = (function () {
 				} else {
 					$dom.prevStory = null;
 				}
+
+				_transition = false;
 			});
 
 			// pause audio if playing
@@ -348,6 +352,8 @@ G.ui = (function () {
 			}
 
 			$dom.window.scrollTop(0);
+
+			_transition = false;
 		},
 
 		setImageDimensions: function() {
@@ -439,14 +445,6 @@ G.ui = (function () {
 					});
 				});
 			}
-		},
-
-		archive: function(btn) {
-
-		},
-
-		contribute: function(btn) {
-			// window.location.href = 'http://goodlucksoup.com/contribute.html';
 		}
 	};
 
