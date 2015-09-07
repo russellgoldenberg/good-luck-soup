@@ -6,7 +6,7 @@ window.G = (function () {
 
 	var self = {
 		init: function() {
-			log('Good Luck Soup v0.2.0');
+			log('Good Luck Soup v0.2.1');
 			var share = self.checkShare();
 			if(share) {
 				self.direct(share);

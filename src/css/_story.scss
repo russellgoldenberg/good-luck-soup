@@ -211,9 +211,6 @@
 	text-align: center;
 	margin: 1em auto;
 	margin-bottom: 2em;
-	@include breakpoint-small {
-		margin-bottom: 4em;
-	}
 }
 
 .story-content-img-inner {

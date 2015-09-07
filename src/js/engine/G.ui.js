@@ -384,10 +384,15 @@ G.ui = (function () {
 				var h = Math.floor(getRealHeight(maxHeight, ratio));
 				var w = Math.floor(h * ratio);
 				
-				$(this).find('figure').css({
+				$(this).find('figure img').css({
 					width: w,
 					height: h
 				});
+
+				$(this).find('figure figcaption').css({
+					width: w
+				});
+				
 			});
 		},
 
