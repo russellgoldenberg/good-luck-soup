@@ -1,0 +1,158 @@
+.intro
+	height 480px
+	width 100%
+	position relative
+	transform-style preserve-3d
+	p
+		text-align left
+		font-size 1.5em
+		max-width $content-width-medium
+		{center-content}
+		@media screen and (max-width: $breakpoint-small)
+			font-size 1.3em
+
+.intro .logo-lady
+	opacity 1
+
+
+.video-bg-container
+	position absolute
+	height 100%
+	width 100%
+	top 0
+	background-color $black
+
+
+.mobile .video-bg-container
+	background $black no-repeat center center
+	background-size cover
+	&.intro-bg-0
+		background-image url($filepath + '/img/intro/intro-0.jpg')
+	
+	&.intro-bg-1
+		background-image url($filepath + '/img/intro/intro-1.jpg')
+	
+	&.intro-bg-2
+		background-image url($filepath + '/img/intro/intro-2.jpg')
+	
+	&.intro-bg-3
+		background-image url($filepath + '/img/intro/intro-3.jpg')
+	
+	&.intro-bg-4
+		background-image url($filepath + '/img/intro/intro-4.jpg')
+	
+	&.intro-bg-5
+		background-image url($filepath + '/img/intro/intro-5.jpg')
+	
+
+
+.video-bg
+	position absolute
+	right 0
+	bottom 0
+	min-width 100%
+	min-height 100%
+	width auto
+	height auto
+	z-index 0
+	transition opacity 0.5s
+
+
+.intro-container video
+	position absolute
+	right 0
+	bottom 0
+	min-width 100%
+	min-height 100%
+	width auto
+	height auto
+	z-index 0
+
+
+.hed
+	text-align center
+
+.hed.vertical-align
+	top 45%
+
+.hed-text
+	line-height 1
+	font-size 8em
+	font-family $sans-alt
+	font-weight 700
+	color $white
+	margin-bottom 1.25em
+	opacity 0.9
+	padding 0 0.25em
+	color $primary
+	font-size 6em
+	text-transform uppercase
+	font-weight 400
+
+	@media screen and (max-width: $breakpoint-small)
+		font-size 3.8em
+	
+.begin
+	text-align center
+
+
+.responsive-video
+	position absolute
+	top 0
+	left 0
+	width 100%
+	height 100%
+
+
+.video-text-outer	
+	width 100%
+	{vertical-align}
+
+
+.video-text-inner
+	padding 1em
+	color #fff
+	text-shadow 0 0 5px #000
+	font-size 1.8em
+	text-align justify
+	margin 0 auto
+	max-width $content-width-x-large
+	@media screen and (max-width: $breakpoint-small)
+		font-size 1.3em
+		text-align left
+	
+
+
+p.saying-hed
+	text-align center
+	font-size 1.8em
+	border-bottom $gray-lightest
+	padding 0 0.25em
+
+p.saying-subhed
+	text-align center
+	max-width $content-width-large
+	@media screen and (max-width: $breakpoint-small)
+		font-size 1.1em
+	
+
+
+.intro-stories
+	height auto
+	width 100%
+	position relative
+	padding 4em 0
+
+
+.logo-intro
+	opacity 0.7
+	width 100%
+	margin-bottom 3em
+	text-align center
+	img
+		max-width 80px
+		@media screen and (max-width: $breakpoint-small)
+			display none	
+		
+	
+
