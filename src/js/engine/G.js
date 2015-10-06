@@ -6,7 +6,7 @@ window.G = (function () {
 
 	var self = {
 		init: function() {
-			log('Good Luck Soup v0.2.1');
+			log('Good Luck Soup v0.2.2');
 			var share = self.checkShare();
 			if(share) {
 				self.direct(share);
@@ -15,12 +15,10 @@ window.G = (function () {
 			}
 		},
 		kickoff: function() {
-			// self.visit(function(value) {
 			G.ui.init();
 			G.audio.init();
 			G.intro.init();
 			G.story.init();
-			// });
 		},
 		direct: function(id) {
 			_mode = 'share';

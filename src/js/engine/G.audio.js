@@ -35,7 +35,8 @@ G.audio = (function () {
 				cb();
 
 			} else {
-				
+				var hackFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+
 				var checkLoad = function() {
 					if(Intro.loaded.top && Intro.loaded.bottom) {
 						cb();
@@ -81,6 +82,9 @@ G.audio = (function () {
 					mp3: Intro.path + 'intro-bottom.mp3'
 				});
 
+				if (hackFirefox) {
+					cb();
+				}
 
 			}
 		},

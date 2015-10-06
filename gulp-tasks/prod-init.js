@@ -10,10 +10,10 @@ gulp.task('prod-init', function() {
 		'prod-js',
 		'prod-libs',
 		'prod-libs-jquery',
-		'prod-img',
-		'prod-video',
+		// 'prod-img',
+		// 'prod-video',
+		// 'prod-audio',
 		'prod-font',
-		'prod-audio',
 		'prod-smoosh'
 	);
 });
