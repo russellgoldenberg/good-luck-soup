@@ -35,7 +35,7 @@ G.audio = (function () {
 				cb();
 
 			} else {
-				var hackFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+				// var hackFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
 				var checkLoad = function() {
 					if(Intro.loaded.top && Intro.loaded.bottom) {
@@ -51,7 +51,7 @@ G.audio = (function () {
 		            volume: 1,
 		            error: function(e) { log('audio error'); },
 					abort: function(e) { log('audio abort'); },
-					canplaythrough: function(e) { 
+					canplaythrough: function(e) {
 						if(!Intro.loaded.top) {
 							Intro.loaded.top = true;
 							checkLoad();	
@@ -82,9 +82,9 @@ G.audio = (function () {
 					mp3: Intro.path + 'intro-bottom.mp3'
 				});
 
-				if (hackFirefox) {
-					cb();
-				}
+				// if (hackFirefox) {
+				// 	cb();
+				// }
 
 			}
 		},

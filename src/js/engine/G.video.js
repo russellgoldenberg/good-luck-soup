@@ -18,10 +18,19 @@ G.video = (function () {
 				loop: true,
 				size: {width: 'auto', height: 'auto' },
 				ready: function() {
+					log(Intro.players[id].el);
 					Intro.players[id].el.jPlayer('setMedia', {
 						m4v: Intro.path + id + '.mp4'
 					});
 					Intro.players[id].ready = true;
+
+					if(!Intro.players[id].loaded) {
+						Intro.players[id].loaded = true;
+						Intro.players[id].el.removeClass('transparent');
+						G.ui.setupWaypoint(Intro.players[id].el);
+						cb();
+					}
+					
 				},
 				error: function(e) {
 	            	log('error loading intro video');
@@ -37,12 +46,12 @@ G.video = (function () {
 				},
 				canplaythrough: function() {
 					//only fire once, not on loop
-					if(!Intro.players[id].loaded) {
-						Intro.players[id].loaded = true;
-						Intro.players[id].el.removeClass('transparent');
-						G.ui.setupWaypoint(Intro.players[id].el);
-						cb();
-					}
+					// if(!Intro.players[id].loaded) {
+					// 	Intro.players[id].loaded = true;
+					// 	Intro.players[id].el.removeClass('transparent');
+					// 	G.ui.setupWaypoint(Intro.players[id].el);
+					// 	cb();
+					// }
 				}
 			});
 		},
